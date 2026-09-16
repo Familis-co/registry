@@ -4,9 +4,12 @@ import { Separator } from "@/components/ui/separator"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 
-function ScrollAreaDemo() {
-  return (
-    <ScrollArea className="h-72 w-48 rounded-md border">
+const meta = {
+  title: "UI/Scroll Area",
+  component: ScrollArea,
+  args: { className: "h-72 w-48 rounded-md border" },
+  render: (args) => (
+    <ScrollArea {...args}>
       <div className="p-4">
         <h4 className="mb-4 text-sm leading-none font-medium">Tags</h4>
         {tags.map((tag) => (
@@ -17,12 +20,7 @@ function ScrollAreaDemo() {
         ))}
       </div>
     </ScrollArea>
-  )
-}
-
-const meta = {
-  title: "UI/Scroll Area",
-  component: ScrollAreaDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -31,7 +29,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ScrollAreaDemo>
+} satisfies Meta<typeof ScrollArea>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

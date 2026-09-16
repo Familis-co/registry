@@ -1,13 +1,20 @@
-import * as React from "react"
 import { ChevronsUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function CollapsibleDemo() {
-  const [isOpen, setIsOpen] = React.useState(false)
-
-  return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex w-[350px] flex-col gap-2">
+const meta = {
+  title: "UI/Collapsible",
+  component: Collapsible,
+  subcomponents: { CollapsibleTrigger, CollapsibleContent },
+  args: {
+    defaultOpen: false,
+    disabled: false,
+    onOpenChange: fn(),
+    className: "flex w-[350px] flex-col gap-2",
+  },
+  render: (args) => (
+    <Collapsible {...args}>
       <div className="flex items-center justify-between gap-4 px-4">
         <h4 className="text-sm font-semibold">Order #4189</h4>
         <CollapsibleTrigger render={<Button variant="ghost" size="icon-sm" />}>
@@ -30,12 +37,7 @@ function CollapsibleDemo() {
         </div>
       </CollapsibleContent>
     </Collapsible>
-  )
-}
-
-const meta = {
-  title: "UI/Collapsible",
-  component: CollapsibleDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -44,7 +46,9 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof CollapsibleDemo>
+} satisfies Meta<typeof Collapsible>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Open: Story = { args: { defaultOpen: true } }
+export const Disabled: Story = { args: { disabled: true } }

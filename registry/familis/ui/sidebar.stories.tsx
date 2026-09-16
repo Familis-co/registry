@@ -1,3 +1,4 @@
+import type * as React from "react"
 import { expect, within, waitFor } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { FolderIcon, HomeIcon } from "lucide-react"
@@ -16,10 +17,31 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-function SidebarDemo() {
-  return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon">
+const meta = {
+  title: "UI/Sidebar",
+  component: Sidebar,
+  subcomponents: {
+    SidebarProvider,
+    SidebarHeader,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarGroupContent,
+    SidebarMenu,
+    SidebarMenuItem,
+    SidebarMenuButton,
+    SidebarInset,
+    SidebarTrigger,
+  },
+  args: { collapsible: "icon", side: "left", variant: "sidebar", defaultOpen: true },
+  argTypes: {
+    collapsible: { control: "select", options: ["offcanvas", "icon", "none"] },
+    side: { control: "inline-radio", options: ["left", "right"] },
+    variant: { control: "select", options: ["sidebar", "floating", "inset"] },
+  },
+  render: ({ defaultOpen, ...args }) => (
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <Sidebar {...args}>
         <SidebarHeader>Familis</SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
@@ -51,13 +73,9 @@ function SidebarDemo() {
         <p className="p-4">Use the sidebar trigger to collapse the navigation.</p>
       </SidebarInset>
     </SidebarProvider>
-  )
-}
-const meta = {
-  title: "UI/Sidebar",
-  component: SidebarDemo,
+  ),
   parameters: { layout: "fullscreen" },
-} satisfies Meta<typeof SidebarDemo>
+} satisfies Meta<React.ComponentProps<typeof Sidebar> & { defaultOpen?: boolean }>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
@@ -77,3 +95,8 @@ export const Default: Story = {
     }
   },
 }
+export const Collapsed: Story = { args: { defaultOpen: false } }
+export const Floating: Story = { args: { variant: "floating" } }
+export const Inset: Story = { args: { variant: "inset" } }
+export const Right: Story = { args: { side: "right" } }
+export const Offcanvas: Story = { args: { collapsible: "offcanvas" } }

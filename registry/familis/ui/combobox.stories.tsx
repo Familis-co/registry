@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react"
 import {
   Combobox,
   ComboboxContent,
@@ -6,17 +7,33 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-const frameworks = ["TanStack Start", "SvelteKit", "Nuxt.js", "Remix", "Astro"] as const
+const frameworks = ["TanStack Start", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
 
-function ComboboxBasic() {
-  return (
-    <Combobox items={frameworks}>
-      <ComboboxInput placeholder="Select a framework" aria-label="Framework" />
+const meta = {
+  title: "UI/Combobox",
+  component: Combobox,
+  subcomponents: { ComboboxInput, ComboboxContent, ComboboxEmpty, ComboboxList, ComboboxItem },
+  args: {
+    items: frameworks,
+    placeholder: "Select a framework",
+    showClear: false,
+    disabled: false,
+    onValueChange: fn(),
+  },
+  render: ({ placeholder, showClear, ...args }) => (
+    <Combobox {...args}>
+      <ComboboxInput
+        placeholder={placeholder}
+        aria-label="Framework"
+        showClear={showClear}
+        disabled={args.disabled}
+      />
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
-          {(item) => (
+          {(item: string) => (
             <ComboboxItem key={item} value={item}>
               {item}
             </ComboboxItem>
@@ -24,12 +41,7 @@ function ComboboxBasic() {
         </ComboboxList>
       </ComboboxContent>
     </Combobox>
-  )
-}
-
-const meta = {
-  title: "UI/Combobox",
-  component: ComboboxBasic,
+  ),
   parameters: {
     docs: {
       description: {
@@ -38,7 +50,9 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ComboboxBasic>
+} satisfies Meta<ComponentProps<typeof Combobox> & { placeholder?: string; showClear?: boolean }>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const WithDefaultValue: Story = { args: { defaultValue: "Astro", showClear: true } }
+export const Disabled: Story = { args: { disabled: true } }

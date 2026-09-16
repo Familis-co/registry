@@ -1,3 +1,4 @@
+import type * as React from "react"
 import {
   Select,
   SelectContent,
@@ -7,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { expect, within, waitFor } from "storybook/test"
+import { expect, fn, within, waitFor } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const items = [
   { label: "Select a fruit", value: null },
@@ -18,10 +19,28 @@ const items = [
   { label: "Pineapple", value: "pineapple" },
 ]
 
-function SelectDemo() {
-  return (
-    <Select items={items}>
-      <SelectTrigger aria-label="Fruit" className="w-full max-w-48">
+const meta = {
+  title: "UI/Select",
+  component: Select,
+  subcomponents: {
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectGroup,
+    SelectLabel,
+    SelectItem,
+  },
+  args: { items, size: "default", onValueChange: fn(), onOpenChange: fn() },
+  argTypes: {
+    size: { control: "inline-radio", options: ["sm", "default"] },
+    defaultValue: {
+      control: "select",
+      options: items.map((item) => item.value),
+    },
+  },
+  render: ({ size, ...args }) => (
+    <Select {...args}>
+      <SelectTrigger aria-label="Fruit" size={size} className="w-full max-w-48">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -37,12 +56,7 @@ function SelectDemo() {
         </SelectGroup>
       </SelectContent>
     </Select>
-  )
-}
-
-const meta = {
-  title: "UI/Select",
-  component: SelectDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -51,17 +65,21 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof SelectDemo>
+} satisfies Meta<React.ComponentProps<typeof Select> & { size?: "sm" | "default" }>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
-  play: async ({ canvas, userEvent, canvasElement }) => {
+  play: async ({ args, canvas, userEvent, canvasElement }) => {
     await userEvent.click(canvas.getByRole("combobox", { name: "Fruit" }))
     const page = within(canvasElement.ownerDocument.body)
     const list = await page.findByRole("listbox")
     await userEvent.click(await page.findByRole("option", { name: "Apple" }))
     await expect(canvas.getByRole("combobox", { name: "Fruit" })).toHaveTextContent("Apple")
+    await expect(args.onValueChange).toHaveBeenCalledWith("apple", expect.anything())
     await userEvent.keyboard("{Escape}")
     await waitFor(() => expect(list).not.toBeVisible())
   },
 }
+export const WithDefaultValue: Story = { args: { defaultValue: "banana" } }
+export const Small: Story = { args: { size: "sm" } }
+export const Disabled: Story = { args: { disabled: true } }

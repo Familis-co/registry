@@ -16,9 +16,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function BreadcrumbDemo() {
-  return (
-    <Breadcrumb>
+
+const meta = {
+  title: "UI/Breadcrumb",
+  component: Breadcrumb,
+  subcomponents: {
+    BreadcrumbList,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+    BreadcrumbEllipsis,
+  },
+  render: (args) => (
+    <Breadcrumb {...args}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="#example">Home</BreadcrumbLink>
@@ -49,12 +60,7 @@ function BreadcrumbDemo() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
-  )
-}
-
-const meta = {
-  title: "UI/Breadcrumb",
-  component: BreadcrumbDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -63,7 +69,26 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof BreadcrumbDemo>
+} satisfies Meta<typeof Breadcrumb>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const CustomSeparator: Story = {
+  render: (args) => (
+    <Breadcrumb {...args}>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#example">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>/</BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="#example">Components</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>/</BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  ),
+}

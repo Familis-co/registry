@@ -15,9 +15,27 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function MenubarDemo() {
-  return (
-    <Menubar className="w-72">
+const meta = {
+  title: "UI/Menubar",
+  component: Menubar,
+  subcomponents: {
+    MenubarMenu,
+    MenubarTrigger,
+    MenubarContent,
+    MenubarGroup,
+    MenubarItem,
+    MenubarShortcut,
+    MenubarSeparator,
+    MenubarSub,
+    MenubarSubTrigger,
+    MenubarSubContent,
+    MenubarCheckboxItem,
+    MenubarRadioGroup,
+    MenubarRadioItem,
+  },
+  args: { className: "w-72" },
+  render: (args) => (
+    <Menubar {...args}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
@@ -92,7 +110,7 @@ function MenubarDemo() {
         <MenubarContent className="w-44">
           <MenubarGroup>
             <MenubarCheckboxItem>Bookmarks Bar</MenubarCheckboxItem>
-            <MenubarCheckboxItem checked>Full URLs</MenubarCheckboxItem>
+            <MenubarCheckboxItem defaultChecked>Full URLs</MenubarCheckboxItem>
           </MenubarGroup>
           <MenubarSeparator />
           <MenubarGroup>
@@ -116,7 +134,7 @@ function MenubarDemo() {
       <MenubarMenu>
         <MenubarTrigger>Profiles</MenubarTrigger>
         <MenubarContent>
-          <MenubarRadioGroup value="benoit">
+          <MenubarRadioGroup defaultValue="benoit">
             <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
             <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
             <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
@@ -132,12 +150,7 @@ function MenubarDemo() {
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
-  )
-}
-
-const meta = {
-  title: "UI/Menubar",
-  component: MenubarDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -146,7 +159,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof MenubarDemo>
+} satisfies Meta<typeof Menubar>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Disabled: Story = { args: { disabled: true } }

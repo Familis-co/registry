@@ -1,26 +1,10 @@
 import { Kbd, KbdGroup } from "@/components/ui/kbd"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function KbdDemo() {
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <KbdGroup>
-        <Kbd>⌘</Kbd>
-        <Kbd>⇧</Kbd>
-        <Kbd>⌥</Kbd>
-        <Kbd>⌃</Kbd>
-      </KbdGroup>
-      <KbdGroup>
-        <Kbd>Ctrl</Kbd>
-        <span>+</span>
-        <Kbd>B</Kbd>
-      </KbdGroup>
-    </div>
-  )
-}
-
 const meta = {
   title: "UI/Kbd",
-  component: KbdDemo,
+  component: Kbd,
+  subcomponents: { KbdGroup },
+  args: { children: "⌘" },
   parameters: {
     docs: {
       description: {
@@ -29,7 +13,26 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof KbdDemo>
+} satisfies Meta<typeof Kbd>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Modifiers: Story = {
+  render: (args) => (
+    <KbdGroup>
+      <Kbd {...args}>⌘</Kbd>
+      <Kbd {...args}>⇧</Kbd>
+      <Kbd {...args}>⌥</Kbd>
+      <Kbd {...args}>⌃</Kbd>
+    </KbdGroup>
+  ),
+}
+export const Combination: Story = {
+  render: (args) => (
+    <KbdGroup>
+      <Kbd {...args}>Ctrl</Kbd>
+      <span>+</span>
+      <Kbd {...args}>B</Kbd>
+    </KbdGroup>
+  ),
+}

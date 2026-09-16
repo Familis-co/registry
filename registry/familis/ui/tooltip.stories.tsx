@@ -1,20 +1,21 @@
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function TooltipDemo() {
-  return (
-    <Tooltip>
+
+const meta = {
+  title: "UI/Tooltip",
+  component: Tooltip,
+  subcomponents: { TooltipTrigger, TooltipContent },
+  args: { onOpenChange: fn() },
+  render: (args) => (
+    <Tooltip {...args}>
       <TooltipTrigger render={<Button variant="outline" />}>Hover</TooltipTrigger>
       <TooltipContent>
         <p>Add to library</p>
       </TooltipContent>
     </Tooltip>
-  )
-}
-
-const meta = {
-  title: "UI/Tooltip",
-  component: TooltipDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -23,7 +24,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof TooltipDemo>
+} satisfies Meta<typeof Tooltip>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

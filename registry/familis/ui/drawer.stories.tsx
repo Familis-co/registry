@@ -1,6 +1,6 @@
 import * as React from "react"
+import { useArgs } from "storybook/preview-api"
 import { toast, Toaster } from "@/components/ui/toast"
-import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -21,6 +21,7 @@ import {
   FieldTitle,
 } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const deliveryTimes = [
   {
@@ -56,68 +57,88 @@ const deliveryTimes = [
   },
 ]
 
-function DrawerDemo() {
-  const [open, setOpen] = React.useState(false)
-  const [deliveryTime, setDeliveryTime] = React.useState("asap")
-  const isMobile = useIsMobile()
-
-  function handleConfirm() {
-    const selected = deliveryTimes.find((time) => time.value === deliveryTime)
-
-    if (!selected) {
-      return
-    }
-
-    setOpen(false)
-    toast.add({ title: "Delivery time confirmed", description: selected.label })
-  }
-
-  return (
-    <Drawer
-      open={open}
-      onOpenChange={setOpen}
-      showSwipeHandle={isMobile}
-      swipeDirection={isMobile ? "down" : "right"}
-    >
-      <Toaster />
-      <DrawerTrigger render={<Button variant="secondary" />}>Open Drawer</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Pick a delivery time</DrawerTitle>
-          <DrawerDescription>We&apos;ll prepare your order as soon as possible.</DrawerDescription>
-        </DrawerHeader>
-        <div className="flex-1 scroll-fade overflow-y-auto p-4">
-          <RadioGroup value={deliveryTime} onValueChange={setDeliveryTime} className="gap-2">
-            {deliveryTimes.map((time) => (
-              <FieldLabel key={time.value} htmlFor={time.id}>
-                <Field orientation="horizontal">
-                  <FieldContent>
-                    <FieldTitle className="flex items-center gap-2">
-                      {time.label}
-                      {time.badge ? <Badge variant="secondary">{time.badge}</Badge> : null}
-                    </FieldTitle>
-                    <FieldDescription>{time.description}</FieldDescription>
-                  </FieldContent>
-                  <RadioGroupItem value={time.value} id={time.id} />
-                </Field>
-              </FieldLabel>
-            ))}
-          </RadioGroup>
-        </div>
-        <DrawerFooter>
-          <Button onClick={handleConfirm} size="default">
-            Confirm Delivery Time
-          </Button>
-          <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  )
-}
-
 const meta = {
   title: "UI/Drawer",
-  component: DrawerDemo,
+  component: Drawer,
+  subcomponents: {
+    DrawerTrigger,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerClose,
+  },
+  args: {
+    open: false,
+    modal: true,
+    swipeDirection: "right",
+    showSwipeHandle: false,
+    onOpenChange: fn(),
+  },
+  argTypes: {
+    swipeDirection: { control: "select", options: ["up", "down", "left", "right"] },
+  },
+  render: function Render(args) {
+    const [, updateArgs] = useArgs<{ open?: boolean }>()
+    const [deliveryTime, setDeliveryTime] = React.useState("asap")
+
+    function handleConfirm() {
+      const selected = deliveryTimes.find((time) => time.value === deliveryTime)
+
+      if (!selected) {
+        return
+      }
+
+      updateArgs({ open: false })
+      toast.add({ title: "Delivery time confirmed", description: selected.label })
+    }
+
+    return (
+      <Drawer
+        {...args}
+        onOpenChange={(open, eventDetails) => {
+          updateArgs({ open })
+          args.onOpenChange?.(open, eventDetails)
+        }}
+      >
+        <Toaster />
+        <DrawerTrigger render={<Button variant="secondary" />}>Open Drawer</DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Pick a delivery time</DrawerTitle>
+            <DrawerDescription>
+              We&apos;ll prepare your order as soon as possible.
+            </DrawerDescription>
+          </DrawerHeader>
+          <div className="flex-1 scroll-fade overflow-y-auto p-4">
+            <RadioGroup value={deliveryTime} onValueChange={setDeliveryTime} className="gap-2">
+              {deliveryTimes.map((time) => (
+                <FieldLabel key={time.value} htmlFor={time.id}>
+                  <Field orientation="horizontal">
+                    <FieldContent>
+                      <FieldTitle className="flex items-center gap-2">
+                        {time.label}
+                        {time.badge ? <Badge variant="secondary">{time.badge}</Badge> : null}
+                      </FieldTitle>
+                      <FieldDescription>{time.description}</FieldDescription>
+                    </FieldContent>
+                    <RadioGroupItem value={time.value} id={time.id} />
+                  </Field>
+                </FieldLabel>
+              ))}
+            </RadioGroup>
+          </div>
+          <DrawerFooter>
+            <Button onClick={handleConfirm} size="default">
+              Confirm Delivery Time
+            </Button>
+            <DrawerClose render={<Button variant="outline" />}>Cancel</DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    )
+  },
   parameters: {
     docs: {
       description: {
@@ -126,7 +147,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof DrawerDemo>
+} satisfies Meta<typeof Drawer>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Bottom: Story = { args: { swipeDirection: "down", showSwipeHandle: true } }

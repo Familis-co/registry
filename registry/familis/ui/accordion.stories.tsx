@@ -4,11 +4,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { expect } from "storybook/test"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function AccordionDemo() {
-  return (
-    <Accordion defaultValue={["shipping"]} className="max-w-lg">
+
+const meta = {
+  title: "UI/Accordion",
+  component: Accordion,
+  subcomponents: { AccordionItem, AccordionTrigger, AccordionContent },
+  args: {
+    defaultValue: ["shipping"],
+    multiple: false,
+    disabled: false,
+    onValueChange: fn(),
+    className: "max-w-lg",
+  },
+  render: (args) => (
+    <Accordion {...args}>
       <AccordionItem value="shipping">
         <AccordionTrigger>What are your shipping options?</AccordionTrigger>
         <AccordionContent>
@@ -30,12 +41,7 @@ function AccordionDemo() {
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  )
-}
-
-const meta = {
-  title: "UI/Accordion",
-  component: AccordionDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -44,17 +50,21 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof AccordionDemo>
+} satisfies Meta<typeof Accordion>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ args, canvas, userEvent }) => {
     const trigger = canvas.getByRole("button", { name: "What is your return policy?" })
     await expect(trigger).toHaveAttribute("aria-expanded", "false")
     await userEvent.click(trigger)
     await expect(trigger).toHaveAttribute("aria-expanded", "true")
     await expect(canvas.getByText(/Returns accepted within 30 days/)).toBeVisible()
+    await expect(args.onValueChange).toHaveBeenCalled()
     await userEvent.click(trigger)
     await expect(trigger).toHaveAttribute("aria-expanded", "false")
   },
 }
+export const Collapsed: Story = { args: { defaultValue: [] } }
+export const Multiple: Story = { args: { multiple: true, defaultValue: ["shipping", "returns"] } }
+export const Disabled: Story = { args: { disabled: true } }

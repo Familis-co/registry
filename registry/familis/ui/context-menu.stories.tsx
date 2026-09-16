@@ -14,10 +14,29 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function ContextMenuDemo() {
-  return (
-    <ContextMenu>
+const meta = {
+  title: "UI/Context Menu",
+  component: ContextMenu,
+  subcomponents: {
+    ContextMenuTrigger,
+    ContextMenuContent,
+    ContextMenuGroup,
+    ContextMenuItem,
+    ContextMenuShortcut,
+    ContextMenuSub,
+    ContextMenuSubTrigger,
+    ContextMenuSubContent,
+    ContextMenuCheckboxItem,
+    ContextMenuRadioGroup,
+    ContextMenuRadioItem,
+    ContextMenuLabel,
+    ContextMenuSeparator,
+  },
+  args: { onOpenChange: fn() },
+  render: (args) => (
+    <ContextMenu {...args}>
       <ContextMenuTrigger className="flex aspect-video w-full max-w-xs items-center justify-center rounded-xl border border-dashed text-sm">
         <span className="hidden pointer-fine:inline-block">Right click here</span>
         <span className="hidden pointer-coarse:inline-block">Long press here</span>
@@ -70,12 +89,7 @@ function ContextMenuDemo() {
         </ContextMenuGroup>
       </ContextMenuContent>
     </ContextMenu>
-  )
-}
-
-const meta = {
-  title: "UI/Context Menu",
-  component: ContextMenuDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -84,7 +98,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ContextMenuDemo>
+} satisfies Meta<typeof ContextMenu>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Disabled: Story = { args: { disabled: true } }

@@ -1,19 +1,16 @@
 import { Badge } from "@/components/ui/badge"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function BadgeDemo() {
-  return (
-    <div className="flex w-full flex-wrap justify-center gap-2">
-      <Badge>Badge</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="destructive">Destructive</Badge>
-      <Badge variant="outline">Outline</Badge>
-    </div>
-  )
-}
 
 const meta = {
   title: "UI/Badge",
-  component: BadgeDemo,
+  component: Badge,
+  args: { children: "Badge" },
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "secondary", "destructive", "outline", "ghost", "link"],
+    },
+  },
   parameters: {
     docs: {
       description: {
@@ -22,9 +19,12 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof BadgeDemo>
+} satisfies Meta<typeof Badge>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Secondary: Story = { args: { variant: "secondary", children: "Secondary" } }
+export const Destructive: Story = { args: { variant: "destructive", children: "Destructive" } }
+export const Outline: Story = { args: { variant: "outline", children: "Outline" } }
 
-export const Dark: Story = { parameters: { theme: "dark" } }
+export const Dark: Story = { globals: { theme: "dark" } }

@@ -13,10 +13,27 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function DropdownMenuDemo() {
-  return (
-    <DropdownMenu>
+
+const meta = {
+  title: "UI/Dropdown Menu",
+  component: DropdownMenu,
+  subcomponents: {
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuLabel,
+    DropdownMenuItem,
+    DropdownMenuShortcut,
+    DropdownMenuSeparator,
+    DropdownMenuSub,
+    DropdownMenuSubTrigger,
+    DropdownMenuSubContent,
+  },
+  args: { onOpenChange: fn() },
+  render: (args) => (
+    <DropdownMenu {...args}>
       <DropdownMenuTrigger render={<Button variant="outline" />}>Open</DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuGroup>
@@ -68,12 +85,7 @@ function DropdownMenuDemo() {
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
-
-const meta = {
-  title: "UI/Dropdown Menu",
-  component: DropdownMenuDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -82,7 +94,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof DropdownMenuDemo>
+} satisfies Meta<typeof DropdownMenu>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

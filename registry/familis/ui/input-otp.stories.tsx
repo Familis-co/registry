@@ -1,10 +1,19 @@
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { useState } from "react"
-function InputOTPDemo() {
-  const [code, setCode] = useState("123456")
-  return (
-    <InputOTP aria-label="Verification code" maxLength={6} value={code} onChange={setCode}>
+
+const meta = {
+  title: "UI/Input OTP",
+  component: InputOTP,
+  subcomponents: { InputOTPGroup, InputOTPSlot, InputOTPSeparator },
+  args: {
+    "aria-label": "Verification code",
+    maxLength: 6,
+    defaultValue: "123456",
+    disabled: false,
+    onChange: fn(),
+    onComplete: fn(),
+    children: (
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />
@@ -13,13 +22,8 @@ function InputOTPDemo() {
         <InputOTPSlot index={4} />
         <InputOTPSlot index={5} />
       </InputOTPGroup>
-    </InputOTP>
-  )
-}
-
-const meta = {
-  title: "UI/Input OTP",
-  component: InputOTPDemo,
+    ),
+  },
   parameters: {
     docs: {
       description: {
@@ -28,7 +32,29 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof InputOTPDemo>
+} satisfies Meta<typeof InputOTP>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Empty: Story = { args: { defaultValue: "" } }
+export const WithSeparator: Story = {
+  args: {
+    defaultValue: "",
+    children: (
+      <>
+        <InputOTPGroup>
+          <InputOTPSlot index={0} />
+          <InputOTPSlot index={1} />
+          <InputOTPSlot index={2} />
+        </InputOTPGroup>
+        <InputOTPSeparator />
+        <InputOTPGroup>
+          <InputOTPSlot index={3} />
+          <InputOTPSlot index={4} />
+          <InputOTPSlot index={5} />
+        </InputOTPGroup>
+      </>
+    ),
+  },
+}
+export const Disabled: Story = { args: { disabled: true } }

@@ -1,21 +1,19 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function AspectRatioDemo() {
-  return (
-    <AspectRatio ratio={16 / 9} className="w-full max-w-sm rounded-lg bg-muted">
+const meta = {
+  title: "UI/Aspect Ratio",
+  component: AspectRatio,
+  args: { ratio: 16 / 9, className: "w-full max-w-sm rounded-lg bg-muted" },
+  argTypes: { ratio: { control: { type: "number", step: 0.1 } } },
+  render: (args) => (
+    <AspectRatio {...args}>
       <img
         src="/fixtures/avatar.svg"
         alt="Team member"
-
-        className="rounded-lg object-cover grayscale "
+        className="rounded-lg object-cover grayscale"
       />
     </AspectRatio>
-  )
-}
-
-const meta = {
-  title: "UI/Aspect Ratio",
-  component: AspectRatioDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -24,7 +22,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof AspectRatioDemo>
+} satisfies Meta<typeof AspectRatio>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Square: Story = { args: { ratio: 1 } }

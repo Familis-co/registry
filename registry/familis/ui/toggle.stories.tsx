@@ -1,19 +1,27 @@
 import { BookmarkIcon } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
-import { expect } from "storybook/test"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function ToggleDemo() {
-  return (
-    <Toggle aria-label="Toggle bookmark" size="sm" variant="outline">
-      <BookmarkIcon className="group-aria-pressed/toggle:fill-foreground" />
-      Bookmark
-    </Toggle>
-  )
-}
 
 const meta = {
   title: "UI/Toggle",
-  component: ToggleDemo,
+  component: Toggle,
+  args: {
+    "aria-label": "Toggle bookmark",
+    variant: "outline",
+    size: "sm",
+    onPressedChange: fn(),
+    children: (
+      <>
+        <BookmarkIcon className="group-aria-pressed/toggle:fill-foreground" />
+        Bookmark
+      </>
+    ),
+  },
+  argTypes: {
+    variant: { control: "select", options: ["default", "outline"] },
+    size: { control: "select", options: ["sm", "default", "lg"] },
+  },
   parameters: {
     docs: {
       description: {
@@ -22,13 +30,39 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ToggleDemo>
+} satisfies Meta<typeof Toggle>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ args, canvas, userEvent }) => {
     const toggle = canvas.getByRole("button", { name: "Toggle bookmark" })
     await userEvent.click(toggle)
     await expect(toggle).toHaveAttribute("aria-pressed", "true")
+    await expect(args.onPressedChange).toHaveBeenCalledWith(true, expect.anything())
   },
+}
+export const Ghost: Story = { args: { variant: "default" } }
+export const Pressed: Story = {
+  args: { defaultPressed: true },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("button", { name: "Toggle bookmark" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    )
+  },
+}
+export const Disabled: Story = {
+  args: { disabled: true },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("button", { name: "Toggle bookmark" })).toBeDisabled()
+  },
+}
+export const Sizes: Story = {
+  render: (args) => (
+    <div className="flex items-center gap-3">
+      <Toggle {...args} size="sm" />
+      <Toggle {...args} size="default" />
+      <Toggle {...args} size="lg" />
+    </div>
+  ),
 }

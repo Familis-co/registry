@@ -1,20 +1,12 @@
-import * as React from "react"
-import { Progress } from "@/components/ui/progress"
+import { Progress, ProgressLabel, ProgressValue } from "@/components/ui/progress"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function ProgressDemo() {
-  const [progress, setProgress] = React.useState(13)
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return <Progress aria-label="Project completion" value={progress} className="w-[60%]" />
-}
 
 const meta = {
   title: "UI/Progress",
-  component: ProgressDemo,
+  component: Progress,
+  subcomponents: { ProgressLabel, ProgressValue },
+  args: { "aria-label": "Project completion", value: 66, className: "w-[60%]" },
+  argTypes: { value: { control: { type: "range", min: 0, max: 100, step: 1 } } },
   parameters: {
     docs: {
       description: {
@@ -23,7 +15,21 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ProgressDemo>
+} satisfies Meta<typeof Progress>
 export default meta
 type Story = StoryObj<typeof meta>
+
 export const Default: Story = {}
+export const Indeterminate: Story = { args: { value: null } }
+export const WithLabel: Story = {
+  args: {
+    "aria-label": undefined,
+    className: "w-80",
+    children: (
+      <>
+        <ProgressLabel>Project completion</ProgressLabel>
+        <ProgressValue />
+      </>
+    ),
+  },
+}

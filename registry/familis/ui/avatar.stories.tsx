@@ -7,40 +7,19 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function AvatarDemo() {
-  return (
-    <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12">
-      <Avatar>
-        <AvatarImage src="/fixtures/avatar.svg" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
-      <Avatar>
-        <AvatarImage src="/fixtures/avatar.svg" alt="@evilrabbit" />
-        <AvatarFallback>ER</AvatarFallback>
-        <AvatarBadge />
-      </Avatar>
-      <AvatarGroup>
-        <Avatar>
-          <AvatarImage src="/fixtures/avatar.svg" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Avatar>
-          <AvatarImage src="/fixtures/avatar.svg" alt="@maxleiter" />
-          <AvatarFallback>LR</AvatarFallback>
-        </Avatar>
-        <Avatar>
-          <AvatarImage src="/fixtures/avatar.svg" alt="@evilrabbit" />
-          <AvatarFallback>ER</AvatarFallback>
-        </Avatar>
-        <AvatarGroupCount>+3</AvatarGroupCount>
-      </AvatarGroup>
-    </div>
-  )
-}
 
 const meta = {
   title: "UI/Avatar",
-  component: AvatarDemo,
+  component: Avatar,
+  subcomponents: { AvatarImage, AvatarFallback, AvatarBadge, AvatarGroup, AvatarGroupCount },
+  args: { size: "default" },
+  argTypes: { size: { control: "inline-radio", options: ["sm", "default", "lg"] } },
+  render: (args) => (
+    <Avatar {...args}>
+      <AvatarImage src="/fixtures/avatar.svg" alt="@shadcn" />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+  ),
   parameters: {
     docs: {
       description: {
@@ -49,16 +28,45 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof AvatarDemo>
+} satisfies Meta<typeof Avatar>
 export default meta
 type Story = StoryObj<typeof meta>
-export const Default: Story = {}
 
+export const Default: Story = {}
+export const WithBadge: Story = {
+  render: (args) => (
+    <Avatar {...args}>
+      <AvatarImage src="/fixtures/avatar.svg" alt="@evilrabbit" />
+      <AvatarFallback>ER</AvatarFallback>
+      <AvatarBadge />
+    </Avatar>
+  ),
+}
+export const Group: Story = {
+  render: (args) => (
+    <AvatarGroup>
+      <Avatar {...args}>
+        <AvatarImage src="/fixtures/avatar.svg" alt="@shadcn" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+      <Avatar {...args}>
+        <AvatarImage src="/fixtures/avatar.svg" alt="@maxleiter" />
+        <AvatarFallback>LR</AvatarFallback>
+      </Avatar>
+      <Avatar {...args}>
+        <AvatarImage src="/fixtures/avatar.svg" alt="@evilrabbit" />
+        <AvatarFallback>ER</AvatarFallback>
+      </Avatar>
+      <AvatarGroupCount>+3</AvatarGroupCount>
+    </AvatarGroup>
+  ),
+}
 export const Fallback: Story = {
-  render: () => (
-    <Avatar aria-label="Familis team">
+  args: { "aria-label": "Familis team" },
+  render: (args) => (
+    <Avatar {...args}>
       <AvatarFallback>FA</AvatarFallback>
     </Avatar>
   ),
 }
-export const Dark: Story = { parameters: { theme: "dark" } }
+export const Dark: Story = { globals: { theme: "dark" } }

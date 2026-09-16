@@ -3,23 +3,18 @@ import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/component
 import { Marker, MarkerContent } from "@/components/ui/marker"
 import { Message, MessageAvatar, MessageContent, MessageFooter } from "@/components/ui/message"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function MessageDemo() {
-  return (
+
+const meta = {
+  title: "UI/Message",
+  component: Message,
+  subcomponents: { MessageAvatar, MessageContent, MessageFooter },
+  args: { align: "start" },
+  argTypes: {
+    align: { control: "inline-radio", options: ["start", "end"] },
+  },
+  render: (args) => (
     <div className="flex w-full max-w-sm flex-col gap-6 py-12">
-      <Message align="end">
-        <MessageAvatar>
-          <Avatar>
-            <AvatarImage src="/fixtures/avatar.svg" alt="@me" />
-            <AvatarFallback>ME</AvatarFallback>
-          </Avatar>
-        </MessageAvatar>
-        <MessageContent>
-          <Bubble>
-            <BubbleContent>Deploying to prod real quick.</BubbleContent>
-          </Bubble>
-        </MessageContent>
-      </Message>
-      <Message>
+      <Message {...args}>
         <MessageAvatar>
           <Avatar>
             <AvatarImage src="/fixtures/avatar.svg" alt="@rabbit" />
@@ -27,12 +22,30 @@ function MessageDemo() {
           </Avatar>
         </MessageAvatar>
         <MessageContent>
-          <Bubble variant="muted">
+          <Bubble variant={args.align === "end" ? "default" : "muted"}>
             <BubbleContent>It&apos;s 4:55 PM. On a Friday.</BubbleContent>
           </Bubble>
         </MessageContent>
       </Message>
-      <Message align="end">
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "[Official component documentation](https://ui.shadcn.com/docs/components/base/message)",
+      },
+    },
+  },
+} satisfies Meta<typeof Message>
+export default meta
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Sent: Story = {
+  args: { align: "end" },
+  render: (args) => (
+    <div className="flex w-full max-w-sm flex-col gap-6 py-12">
+      <Message {...args}>
         <MessageAvatar>
           <Avatar>
             <AvatarImage src="/fixtures/avatar.svg" alt="@me" />
@@ -46,7 +59,53 @@ function MessageDemo() {
           <MessageFooter>Delivered</MessageFooter>
         </MessageContent>
       </Message>
-      <Message>
+    </div>
+  ),
+}
+export const Conversation: Story = {
+  render: (args) => (
+    <div className="flex w-full max-w-sm flex-col gap-6 py-12">
+      <Message {...args} align="end">
+        <MessageAvatar>
+          <Avatar>
+            <AvatarImage src="/fixtures/avatar.svg" alt="@me" />
+            <AvatarFallback>ME</AvatarFallback>
+          </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+          <Bubble>
+            <BubbleContent>Deploying to prod real quick.</BubbleContent>
+          </Bubble>
+        </MessageContent>
+      </Message>
+      <Message {...args}>
+        <MessageAvatar>
+          <Avatar>
+            <AvatarImage src="/fixtures/avatar.svg" alt="@rabbit" />
+            <AvatarFallback>R</AvatarFallback>
+          </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+          <Bubble variant="muted">
+            <BubbleContent>It&apos;s 4:55 PM. On a Friday.</BubbleContent>
+          </Bubble>
+        </MessageContent>
+      </Message>
+      <Message {...args} align="end">
+        <MessageAvatar>
+          <Avatar>
+            <AvatarImage src="/fixtures/avatar.svg" alt="@me" />
+            <AvatarFallback>ME</AvatarFallback>
+          </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+          <Bubble>
+            <BubbleContent>It&apos;s a one-line change.</BubbleContent>
+          </Bubble>
+          <MessageFooter>Delivered</MessageFooter>
+        </MessageContent>
+      </Message>
+      <Message {...args}>
         <MessageAvatar>
           <Avatar>
             <AvatarImage src="/fixtures/avatar.svg" alt="@rabbit" />
@@ -73,21 +132,5 @@ function MessageDemo() {
         </MarkerContent>
       </Marker>
     </div>
-  )
+  ),
 }
-
-const meta = {
-  title: "UI/Message",
-  component: MessageDemo,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "[Official component documentation](https://ui.shadcn.com/docs/components/base/message)",
-      },
-    },
-  },
-} satisfies Meta<typeof MessageDemo>
-export default meta
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}

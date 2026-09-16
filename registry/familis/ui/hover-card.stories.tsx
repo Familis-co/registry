@@ -1,9 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function HoverCardDemo() {
-  return (
-    <HoverCard>
+
+const meta = {
+  title: "UI/Hover Card",
+  component: HoverCard,
+  subcomponents: { HoverCardTrigger, HoverCardContent },
+  args: { onOpenChange: fn() },
+  render: (args) => (
+    <HoverCard {...args}>
       <HoverCardTrigger delay={10} closeDelay={100} render={<Button variant="link" />}>
         Hover Here
       </HoverCardTrigger>
@@ -13,12 +19,7 @@ function HoverCardDemo() {
         <div className="mt-1 text-xs text-muted-foreground">Joined December 2021</div>
       </HoverCardContent>
     </HoverCard>
-  )
-}
-
-const meta = {
-  title: "UI/Hover Card",
-  component: HoverCardDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -27,7 +28,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof HoverCardDemo>
+} satisfies Meta<typeof HoverCard>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

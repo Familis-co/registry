@@ -11,9 +11,17 @@ import {
 import { Input } from "@/components/ui/input"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function CardDemo() {
-  return (
-    <Card className="w-full max-w-sm">
+
+const meta = {
+  title: "UI/Card",
+  component: Card,
+  subcomponents: { CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter },
+  args: { size: "default", className: "w-full max-w-sm" },
+  argTypes: {
+    size: { control: "inline-radio", options: ["default", "sm"] },
+  },
+  render: (args) => (
+    <Card {...args}>
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>Enter your email below to login to your account</CardDescription>
@@ -52,12 +60,7 @@ function CardDemo() {
         </Button>
       </CardFooter>
     </Card>
-  )
-}
-
-const meta = {
-  title: "UI/Card",
-  component: CardDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -66,7 +69,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof CardDemo>
+} satisfies Meta<typeof Card>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Small: Story = { args: { size: "sm" } }

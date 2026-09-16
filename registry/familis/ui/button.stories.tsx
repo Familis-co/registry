@@ -72,4 +72,4 @@ export const Sizes: Story = {
   ),
 }
 
-export const Dark: Story = { parameters: { theme: "dark" } }
+export const Dark: Story = { globals: { theme: "dark" } }

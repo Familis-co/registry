@@ -9,10 +9,28 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function CommandDemo() {
-  return (
-    <Command className="max-w-sm rounded-lg border">
+const meta = {
+  title: "UI/Command",
+  component: Command,
+  subcomponents: {
+    CommandInput,
+    CommandList,
+    CommandEmpty,
+    CommandGroup,
+    CommandItem,
+    CommandShortcut,
+    CommandSeparator,
+  },
+  args: {
+    className: "max-w-sm rounded-lg border",
+    loop: false,
+    shouldFilter: true,
+    onValueChange: fn(),
+  },
+  render: (args) => (
+    <Command {...args}>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
@@ -50,12 +68,7 @@ function CommandDemo() {
         </CommandGroup>
       </CommandList>
     </Command>
-  )
-}
-
-const meta = {
-  title: "UI/Command",
-  component: CommandDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -64,7 +77,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof CommandDemo>
+} satisfies Meta<typeof Command>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Loop: Story = { args: { loop: true } }

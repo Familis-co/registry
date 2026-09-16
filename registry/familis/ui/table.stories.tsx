@@ -54,9 +54,20 @@ const invoices = [
   },
 ]
 
-function TableDemo() {
-  return (
-    <Table>
+const meta = {
+  title: "UI/Table",
+  component: Table,
+  subcomponents: {
+    TableHeader,
+    TableBody,
+    TableFooter,
+    TableRow,
+    TableHead,
+    TableCell,
+    TableCaption,
+  },
+  render: (args) => (
+    <Table {...args}>
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -83,12 +94,7 @@ function TableDemo() {
         </TableRow>
       </TableFooter>
     </Table>
-  )
-}
-
-const meta = {
-  title: "UI/Table",
-  component: TableDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -97,7 +103,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof TableDemo>
+} satisfies Meta<typeof Table>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

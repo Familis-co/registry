@@ -2,12 +2,15 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Field,
+  FieldContent,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSeparator,
   FieldSet,
+  FieldTitle,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {
@@ -46,8 +49,66 @@ const years = [
   { label: "2029", value: "2029" },
 ]
 
-function FieldDemo() {
-  return (
+const meta = {
+  title: "UI/Field",
+  component: Field,
+  subcomponents: {
+    FieldSet,
+    FieldLegend,
+    FieldGroup,
+    FieldLabel,
+    FieldDescription,
+    FieldSeparator,
+    FieldContent,
+    FieldTitle,
+    FieldError,
+  },
+  args: { orientation: "vertical", className: "w-72" },
+  argTypes: {
+    orientation: { control: "select", options: ["vertical", "horizontal", "responsive"] },
+  },
+  render: (args) => (
+    <Field {...args}>
+      <FieldLabel htmlFor="field-card-number">Card Number</FieldLabel>
+      <Input id="field-card-number" placeholder="1234 5678 9012 3456" required />
+      <FieldDescription>Enter your 16-digit card number</FieldDescription>
+    </Field>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "[Official component documentation](https://ui.shadcn.com/docs/components/base/field)",
+      },
+    },
+  },
+} satisfies Meta<typeof Field>
+export default meta
+type Story = StoryObj<typeof meta>
+export const Default: Story = {}
+export const Horizontal: Story = {
+  args: { orientation: "horizontal" },
+  render: (args) => (
+    <Field {...args}>
+      <Checkbox id="field-same-as-shipping" defaultChecked />
+      <FieldLabel htmlFor="field-same-as-shipping" className="font-normal">
+        Same as shipping address
+      </FieldLabel>
+    </Field>
+  ),
+}
+export const Invalid: Story = {
+  render: (args) => (
+    <Field {...args} data-invalid>
+      <FieldLabel htmlFor="field-card-number-invalid">Card Number</FieldLabel>
+      <Input id="field-card-number-invalid" defaultValue="1234" aria-invalid required />
+      <FieldError>Card number must be 16 digits</FieldError>
+    </Field>
+  ),
+}
+export const PaymentForm: Story = {
+  args: { className: undefined },
+  render: (args) => (
     <div className="w-full max-w-md">
       <form>
         <FieldGroup>
@@ -55,11 +116,11 @@ function FieldDemo() {
             <FieldLegend>Payment Method</FieldLegend>
             <FieldDescription>All transactions are secure and encrypted</FieldDescription>
             <FieldGroup>
-              <Field>
+              <Field {...args}>
                 <FieldLabel htmlFor="checkout-7j9-card-name-43j">Name on Card</FieldLabel>
                 <Input id="checkout-7j9-card-name-43j" placeholder="Evil Rabbit" required />
               </Field>
-              <Field>
+              <Field {...args}>
                 <FieldLabel htmlFor="checkout-7j9-card-number-uw1">Card Number</FieldLabel>
                 <Input
                   id="checkout-7j9-card-number-uw1"
@@ -69,7 +130,7 @@ function FieldDemo() {
                 <FieldDescription>Enter your 16-digit card number</FieldDescription>
               </Field>
               <div className="grid grid-cols-3 gap-4">
-                <Field>
+                <Field {...args}>
                   <FieldLabel htmlFor="checkout-exp-month-ts6">Month</FieldLabel>
                   <Select items={months}>
                     <SelectTrigger id="checkout-exp-month-ts6">
@@ -86,7 +147,7 @@ function FieldDemo() {
                     </SelectContent>
                   </Select>
                 </Field>
-                <Field>
+                <Field {...args}>
                   <FieldLabel htmlFor="checkout-7j9-exp-year-f59">Year</FieldLabel>
                   <Select items={years}>
                     <SelectTrigger id="checkout-7j9-exp-year-f59">
@@ -103,7 +164,7 @@ function FieldDemo() {
                     </SelectContent>
                   </Select>
                 </Field>
-                <Field>
+                <Field {...args}>
                   <FieldLabel htmlFor="checkout-7j9-cvv">CVV</FieldLabel>
                   <Input id="checkout-7j9-cvv" placeholder="123" required />
                 </Field>
@@ -127,7 +188,7 @@ function FieldDemo() {
           </FieldSet>
           <FieldSet>
             <FieldGroup>
-              <Field>
+              <Field {...args}>
                 <FieldLabel htmlFor="checkout-7j9-optional-comments">Comments</FieldLabel>
                 <Textarea
                   id="checkout-7j9-optional-comments"
@@ -146,21 +207,5 @@ function FieldDemo() {
         </FieldGroup>
       </form>
     </div>
-  )
+  ),
 }
-
-const meta = {
-  title: "UI/Field",
-  component: FieldDemo,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "[Official component documentation](https://ui.shadcn.com/docs/components/base/field)",
-      },
-    },
-  },
-} satisfies Meta<typeof FieldDemo>
-export default meta
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}

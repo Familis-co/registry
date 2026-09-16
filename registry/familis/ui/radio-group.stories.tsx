@@ -1,9 +1,15 @@
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function RadioGroupDemo() {
-  return (
-    <RadioGroup defaultValue="comfortable" className="w-fit">
+
+const meta = {
+  title: "UI/Radio Group",
+  component: RadioGroup,
+  subcomponents: { RadioGroupItem },
+  args: { defaultValue: "comfortable", className: "w-fit", onValueChange: fn() },
+  render: (args) => (
+    <RadioGroup {...args}>
       <div className="flex items-center gap-3">
         <RadioGroupItem value="default" id="r1" />
         <Label htmlFor="r1">Default</Label>
@@ -17,12 +23,7 @@ function RadioGroupDemo() {
         <Label htmlFor="r3">Compact</Label>
       </div>
     </RadioGroup>
-  )
-}
-
-const meta = {
-  title: "UI/Radio Group",
-  component: RadioGroupDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -31,7 +32,16 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof RadioGroupDemo>
+} satisfies Meta<typeof RadioGroup>
 export default meta
 type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+
+export const Default: Story = {
+  play: async ({ args, canvas, userEvent }) => {
+    const compact = canvas.getByRole("radio", { name: "Compact" })
+    await userEvent.click(compact)
+    await expect(compact).toBeChecked()
+    await expect(args.onValueChange).toHaveBeenCalled()
+  },
+}
+export const Disabled: Story = { args: { disabled: true } }

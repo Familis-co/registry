@@ -2,37 +2,28 @@ import { GitBranchIcon, SearchIcon } from "lucide-react"
 import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker"
 import { Spinner } from "@/components/ui/spinner"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function MarkerDemo() {
-  return (
-    <div className="flex w-full max-w-sm flex-col gap-8 py-12">
-      <Marker>
-        <MarkerIcon>
-          <GitBranchIcon />
-        </MarkerIcon>
-        <MarkerContent>Switched to a new branch</MarkerContent>
-      </Marker>
-      <Marker role="status">
-        <MarkerIcon>
-          <Spinner />
-        </MarkerIcon>
-        <MarkerContent className="shimmer">Thinking...</MarkerContent>
-      </Marker>
-      <Marker variant="separator">
-        <MarkerContent>Conversation compacted</MarkerContent>
-      </Marker>
-      <Marker>
-        <MarkerIcon>
-          <SearchIcon />
-        </MarkerIcon>
-        <MarkerContent>Explored 4 files</MarkerContent>
-      </Marker>
-    </div>
-  )
-}
 
 const meta = {
   title: "UI/Marker",
-  component: MarkerDemo,
+  component: Marker,
+  subcomponents: { MarkerIcon, MarkerContent },
+  args: { variant: "default" },
+  argTypes: { variant: { control: "select", options: ["default", "separator", "border"] } },
+  decorators: [
+    (Story) => (
+      <div className="flex w-96 flex-col py-12">
+        <Story />
+      </div>
+    ),
+  ],
+  render: (args) => (
+    <Marker {...args}>
+      <MarkerIcon>
+        <GitBranchIcon />
+      </MarkerIcon>
+      <MarkerContent>Switched to a new branch</MarkerContent>
+    </Marker>
+  ),
   parameters: {
     docs: {
       description: {
@@ -41,7 +32,38 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof MarkerDemo>
+} satisfies Meta<typeof Marker>
 export default meta
 type Story = StoryObj<typeof meta>
+
 export const Default: Story = {}
+export const Loading: Story = {
+  args: { role: "status" },
+  render: (args) => (
+    <Marker {...args}>
+      <MarkerIcon>
+        <Spinner />
+      </MarkerIcon>
+      <MarkerContent className="shimmer">Thinking...</MarkerContent>
+    </Marker>
+  ),
+}
+export const Separator: Story = {
+  args: { variant: "separator" },
+  render: (args) => (
+    <Marker {...args}>
+      <MarkerContent>Conversation compacted</MarkerContent>
+    </Marker>
+  ),
+}
+export const Border: Story = {
+  args: { variant: "border" },
+  render: (args) => (
+    <Marker {...args}>
+      <MarkerIcon>
+        <SearchIcon />
+      </MarkerIcon>
+      <MarkerContent>Explored 4 files</MarkerContent>
+    </Marker>
+  ),
+}

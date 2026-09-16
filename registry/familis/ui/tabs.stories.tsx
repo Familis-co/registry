@@ -1,10 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { expect } from "storybook/test"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function TabsDemo() {
-  return (
-    <Tabs defaultValue="overview" className="w-[400px]">
+
+const meta = {
+  title: "UI/Tabs",
+  component: Tabs,
+  subcomponents: { TabsList, TabsTrigger, TabsContent },
+  args: { defaultValue: "overview", onValueChange: fn(), className: "w-[400px]" },
+  argTypes: { orientation: { control: "inline-radio", options: ["horizontal", "vertical"] } },
+  render: (args) => (
+    <Tabs {...args}>
       <TabsList>
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -68,12 +74,7 @@ function TabsDemo() {
         </Card>
       </TabsContent>
     </Tabs>
-  )
-}
-
-const meta = {
-  title: "UI/Tabs",
-  component: TabsDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -82,11 +83,11 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof TabsDemo>
+} satisfies Meta<typeof Tabs>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ args, canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole("tab", { name: "Analytics" }))
     await expect(canvas.getByRole("tab", { name: "Analytics" })).toHaveAttribute(
       "aria-selected",
@@ -95,5 +96,9 @@ export const Default: Story = {
     await expect(canvas.getByRole("tabpanel", { name: "Analytics" })).toHaveTextContent(
       "Page views are up 25%",
     )
+    await expect(args.onValueChange).toHaveBeenCalledWith("analytics", expect.anything())
   },
+}
+export const Vertical: Story = {
+  args: { orientation: "vertical", className: "w-[560px]" },
 }

@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   ArchiveIcon,
   ArrowLeftIcon,
@@ -11,7 +10,7 @@ import {
   Trash2Icon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "@/components/ui/button-group"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,11 +25,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function ButtonGroupDemo() {
-  const [label, setLabel] = React.useState("personal")
 
-  return (
-    <ButtonGroup>
+const meta = {
+  title: "UI/Button Group",
+  component: ButtonGroup,
+  subcomponents: { ButtonGroupText, ButtonGroupSeparator },
+  args: { orientation: "horizontal" },
+  argTypes: {
+    orientation: { control: "inline-radio", options: ["horizontal", "vertical"] },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "[Official component documentation](https://ui.shadcn.com/docs/components/base/button-group)",
+      },
+    },
+  },
+} satisfies Meta<typeof ButtonGroup>
+export default meta
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
+  render: (args) => (
+    <ButtonGroup {...args}>
       <ButtonGroup className="hidden sm:flex">
         <Button variant="outline" size="icon" aria-label="Go Back">
           <ArrowLeftIcon />
@@ -79,7 +96,7 @@ function ButtonGroupDemo() {
                   Label As...
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup value={label} onValueChange={setLabel}>
+                  <DropdownMenuRadioGroup defaultValue="personal">
                     <DropdownMenuRadioItem value="personal">Personal</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="work">Work</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="other">Other</DropdownMenuRadioItem>
@@ -98,21 +115,25 @@ function ButtonGroupDemo() {
         </DropdownMenu>
       </ButtonGroup>
     </ButtonGroup>
-  )
+  ),
 }
-
-const meta = {
-  title: "UI/Button Group",
-  component: ButtonGroupDemo,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "[Official component documentation](https://ui.shadcn.com/docs/components/base/button-group)",
-      },
-    },
-  },
-} satisfies Meta<typeof ButtonGroupDemo>
-export default meta
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+export const Vertical: Story = {
+  args: { orientation: "vertical" },
+  render: (args) => (
+    <ButtonGroup {...args}>
+      <Button variant="outline">Archive</Button>
+      <Button variant="outline">Report</Button>
+      <Button variant="outline">Snooze</Button>
+    </ButtonGroup>
+  ),
+}
+export const WithTextAndSeparator: Story = {
+  render: (args) => (
+    <ButtonGroup {...args}>
+      <ButtonGroupText>Label As</ButtonGroupText>
+      <Button variant="secondary">Personal</Button>
+      <ButtonGroupSeparator />
+      <Button variant="secondary">Work</Button>
+    </ButtonGroup>
+  ),
+}

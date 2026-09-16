@@ -10,6 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -47,9 +48,47 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ]
 
-function NavigationMenuDemo() {
+/**
+ * A titled link with a short description, rendered as a list item inside a navigation menu panel.
+ *
+ * @param props - List item props.
+ * @param props.title - Link heading shown in bold.
+ * @param props.children - Description text, clamped to two lines.
+ * @param props.href - Destination URL of the link.
+ * @returns The list item element.
+ */
+function ListItem({
+  title,
+  children,
+  href,
+  ...props
+}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
   return (
-    <NavigationMenu>
+    <li {...props}>
+      <NavigationMenuLink href={href}>
+        <div className="flex flex-col gap-1 text-sm">
+          <div className="leading-none font-medium">{title}</div>
+          <div className="line-clamp-2 text-muted-foreground">{children}</div>
+        </div>
+      </NavigationMenuLink>
+    </li>
+  )
+}
+
+const meta = {
+  title: "UI/Navigation Menu",
+  component: NavigationMenu,
+  subcomponents: {
+    NavigationMenuList,
+    NavigationMenuItem,
+    NavigationMenuTrigger,
+    NavigationMenuContent,
+    NavigationMenuLink,
+  },
+  args: { align: "start" },
+  argTypes: { align: { control: "inline-radio", options: ["start", "center", "end"] } },
+  render: (args) => (
+    <NavigationMenu {...args}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
@@ -107,30 +146,7 @@ function NavigationMenuDemo() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
-}
-
-function ListItem({
-  title,
-  children,
-  href,
-  ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink href={href}>
-        <div className="flex flex-col gap-1 text-sm">
-          <div className="leading-none font-medium">{title}</div>
-          <div className="line-clamp-2 text-muted-foreground">{children}</div>
-        </div>
-      </NavigationMenuLink>
-    </li>
-  )
-}
-
-const meta = {
-  title: "UI/Navigation Menu",
-  component: NavigationMenuDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -139,7 +155,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof NavigationMenuDemo>
+} satisfies Meta<typeof NavigationMenu>
 export default meta
 type Story = StoryObj<typeof meta>
+
 export const Default: Story = {}

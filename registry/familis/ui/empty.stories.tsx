@@ -10,9 +10,13 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function EmptyDemo() {
-  return (
-    <Empty>
+
+const meta = {
+  title: "UI/Empty",
+  component: Empty,
+  subcomponents: { EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent },
+  render: (args) => (
+    <Empty {...args}>
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <FolderCodeIcon />
@@ -30,12 +34,7 @@ function EmptyDemo() {
         Learn More <ArrowUpRightIcon data-icon="inline-end" />
       </a>
     </Empty>
-  )
-}
-
-const meta = {
-  title: "UI/Empty",
-  component: EmptyDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -44,7 +43,8 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof EmptyDemo>
+} satisfies Meta<typeof Empty>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Outline: Story = { args: { className: "border" } }

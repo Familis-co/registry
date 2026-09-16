@@ -8,9 +8,20 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function PaginationDemo() {
-  return (
-    <Pagination>
+
+const meta = {
+  title: "UI/Pagination",
+  component: Pagination,
+  subcomponents: {
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationPrevious,
+    PaginationNext,
+    PaginationEllipsis,
+  },
+  render: (args) => (
+    <Pagination {...args}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious href="#example" />
@@ -34,12 +45,7 @@ function PaginationDemo() {
         </PaginationItem>
       </PaginationContent>
     </Pagination>
-  )
-}
-
-const meta = {
-  title: "UI/Pagination",
-  component: PaginationDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -48,7 +54,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof PaginationDemo>
+} satisfies Meta<typeof Pagination>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}

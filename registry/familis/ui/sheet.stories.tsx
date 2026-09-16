@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,12 +12,29 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function SheetDemo() {
-  return (
-    <Sheet>
+
+const meta = {
+  title: "UI/Sheet",
+  component: Sheet,
+  subcomponents: {
+    SheetTrigger,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetDescription,
+    SheetFooter,
+    SheetClose,
+  },
+  args: { side: "right", onOpenChange: fn() },
+  argTypes: {
+    side: { control: "select", options: ["top", "right", "bottom", "left"] },
+  },
+  render: ({ side, ...args }) => (
+    <Sheet {...args}>
       <SheetTrigger render={<Button variant="outline" />}>Open</SheetTrigger>
-      <SheetContent>
+      <SheetContent side={side}>
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
@@ -39,12 +57,7 @@ function SheetDemo() {
         </SheetFooter>
       </SheetContent>
     </Sheet>
-  )
-}
-
-const meta = {
-  title: "UI/Sheet",
-  component: SheetDemo,
+  ),
   parameters: {
     docs: {
       description: {
@@ -53,7 +66,12 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof SheetDemo>
+} satisfies Meta<
+  ComponentProps<typeof Sheet> & { side?: ComponentProps<typeof SheetContent>["side"] }
+>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
+export const Top: Story = { args: { side: "top" } }
+export const Bottom: Story = { args: { side: "bottom" } }
+export const Left: Story = { args: { side: "left" } }

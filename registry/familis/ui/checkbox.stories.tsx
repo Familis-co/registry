@@ -8,29 +8,85 @@ import {
   FieldTitle,
 } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
-import { expect } from "storybook/test"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-function CheckboxDemo() {
-  return (
+
+const meta = {
+  title: "UI/Checkbox",
+  component: Checkbox,
+  args: {
+    id: "terms-checkbox",
+    name: "terms-checkbox",
+    disabled: false,
+    onCheckedChange: fn(),
+  },
+  render: (args) => (
     <FieldGroup className="max-w-sm">
       <Field orientation="horizontal">
-        <Checkbox id="terms-checkbox" name="terms-checkbox" />
-        <Label htmlFor="terms-checkbox">Accept terms and conditions</Label>
+        <Checkbox {...args} />
+        <Label htmlFor={args.id}>Accept terms and conditions</Label>
       </Field>
+    </FieldGroup>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "[Official component documentation](https://ui.shadcn.com/docs/components/base/checkbox)",
+      },
+    },
+  },
+} satisfies Meta<typeof Checkbox>
+export default meta
+type Story = StoryObj<typeof meta>
+export const Default: Story = {
+  play: async ({ args, canvas, userEvent }) => {
+    const checkbox = canvas.getByRole("checkbox", { name: "Accept terms and conditions" })
+    await expect(checkbox).not.toBeChecked()
+    await userEvent.click(checkbox)
+    await expect(checkbox).toBeChecked()
+    await expect(args.onCheckedChange).toHaveBeenCalledOnce()
+  },
+}
+export const WithDescription: Story = {
+  args: { id: "terms-checkbox-2", name: "terms-checkbox-2", defaultChecked: true },
+  render: (args) => (
+    <FieldGroup className="max-w-sm">
       <Field orientation="horizontal">
-        <Checkbox id="terms-checkbox-2" name="terms-checkbox-2" defaultChecked />
+        <Checkbox {...args} />
         <FieldContent>
-          <FieldLabel htmlFor="terms-checkbox-2">Accept terms and conditions</FieldLabel>
+          <FieldLabel htmlFor={args.id}>Accept terms and conditions</FieldLabel>
           <FieldDescription>By clicking this checkbox, you agree to the terms.</FieldDescription>
         </FieldContent>
       </Field>
-      <Field orientation="horizontal" data-disabled>
-        <Checkbox id="toggle-checkbox" name="toggle-checkbox" disabled />
-        <FieldLabel htmlFor="toggle-checkbox">Enable notifications</FieldLabel>
+    </FieldGroup>
+  ),
+}
+export const Disabled: Story = {
+  args: { id: "toggle-checkbox", name: "toggle-checkbox", disabled: true },
+  render: (args) => (
+    <FieldGroup className="max-w-sm">
+      <Field orientation="horizontal" data-disabled={args.disabled || undefined}>
+        <Checkbox {...args} />
+        <FieldLabel htmlFor={args.id}>Enable notifications</FieldLabel>
       </Field>
+    </FieldGroup>
+  ),
+  play: async ({ args, canvas, userEvent }) => {
+    const disabled = canvas.getByRole("checkbox", { name: "Enable notifications" })
+    await expect(disabled).toHaveAttribute("aria-disabled", "true")
+    await userEvent.click(disabled)
+    await expect(disabled).not.toBeChecked()
+    await expect(args.onCheckedChange).not.toHaveBeenCalled()
+  },
+}
+export const Card: Story = {
+  args: { id: "toggle-checkbox-2", name: "toggle-checkbox-2" },
+  render: (args) => (
+    <FieldGroup className="max-w-sm">
       <FieldLabel>
         <Field orientation="horizontal">
-          <Checkbox id="toggle-checkbox-2" name="toggle-checkbox-2" />
+          <Checkbox {...args} />
           <FieldContent>
             <FieldTitle>Enable notifications</FieldTitle>
             <FieldDescription>
@@ -40,34 +96,5 @@ function CheckboxDemo() {
         </Field>
       </FieldLabel>
     </FieldGroup>
-  )
-}
-
-const meta = {
-  title: "UI/Checkbox",
-  component: CheckboxDemo,
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "[Official component documentation](https://ui.shadcn.com/docs/components/base/checkbox)",
-      },
-    },
-  },
-} satisfies Meta<typeof CheckboxDemo>
-export default meta
-type Story = StoryObj<typeof meta>
-export const Default: Story = {
-  play: async ({ canvas, userEvent }) => {
-    const checkbox = canvas.getAllByRole("checkbox", { name: "Accept terms and conditions" })[0]!
-    await expect(checkbox).not.toBeChecked()
-    await userEvent.click(checkbox)
-    await expect(checkbox).toBeChecked()
-    const disabled = canvas
-      .getAllByRole("checkbox", { name: "Enable notifications" })
-      .find((control) => control.getAttribute("aria-disabled") === "true")!
-    await expect(disabled).toHaveAttribute("aria-disabled", "true")
-    await userEvent.click(disabled)
-    await expect(disabled).not.toBeChecked()
-  },
+  ),
 }

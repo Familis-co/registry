@@ -13,37 +13,50 @@ import {
   MessageScrollerButton,
 } from "@/components/ui/message-scroller"
 
-function MessageScrollerDemo() {
-  const [count, setCount] = useState(8)
-  return (
-    <div className="flex w-80 max-w-full flex-col gap-4">
-      <MessageScrollerProvider autoScroll>
-        <MessageScroller className="h-72">
-          <MessageScrollerViewport>
-            <MessageScrollerContent aria-label="Project conversation">
-              {Array.from({ length: count }, (_, index) => (
-                <MessageScrollerItem key={index}>
-                  <Message>
-                    <MessageContent>
-                      <Bubble variant="muted">
-                        <BubbleContent>Project update {index + 1}</BubbleContent>
-                      </Bubble>
-                    </MessageContent>
-                  </Message>
-                </MessageScrollerItem>
-              ))}
-            </MessageScrollerContent>
-          </MessageScrollerViewport>
-          <MessageScrollerButton />
-        </MessageScroller>
-      </MessageScrollerProvider>
-      <Button onClick={() => setCount(count + 1)}>Add update</Button>
-    </div>
-  )
-}
-const meta = { title: "UI/Message Scroller", component: MessageScrollerDemo } satisfies Meta<
-  typeof MessageScrollerDemo
->
+const meta = {
+  title: "UI/Message Scroller",
+  component: MessageScrollerProvider,
+  subcomponents: {
+    MessageScroller,
+    MessageScrollerViewport,
+    MessageScrollerContent,
+    MessageScrollerItem,
+    MessageScrollerButton,
+  },
+  args: { autoScroll: true, initialCount: 8 },
+  argTypes: {
+    defaultScrollPosition: { control: "inline-radio", options: ["start", "end", "last-anchor"] },
+    initialCount: { control: { type: "number", min: 0 } },
+  },
+  render: function Render({ initialCount = 8, ...args }) {
+    const [count, setCount] = useState(initialCount)
+    return (
+      <div className="flex w-80 max-w-full flex-col gap-4">
+        <MessageScrollerProvider {...args}>
+          <MessageScroller className="h-72">
+            <MessageScrollerViewport>
+              <MessageScrollerContent aria-label="Project conversation">
+                {Array.from({ length: count }, (_, index) => (
+                  <MessageScrollerItem key={index}>
+                    <Message>
+                      <MessageContent>
+                        <Bubble variant="muted">
+                          <BubbleContent>Project update {index + 1}</BubbleContent>
+                        </Bubble>
+                      </MessageContent>
+                    </Message>
+                  </MessageScrollerItem>
+                ))}
+              </MessageScrollerContent>
+            </MessageScrollerViewport>
+            <MessageScrollerButton />
+          </MessageScroller>
+        </MessageScrollerProvider>
+        <Button onClick={() => setCount(count + 1)}>Add update</Button>
+      </div>
+    )
+  },
+} satisfies Meta<React.ComponentProps<typeof MessageScrollerProvider> & { initialCount?: number }>
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
@@ -52,3 +65,4 @@ export const Default: Story = {
     await expect(canvas.getByText("Project update 9")).toBeVisible()
   },
 }
+export const LongConversation: Story = { args: { initialCount: 40 } }

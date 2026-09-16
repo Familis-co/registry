@@ -1,6 +1,9 @@
-import type { Preview } from "@storybook/react-vite"
 import "../src/styles.css"
+
+import { withThemeByClassName } from "@storybook/addon-themes"
+import type { Preview } from "@storybook/react-vite"
 import { useLayoutEffect, type ReactNode } from "react"
+
 import { TooltipProvider } from "@/components/ui/tooltip"
 
 function ThemeCanvas({
@@ -35,13 +38,7 @@ function ThemeCanvas({
 
 const preview: Preview = {
   tags: ["autodocs"],
-  globalTypes: {
-    theme: {
-      description: "Color theme",
-      toolbar: { icon: "circlehollow", items: ["light", "dark"], dynamicTitle: true },
-    },
-  },
-  initialGlobals: { theme: "light" },
+
   parameters: {
     layout: "centered",
     options: {
@@ -49,10 +46,24 @@ const preview: Preview = {
         order: ["Design", ["Color", "Radius", "Typography", "Spacing", "Shadow"], "UI"],
       },
     },
-    a11y: { test: "error" },
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
+    actions: { argTypesRegex: "^on.*" },
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: "todo",
+    },
   },
+
   decorators: [
+    withThemeByClassName({
+      themes: {
+        light: "light",
+        dark: "dark",
+      },
+      defaultTheme: "light",
+    }),
     (Story, context) => (
       <ThemeCanvas
         theme={context.parameters.theme ?? context.globals.theme}

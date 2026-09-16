@@ -46,9 +46,15 @@ try {
     assert.equal(payload.name, item.name)
     assert.ok(payload.files.every((file) => file.content.length > 0))
   }
+  const storybook = await fetch(`${origin}/storybook/`)
+  assert.equal(storybook.status, 200)
+  assert.match(await storybook.text(), /<title>[^<]*Storybook/)
+  const storybookIndex = await fetch(`${origin}/storybook/index.json`)
+  assert.equal(storybookIndex.status, 200)
+  assert.ok(Object.keys((await storybookIndex.json()).entries).length > 0)
   const missing = await fetch(`${origin}/r/missing.json`)
   assert.equal(missing.status, 404)
-  console.log("Production SSR, health route, registry catalog, items, and 404 passed.")
+  console.log("Production SSR, health route, registry catalog, items, Storybook, and 404 passed.")
 } finally {
   if (!exited) {
     const stopped = new Promise((resolve) => server.once("exit", resolve))

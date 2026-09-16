@@ -14,5 +14,22 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  plugins: [tailwindcss(), tanstackStart(), nitro(), react()],
+  plugins: [
+    tailwindcss(),
+    tanstackStart(),
+    nitro({
+      preset: process.env.NITRO_PRESET,
+      publicAssets: [{ baseURL: "/storybook", dir: "storybook-static" }],
+      cloudflare: {
+        wrangler: {
+          name: "familis-registry",
+          route: {
+            custom_domain: true,
+            pattern: "registry.familis.care",
+          },
+        },
+      },
+    }),
+    react(),
+  ],
 })

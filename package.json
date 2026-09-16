@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm registry:build && vite dev --port 3000",
-    "build": "pnpm registry:build && vite build",
+    "build": "pnpm registry:build && pnpm storybook:build && vite build",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
     "deps:update": "taze --interactive --write --install",

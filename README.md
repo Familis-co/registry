@@ -154,7 +154,7 @@ pnpm start
 
 The complete deployable output is `.output/`. Set `HOST` and `PORT` at runtime as needed. For other supported providers, select the appropriate `NITRO_PRESET` at build time (for example `vercel` or `netlify`) and deploy the output that preset emits. Provider output shapes differ; `pnpm start` is for the Node output. These provider presets are available through Nitro but only the Node server is verified in this repository's CI.
 
-Storybook builds independently into `storybook-static/`, which can be served by any static host. Set `VITE_STORYBOOK_URL` before building the app to link to the hosted Storybook. Development defaults to localhost; production hides the Storybook links when no public URL is configured.
+`pnpm build` also builds Storybook into `storybook-static/`, and Nitro ships it as public assets under `/storybook/` (for example https://registry.familis.care/storybook/). The app links there by default in production; set `VITE_STORYBOOK_URL` before building to point at a Storybook hosted elsewhere. Development links to http://localhost:6006.
 
 Publishing this repository does not deploy the website or Storybook. GitHub installations are available as soon as the repository is public.
 

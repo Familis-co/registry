@@ -18,7 +18,8 @@ import { ProjectCard } from "@/registry/familis/blocks/project-card/project-card
 import registry from "../../registry.json"
 
 const storybookUrl =
-  import.meta.env.VITE_STORYBOOK_URL ?? (import.meta.env.DEV ? "http://localhost:6006" : undefined)
+  import.meta.env.VITE_STORYBOOK_URL ??
+  (import.meta.env.DEV ? "http://localhost:6006" : "/storybook")
 
 const blocks = registry.items.filter((item) => item.type === "registry:block")
 const primitives = registry.items.filter((item) => item.type === "registry:ui")

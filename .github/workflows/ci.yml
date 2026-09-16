@@ -30,7 +30,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: pnpm check
-      - run: pnpm storybook:build
       - run: pnpm exec playwright install --with-deps --no-shell chromium
       - run: pnpm test:stories
       - run: node scripts/smoke-server.mjs

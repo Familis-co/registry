@@ -1,0 +1,1416 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "familis",
+  "homepage": "https://github.com/Familis-co/registry",
+  "items": [
+    {
+      "name": "project-card",
+      "type": "registry:block",
+      "title": "Project card",
+      "description": "A project summary with status and a navigation link. Works with any React router.",
+      "registryDependencies": [
+        "Familis-co/registry/button",
+        "Familis-co/registry/card",
+        "Familis-co/registry/badge"
+      ],
+      "dependencies": ["lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/project-card/project-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-project-card--active"
+      }
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:block",
+      "title": "Empty state",
+      "description": "An accessible empty state with a configurable icon, explanation, and action.",
+      "registryDependencies": ["Familis-co/registry/button", "Familis-co/registry/empty"],
+      "dependencies": ["lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-empty-state--default"
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "The shadcn Accordion component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-accordion--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/accordion",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/accordion-example.tsx",
+          "api": "https://base-ui.com/react/components/accordion.md"
+        }
+      }
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "The shadcn Alert component using Base UI and the Familis Nova theme.",
+      "dependencies": ["class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-alert--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/alert",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/alert-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "The shadcn Alert Dialog component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-alert-dialog--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/alert-dialog",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/alert-dialog-example.tsx",
+          "api": "https://base-ui.com/react/components/alert-dialog.md"
+        }
+      }
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "The shadcn Aspect Ratio component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-aspect-ratio--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/aspect-ratio",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/aspect-ratio-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "attachment",
+      "type": "registry:ui",
+      "title": "Attachment",
+      "description": "The shadcn Attachment component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/attachment.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-attachment--default"
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "The shadcn Avatar component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-avatar--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/avatar",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/avatar-example.tsx",
+          "api": "https://base-ui.com/react/components/avatar.md"
+        }
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "The shadcn Badge component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-badge--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/badge",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/badge-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "The shadcn Breadcrumb component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-breadcrumb--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/breadcrumb",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/breadcrumb-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "bubble",
+      "type": "registry:ui",
+      "title": "Bubble",
+      "description": "The shadcn Bubble component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/bubble.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-bubble--default"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The shadcn Button component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-button--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/button",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/button-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "The shadcn Button Group component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/separator"],
+      "files": [
+        {
+          "path": "registry/familis/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-button-group--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/button-group",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/button-group-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "The shadcn Calendar component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "lucide-react@^1.46.0", "react-day-picker@^10.0.1"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-calendar--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/calendar",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/calendar-example.tsx",
+          "api": "https://react-day-picker.js.org"
+        }
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "The shadcn Card component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-card--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/card",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/card-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "The shadcn Carousel component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "embla-carousel-react@^8.6.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-carousel--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/carousel",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/carousel-example.tsx",
+          "api": "https://www.embla-carousel.com/get-started/react"
+        }
+      }
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "The shadcn Chart component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "recharts@3.8.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-chart--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/chart",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/chart-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "The shadcn Checkbox component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-checkbox--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/checkbox",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/checkbox-example.tsx",
+          "api": "https://base-ui.com/react/components/checkbox.md"
+        }
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "The shadcn Collapsible component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-collapsible--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/collapsible",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/collapsible-example.tsx",
+          "api": "https://base-ui.com/react/components/collapsible.md"
+        }
+      }
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "The shadcn Combobox component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button", "Familis-co/registry/input-group"],
+      "files": [
+        {
+          "path": "registry/familis/ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-combobox--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/combobox",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/combobox-example.tsx",
+          "api": "https://base-ui.com/react/components/combobox.md"
+        }
+      }
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "The shadcn Command component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cmdk@^1.1.1", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/dialog", "Familis-co/registry/input-group"],
+      "files": [
+        {
+          "path": "registry/familis/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-command--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/command",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/command-example.tsx",
+          "api": "https://github.com/dip/cmdk"
+        }
+      }
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "The shadcn Context Menu component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-context-menu--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/context-menu",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/context-menu-example.tsx",
+          "api": "https://base-ui.com/react/components/context-menu.md"
+        }
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "The shadcn Dialog component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-dialog--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/dialog",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/dialog-example.tsx",
+          "api": "https://base-ui.com/react/components/dialog.md"
+        }
+      }
+    },
+    {
+      "name": "direction",
+      "type": "registry:ui",
+      "title": "Direction",
+      "description": "The shadcn Direction component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/direction.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-direction--left-to-right",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/direction",
+          "api": "https://base-ui.com/react/utils/direction-provider.md"
+        }
+      }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "The shadcn Drawer component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-drawer--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/drawer",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/drawer-example.tsx",
+          "api": "https://base-ui.com/react/components/drawer.md"
+        }
+      }
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "The shadcn Dropdown Menu component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-dropdown-menu--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/dropdown-menu",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/dropdown-menu-example.tsx",
+          "api": "https://base-ui.com/react/components/menu.md"
+        }
+      }
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "The shadcn Empty component using Base UI and the Familis Nova theme.",
+      "dependencies": ["class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-empty--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/empty",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/empty-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "The shadcn Field component using Base UI and the Familis Nova theme.",
+      "dependencies": ["class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/label", "Familis-co/registry/separator"],
+      "files": [
+        {
+          "path": "registry/familis/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-field--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/field",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/field-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "The shadcn Hover Card component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-hover-card--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/hover-card",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/hover-card-example.tsx",
+          "api": "https://base-ui.com/react/components/hover-card.md"
+        }
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "The shadcn Input component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-input--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/input",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/input-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "The shadcn Input Group component using Base UI and the Familis Nova theme.",
+      "dependencies": ["class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": [
+        "Familis-co/registry/button",
+        "Familis-co/registry/input",
+        "Familis-co/registry/textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-input-group--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/input-group",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/input-group-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "The shadcn Input OTP component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "input-otp@^1.5.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-input-otp--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/input-otp",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/input-otp-example.tsx",
+          "api": "https://input-otp.rodz.dev"
+        }
+      }
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "The shadcn Item component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/separator"],
+      "files": [
+        {
+          "path": "registry/familis/ui/item.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-item--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/item",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/item-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "The shadcn Kbd component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-kbd--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/kbd",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/kbd-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "The shadcn Label component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-label--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/label",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/label-example.tsx",
+          "api": "https://base-ui.com/react/components/label.md"
+        }
+      }
+    },
+    {
+      "name": "marker",
+      "type": "registry:ui",
+      "title": "Marker",
+      "description": "The shadcn Marker component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/marker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-marker--default"
+      }
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "The shadcn Menubar component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/dropdown-menu"],
+      "files": [
+        {
+          "path": "registry/familis/ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-menubar--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/menubar",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/menubar-example.tsx",
+          "api": "https://base-ui.com/react/components/menubar.md"
+        }
+      }
+    },
+    {
+      "name": "message",
+      "type": "registry:ui",
+      "title": "Message",
+      "description": "The shadcn Message component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/message.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-message--default"
+      }
+    },
+    {
+      "name": "message-scroller",
+      "type": "registry:ui",
+      "title": "Message Scroller",
+      "description": "The shadcn Message Scroller component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@shadcn/react@^0.3.1", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/message-scroller.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-message-scroller--default"
+      }
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "The shadcn Native Select component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/native-select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-native-select--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/native-select",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/native-select-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "The shadcn Navigation Menu component using Base UI and the Familis Nova theme.",
+      "dependencies": [
+        "@base-ui/react@^1.8.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.3.0",
+        "lucide-react@^1.46.0"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-navigation-menu--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/navigation-menu",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/navigation-menu-example.tsx",
+          "api": "https://base-ui.com/react/components/navigation-menu.md"
+        }
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "The shadcn Pagination component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-pagination--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/pagination",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/pagination-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "The shadcn Popover component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-popover--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/popover",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/popover-example.tsx",
+          "api": "https://base-ui.com/react/components/popover.md"
+        }
+      }
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "The shadcn Progress component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-progress--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/progress",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/progress-example.tsx",
+          "api": "https://base-ui.com/react/components/progress.md"
+        }
+      }
+    },
+    {
+      "name": "questionnaire",
+      "type": "registry:ui",
+      "title": "Questionnaire",
+      "description": "The shadcn Questionnaire component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@shadcn/react@^0.3.1", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/questionnaire.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-questionnaire--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/questionnaire",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/questionnaire-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "The shadcn Radio Group component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-radio-group--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/radio-group",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/radio-group-example.tsx",
+          "api": "https://base-ui.com/react/components/radio-group.md"
+        }
+      }
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "The shadcn Resizable component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "react-resizable-panels@^4.12.4"],
+      "files": [
+        {
+          "path": "registry/familis/ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-resizable--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/resizable",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/resizable-example.tsx",
+          "api": "https://github.com/bvaughn/react-resizable-panels"
+        }
+      }
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "The shadcn Scroll Area component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-scroll-area--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/scroll-area",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/scroll-area-example.tsx",
+          "api": "https://base-ui.com/react/components/scroll-area.md"
+        }
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "The shadcn Select component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-select--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/select",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/select-example.tsx",
+          "api": "https://base-ui.com/react/components/select.md"
+        }
+      }
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "The shadcn Separator component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-separator--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/separator",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/separator-example.tsx",
+          "api": "https://base-ui.com/react/components/separator.md"
+        }
+      }
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "The shadcn Sheet component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-sheet--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/sheet",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/sheet-example.tsx",
+          "api": "https://base-ui.com/react/components/dialog.md"
+        }
+      }
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "The shadcn Sidebar component using Base UI and the Familis Nova theme.",
+      "dependencies": [
+        "@base-ui/react@^1.8.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.3.0",
+        "lucide-react@^1.46.0"
+      ],
+      "registryDependencies": [
+        "Familis-co/registry/button",
+        "Familis-co/registry/input",
+        "Familis-co/registry/separator",
+        "Familis-co/registry/sheet",
+        "Familis-co/registry/skeleton",
+        "Familis-co/registry/tooltip",
+        "Familis-co/registry/use-mobile"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-sidebar--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/sidebar",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/sidebar-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "The shadcn Skeleton component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-skeleton--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/skeleton",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/skeleton-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "The shadcn Slider component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-slider--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/slider",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/slider-example.tsx",
+          "api": "https://base-ui.com/react/components/slider.md"
+        }
+      }
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "The shadcn Sonner component using Base UI and the Familis Nova theme.",
+      "dependencies": ["lucide-react@^1.46.0", "next-themes@^0.4.6", "sonner@^2.0.8"],
+      "files": [
+        {
+          "path": "registry/familis/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-sonner--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/sonner",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/sonner-example.tsx",
+          "api": "https://sonner.emilkowal.ski"
+        }
+      }
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "The shadcn Spinner component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-spinner--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/spinner",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/spinner-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "The shadcn Switch component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-switch--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/switch",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/switch-example.tsx",
+          "api": "https://base-ui.com/react/components/switch.md"
+        }
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "The shadcn Table component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-table--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/table",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/table-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "The shadcn Tabs component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-tabs--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/tabs",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/tabs-example.tsx",
+          "api": "https://base-ui.com/react/components/tabs.md"
+        }
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "The shadcn Textarea component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-textarea--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/textarea",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/textarea-example.tsx"
+        }
+      }
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "The shadcn Toast component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-toast--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/toast",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/toast-example.tsx",
+          "api": "https://base-ui.com/react/components/toast.md"
+        }
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "The shadcn Toggle component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-toggle--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/toggle",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/toggle-example.tsx",
+          "api": "https://base-ui.com/react/components/toggle.md"
+        }
+      }
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "The shadcn Toggle Group component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "class-variance-authority@^0.7.1", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/toggle"],
+      "files": [
+        {
+          "path": "registry/familis/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-toggle-group--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/toggle-group",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/toggle-group-example.tsx",
+          "api": "https://base-ui.com/react/components/toggle-group.md"
+        }
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "The shadcn Tooltip component using Base UI and the Familis Nova theme.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-tooltip--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/tooltip",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/tooltip-example.tsx",
+          "api": "https://base-ui.com/react/components/tooltip.md"
+        }
+      }
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "Mobile breakpoint",
+      "description": "An SSR-safe external media-query subscription shared by Sidebar.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    }
+  ]
+}

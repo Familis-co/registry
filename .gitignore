@@ -1,0 +1,15 @@
+node_modules/
+.output/
+.nitro/
+.tanstack/
+dist/
+storybook-static/
+coverage/
+playwright-report/
+test-results/
+public/r/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log

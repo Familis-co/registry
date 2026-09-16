@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Validate registry, app, and stories
+    runs-on: ubuntu-latest
+    env:
+      LEFTHOOK: "0"
+      NITRO_PRESET: node-server
+      STORYBOOK_DISABLE_TELEMETRY: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm check
+      - run: pnpm storybook:build
+      - run: pnpm exec playwright install --with-deps --no-shell chromium
+      - run: pnpm test:stories
+      - run: node scripts/smoke-server.mjs

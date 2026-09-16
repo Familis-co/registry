@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "jsx-a11y"],
+  "jsPlugins": ["@shadcn/lint"],
+  "categories": { "correctness": "error" },
+  "rules": { "jsx-a11y/prefer-tag-over-role": "off" },
+  "overrides": [
+    {
+      "files": ["registry/familis/ui/**"],
+      "rules": { "jsx-a11y/label-has-associated-control": "off" }
+    }
+  ],
+  "ignorePatterns": [
+    "src/routeTree.gen.ts",
+    ".output/**",
+    ".nitro/**",
+    ".tanstack/**",
+    "storybook-static/**",
+    "public/r/**"
+  ]
+}

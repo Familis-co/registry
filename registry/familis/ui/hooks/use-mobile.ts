@@ -1,12 +1,14 @@
 import { useSyncExternalStore } from "react"
 
-const MOBILE_QUERY = "(max-width: 767px)"
+const MOBILE_BREAKPOINT = 768
+
 function subscribe(onChange: () => void) {
-  const query = window.matchMedia(MOBILE_QUERY)
+  const query = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
   query.addEventListener("change", onChange)
   return () => query.removeEventListener("change", onChange)
 }
-const getSnapshot = () => window.matchMedia(MOBILE_QUERY).matches
+
+const getSnapshot = () => window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches
 const getServerSnapshot = () => false
 
 export function useIsMobile() {

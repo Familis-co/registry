@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react-vite"
-import "../registry/familis/design/tokens.css"
+import "../src/styles.css"
 import { useLayoutEffect, type ReactNode } from "react"
 import { TooltipProvider } from "@/components/ui/tooltip"
 

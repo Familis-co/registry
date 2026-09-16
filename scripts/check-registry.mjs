@@ -62,7 +62,7 @@ for (const item of source.items.filter((entry) => entry.type === "registry:ui"))
 }
 for (const name of ["color", "radius", "typography", "spacing", "shadow"]) {
   const story = await readFile(
-    new URL(`../registry/familis/design/${name}.stories.tsx`, import.meta.url),
+    new URL(`../registry/familis/tokens/${name}.stories.tsx`, import.meta.url),
     "utf8",
   )
   assert.match(story, /title: "Design\//, `Missing design story: ${name}`)

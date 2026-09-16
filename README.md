@@ -31,7 +31,7 @@ registry/familis/
   blocks/           # Familis compositions and their colocated stories
   ui/               # Upstream primitives and their stories
     hooks/          # Shared UI hooks
-  design/           # Shared CSS tokens and their stories
+  tokens/           # Shared CSS tokens and their stories
 ```
 
 Sources and stories are colocated; only the source files declared in `registry.json` are installed into consumers. Public shadcn aliases remain `@/components/ui` and `@/hooks`; TypeScript and Vite map them to these authored registry folders. Story examples are ordinary React components defined at module scope in `.stories.tsx`; hooks stay inside those components. This follows [Storybook CSF rendering](https://storybook.js.org/docs/writing-stories) and the [React rules of Hooks](https://react.dev/reference/rules/rules-of-hooks).

@@ -49,6 +49,7 @@
     "@shadcn/lint": "^0.1.0",
     "@storybook/addon-a11y": "^10.6.0",
     "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-themes": "^10.6.0",
     "@storybook/addon-vitest": "^10.6.0",
     "@storybook/react-vite": "^10.6.0",
     "@tailwindcss/vite": "^4.3.3",
@@ -67,7 +68,8 @@
     "taze": "^21.1.0",
     "typescript": "^6.0.3",
     "vite": "^8.3.0",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "^4.131.2"
   },
   "engines": {
     "node": ">=22.12.0"

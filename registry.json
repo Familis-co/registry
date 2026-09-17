@@ -4,6 +4,176 @@
   "homepage": "https://github.com/Familis-co/registry",
   "items": [
     {
+      "name": "familis",
+      "type": "registry:base",
+      "title": "Familis style",
+      "description": "Familis brand foundations: the Familis blue palette for light and dark themes, radius, Manrope headings, Inter text, JetBrains Mono code, Source Serif 4 for editorial content and the logo.",
+      "config": {
+        "style": "base-nova",
+        "iconLibrary": "lucide"
+      },
+      "dependencies": ["@fontsource-variable/source-serif-4@^5.3.0"],
+      "registryDependencies": [
+        "Familis-co/registry/font-inter",
+        "Familis-co/registry/font-manrope",
+        "Familis-co/registry/font-jetbrains-mono",
+        "Familis-co/registry/logo"
+      ],
+      "cssVars": {
+        "theme": {
+          "font-serif": "'Source Serif 4 Variable', ui-serif, Georgia, Cambria, 'Times New Roman', serif"
+        },
+        "light": {
+          "background": "oklch(1 0 0)",
+          "foreground": "oklch(0.145 0 0)",
+          "card": "oklch(1 0 0)",
+          "card-foreground": "oklch(0.145 0 0)",
+          "popover": "oklch(1 0 0)",
+          "popover-foreground": "oklch(0.145 0 0)",
+          "primary": "oklch(0.501476 0.11577 241.263)",
+          "primary-foreground": "oklch(0.985 0 0)",
+          "secondary": "oklch(0.97 0 0)",
+          "secondary-foreground": "oklch(0.205 0 0)",
+          "muted": "oklch(0.97 0 0)",
+          "muted-foreground": "oklch(0.556 0 0)",
+          "accent": "oklch(0.97 0 0)",
+          "accent-foreground": "oklch(0.205 0 0)",
+          "destructive": "oklch(0.577 0.245 27.325)",
+          "border": "oklch(0.922 0 0)",
+          "input": "oklch(0.922 0 0)",
+          "ring": "oklch(0.501476 0.11577 241.263)",
+          "chart-1": "oklch(0.82 0.06 241.263)",
+          "chart-2": "oklch(0.68 0.1 241.263)",
+          "chart-3": "oklch(0.501476 0.11577 241.263)",
+          "chart-4": "oklch(0.42 0.095 241.263)",
+          "chart-5": "oklch(0.34 0.074 241.263)",
+          "radius": "0.625rem",
+          "sidebar": "oklch(0.985 0 0)",
+          "sidebar-foreground": "oklch(0.145 0 0)",
+          "sidebar-primary": "oklch(0.501476 0.11577 241.263)",
+          "sidebar-primary-foreground": "oklch(0.985 0 0)",
+          "sidebar-accent": "oklch(0.97 0 0)",
+          "sidebar-accent-foreground": "oklch(0.205 0 0)",
+          "sidebar-border": "oklch(0.922 0 0)",
+          "sidebar-ring": "oklch(0.501476 0.11577 241.263)"
+        },
+        "dark": {
+          "background": "oklch(0.145 0 0)",
+          "foreground": "oklch(0.985 0 0)",
+          "card": "oklch(0.205 0 0)",
+          "card-foreground": "oklch(0.985 0 0)",
+          "popover": "oklch(0.205 0 0)",
+          "popover-foreground": "oklch(0.985 0 0)",
+          "primary": "oklch(0.501476 0.11577 241.263)",
+          "primary-foreground": "oklch(0.985 0 0)",
+          "secondary": "oklch(0.269 0 0)",
+          "secondary-foreground": "oklch(0.985 0 0)",
+          "muted": "oklch(0.269 0 0)",
+          "muted-foreground": "oklch(0.708 0 0)",
+          "accent": "oklch(0.269 0 0)",
+          "accent-foreground": "oklch(0.985 0 0)",
+          "destructive": "oklch(0.704 0.191 22.216)",
+          "border": "oklch(1 0 0 / 10%)",
+          "input": "oklch(1 0 0 / 15%)",
+          "ring": "oklch(0.68 0.105 241.263)",
+          "chart-1": "oklch(0.86 0.055 241.263)",
+          "chart-2": "oklch(0.77 0.082 241.263)",
+          "chart-3": "oklch(0.68 0.105 241.263)",
+          "chart-4": "oklch(0.59 0.112 241.263)",
+          "chart-5": "oklch(0.501476 0.11577 241.263)",
+          "sidebar": "oklch(0.205 0 0)",
+          "sidebar-foreground": "oklch(0.985 0 0)",
+          "sidebar-primary": "oklch(0.501476 0.11577 241.263)",
+          "sidebar-primary-foreground": "oklch(0.985 0 0)",
+          "sidebar-accent": "oklch(0.269 0 0)",
+          "sidebar-accent-foreground": "oklch(0.985 0 0)",
+          "sidebar-border": "oklch(1 0 0 / 10%)",
+          "sidebar-ring": "oklch(0.68 0.105 241.263)"
+        }
+      },
+      "css": {
+        "@import \"@fontsource-variable/source-serif-4\"": {},
+        "@import \"@fontsource-variable/source-serif-4/wght-italic.css\"": {}
+      },
+      "meta": {
+        "base": "base"
+      }
+    },
+    {
+      "name": "font-inter",
+      "type": "registry:font",
+      "title": "Inter",
+      "description": "Inter for body text and interface content, set on the document as font-sans, with its italics.",
+      "dependencies": ["@fontsource-variable/inter@^5.3.0"],
+      "css": {
+        "@import \"@fontsource-variable/inter/wght-italic.css\"": {}
+      },
+      "font": {
+        "family": "'Inter Variable', ui-sans-serif, system-ui, sans-serif",
+        "provider": "google",
+        "import": "Inter",
+        "variable": "--font-sans",
+        "subsets": ["latin"],
+        "dependency": "@fontsource-variable/inter"
+      },
+      "meta": {
+        "base": "base"
+      }
+    },
+    {
+      "name": "font-manrope",
+      "type": "registry:font",
+      "title": "Manrope",
+      "description": "Manrope for headings, available as font-heading and applied to semantic h1 to h6 elements.",
+      "font": {
+        "family": "'Manrope Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif",
+        "provider": "google",
+        "import": "Manrope",
+        "variable": "--font-heading",
+        "subsets": ["latin"],
+        "selector": "h1, h2, h3, h4, h5, h6",
+        "dependency": "@fontsource-variable/manrope"
+      },
+      "meta": {
+        "base": "base"
+      }
+    },
+    {
+      "name": "font-jetbrains-mono",
+      "type": "registry:font",
+      "title": "JetBrains Mono",
+      "description": "JetBrains Mono for code and commands, available as font-mono and applied to code, kbd, samp and pre elements.",
+      "font": {
+        "family": "'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        "provider": "google",
+        "import": "JetBrains_Mono",
+        "variable": "--font-mono",
+        "subsets": ["latin"],
+        "selector": "code, kbd, samp, pre",
+        "dependency": "@fontsource-variable/jetbrains-mono"
+      },
+      "meta": {
+        "base": "base"
+      }
+    },
+    {
+      "name": "logo",
+      "type": "registry:component",
+      "title": "Logo",
+      "description": "The Familis wordmark or symbol as inline SVG in the current text color, following the light and dark themes.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/brand/logo.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "design-logo--wordmark"
+      }
+    },
+    {
       "name": "empty-state",
       "type": "registry:block",
       "title": "Empty state",

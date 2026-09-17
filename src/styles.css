@@ -150,4 +150,10 @@
   h6 {
     @apply font-heading;
   }
+  code,
+  kbd,
+  samp,
+  pre {
+    @apply font-mono;
+  }
 }

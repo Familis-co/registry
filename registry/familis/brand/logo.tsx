@@ -1,0 +1,57 @@
+import type { ComponentProps } from "react"
+import { cn } from "cn"
+
+const symbol = [
+  "M28.1001 18.99V215.3L126.88 188.84V45.43L28.1001 18.98V18.99ZM111.44 177.13L43.5301 195.37V38.88L111.44 57.15V177.13Z",
+  "M14.54 19.05V215.18L0 211.42V22.92L14.54 19.05Z",
+  "M98.9001 67.05V167.2L56.1401 178.68V163.04L83.6901 155.37V62.98L98.9001 67.05Z",
+]
+
+const name = [
+  "M210.79 189.21V44.05H296.78V65.12H231.86V106.05H284.68V127.22H231.86V189.21H210.79Z",
+  "M399.5 122.18V189.22H380.85V173.39C371.88 186.19 359.28 192.24 341.64 192.24C317.55 192.24 304.85 177.32 304.85 159.58C304.85 143.15 313.72 132.67 330.56 127.32C343.16 123.59 361.1 121.27 378.74 118.85C378.04 103.83 371.18 96.77 354.14 96.77C342.65 96.77 332.17 101.81 328.43 113.91L308.77 107.86C314.01 89.21 329.13 77.32 354.33 77.32C373.78 77.32 388.91 83.77 395.66 98.09C399.09 105.25 399.49 113.11 399.49 122.18H399.5ZM376.31 153.42C378.02 148.38 378.43 141.42 378.53 136.39C362.1 138.81 349.9 140.52 340.73 143.24C332.06 146.16 325.71 150.8 325.71 159.37C325.71 167.94 331.86 175 345.37 175C363.31 175 373.9 164.01 376.32 153.43L376.31 153.42Z",
+  "M577.31 116.33L577.21 189.21H556.14L556.24 121.37C556.24 105.74 547.37 96.37 534.26 96.37C522.26 96.37 512.08 104.74 512.08 121.17L511.98 189.21H490.91L491.01 121.77C491.01 106.04 482.34 96.37 468.93 96.37C455.52 96.37 446.75 106.35 446.75 121.17V189.21H425.58V80.34H444.33V92.03C451.29 83.16 462.47 77.61 475.58 77.61C490.6 77.61 501.49 84.26 507.23 95.25C513.88 84.26 526.08 77.61 540.29 77.61C563.68 77.61 577.28 92.93 577.28 116.32L577.31 116.33Z",
+  "M602.92 52.32C602.92 44.96 608.56 39.22 616.12 39.22C623.68 39.22 629.22 44.97 629.22 52.32C629.22 59.67 623.68 65.42 616.12 65.42C608.56 65.42 602.92 59.57 602.92 52.32ZM605.54 189.21V80.34H626.61V189.21H605.54Z",
+  "M656.24 13.1C656.24 5.74 661.88 0 669.44 0C677 0 682.54 5.75 682.54 13.1C682.54 20.45 677 26.2 669.44 26.2C661.88 26.2 656.24 20.35 656.24 13.1Z",
+  "M658.86 189.21V41.03H679.93V189.21H658.86Z",
+  "M709.56 65.96C709.56 58.6 715.2 52.86 722.76 52.86C730.32 52.86 735.86 58.61 735.86 65.96C735.86 73.31 730.32 79.06 722.76 79.06C715.2 79.06 709.56 73.21 709.56 65.96ZM712.18 189.21V94.12H733.25V189.21H712.18Z",
+  "M757.44 158.67L779.01 155.34C781.73 166.73 792.01 173.59 806.53 173.59C819.63 173.59 827.6 167.95 827.6 158.47C827.6 150.2 823.97 147.99 798.37 141.13C770.24 133.77 760.97 126.01 760.97 109.98C760.97 90.22 777.7 77.32 803.31 77.32C828.92 77.32 846.25 89.92 848.67 109.27L827.1 113.2C825.59 102.82 816.82 96.37 803.51 95.86C790.71 95.36 782.04 100.6 782.04 108.86C782.04 116.12 786.98 118.94 812.48 125.39C839.9 132.45 849.27 140.81 849.27 157.65C849.27 179.22 832.64 192.12 805.12 192.12C777.6 192.12 761.17 179.92 757.44 158.65V158.67Z",
+]
+
+// The symbol starts below the dot of the "l", so it gets a tighter frame than the full logo.
+const viewBoxes = {
+  wordmark: "0 0 850 216",
+  symbol: "0 18.98 126.88 196.32",
+}
+
+export interface FamilisLogoProps extends Omit<ComponentProps<"svg">, "children" | "viewBox"> {
+  variant?: keyof typeof viewBoxes
+}
+
+/**
+ * The Familis logo as inline SVG. It fills with the current text color: Familis blue in the light
+ * theme and the foreground color in the dark theme, unless `className` sets another color.
+ *
+ * @param props - SVG attributes forwarded to the root element.
+ * @param props.variant - `"wordmark"` for the symbol followed by the Familis name, or `"symbol"`
+ *   for the mark alone, such as in a collapsed sidebar. Defaults to `"wordmark"`.
+ * @param props.className - Classes merged after the default height and colors.
+ */
+export function Logo({ variant = "wordmark", className, ...props }: FamilisLogoProps) {
+  return (
+    <svg
+      data-slot="familis-logo"
+      role="img"
+      aria-label="Familis"
+      viewBox={viewBoxes[variant]}
+      fill="currentColor"
+      className={cn("h-8 w-auto shrink-0 text-primary dark:text-foreground", className)}
+      {...props}
+    >
+      {symbol.map((path) => (
+        <path key={path} d={path} />
+      ))}
+      {variant === "wordmark" && name.map((path) => <path key={path} d={path} />)}
+    </svg>
+  )
+}

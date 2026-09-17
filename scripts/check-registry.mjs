@@ -114,6 +114,14 @@ for (const item of source.items.filter((entry) => entry.type === "registry:ui"))
   )
   assert.match(story, /title: "UI\//, `Missing UI story: ${item.name}`)
 }
+for (const item of source.items.filter((entry) => entry.type === "registry:hook")) {
+  const story = await readFile(
+    new URL(`../registry/familis/ui/hooks/${item.name}.stories.tsx`, import.meta.url),
+    "utf8",
+  )
+  assert.match(story, /title: "UI\/Hooks\//, `Missing hook story: ${item.name}`)
+  assert.ok(item.meta?.storybookId, `Missing hook preview ID: ${item.name}`)
+}
 for (const name of ["color", "radius", "typography", "spacing", "shadow"]) {
   const story = await readFile(
     new URL(`../registry/familis/tokens/${name}.stories.tsx`, import.meta.url),

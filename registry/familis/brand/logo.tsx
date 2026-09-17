@@ -24,7 +24,7 @@ const viewBoxes = {
   symbol: "0 18.98 126.88 196.32",
 }
 
-export interface FamilisLogoProps extends Omit<ComponentProps<"svg">, "children" | "viewBox"> {
+export interface LogoProps extends Omit<ComponentProps<"svg">, "children" | "viewBox"> {
   variant?: keyof typeof viewBoxes
 }
 
@@ -37,10 +37,10 @@ export interface FamilisLogoProps extends Omit<ComponentProps<"svg">, "children"
  *   for the mark alone, such as in a collapsed sidebar. Defaults to `"wordmark"`.
  * @param props.className - Classes merged after the default height and colors.
  */
-export function Logo({ variant = "wordmark", className, ...props }: FamilisLogoProps) {
+export function Logo({ variant = "wordmark", className, ...props }: LogoProps) {
   return (
     <svg
-      data-slot="familis-logo"
+      data-slot="logo"
       role="img"
       aria-label="Familis"
       viewBox={viewBoxes[variant]}

@@ -39,7 +39,7 @@ try {
   const html = await page.text()
   assert.match(html, /Familis/)
   assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex, nofollow"/)
-  assert.match(html, /<svg\b[^>]*data-slot="familis-logo"/)
+  assert.match(html, /<svg\b[^>]*role="img"[^>]*aria-label="Familis"/)
   const robots = await fetch(`${origin}/robots.txt`)
   assert.equal(robots.status, 200)
   assertNoIndex(robots)

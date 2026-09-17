@@ -43,7 +43,12 @@ const preview: Preview = {
     layout: "centered",
     options: {
       storySort: {
-        order: ["Design", ["Logo", "Color", "Radius", "Typography", "Spacing", "Shadow"], "UI"],
+        order: [
+          "Design",
+          ["Logo", "Color", "Radius", "Typography", "Spacing", "Shadow"],
+          "UI",
+          ["Blocks", "Hooks"],
+        ],
       },
     },
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },

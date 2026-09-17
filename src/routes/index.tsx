@@ -38,6 +38,7 @@ const storybookUrl =
 
 const blocks = registry.items.filter((item) => item.type === "registry:block")
 const primitives = registry.items.filter((item) => item.type === "registry:ui")
+const hooks = registry.items.filter((item) => item.type === "registry:hook")
 
 export const Route = createFileRoute("/")({ component: RouteComponent })
 
@@ -350,31 +351,42 @@ function DesignFoundations() {
   )
 }
 
-function PrimitiveCatalog() {
+function RegistryCatalog({ type }: { type: "ui" | "hooks" }) {
+  const items = type === "ui" ? primitives : hooks
+  const title = type === "ui" ? "UI components" : "React hooks"
+  const noun = type === "ui" ? "component" : "hook"
   const [query, setQuery] = useState("")
   const search = query.trim().toLowerCase()
-  const results = primitives.filter((item) =>
+  const results = items.filter((item) =>
     `${item.title} ${item.name} ${item.description}`.toLowerCase().includes(search),
   )
   return (
-    <section id="ui" aria-labelledby="ui-title" className="flex scroll-mt-8 flex-col gap-6">
+    <section
+      id={type}
+      aria-labelledby={`${type}-title`}
+      className="flex scroll-mt-8 flex-col gap-6"
+    >
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="flex flex-col gap-2">
-          <h2 id="ui-title" className="text-2xl font-semibold tracking-tight">
-            UI components
+          <h2 id={`${type}-title`} className="text-2xl font-semibold tracking-tight">
+            {title}
           </h2>
           <p className="max-w-2xl text-sm text-muted-foreground">
-            Base UI primitives for your own compositions. Open a story to see its states and usage.
+            {type === "ui"
+              ? "Base UI primitives for your own compositions. Open a story to see its states and usage."
+              : "Reusable hooks for timing, interaction, navigation, and notifications. Open a story to try each hook."}
           </p>
         </div>
-        <Badge variant="secondary">{primitives.length} components</Badge>
+        <Badge variant="secondary">
+          {items.length} {noun}s
+        </Badge>
       </div>
       <SearchToolbar
-        label="Search UI components"
+        label={`Search ${title}`}
         placeholder="Search by name or purpose…"
         query={query}
         onQueryChange={setQuery}
-        resultLabel={`${results.length} ${results.length === 1 ? "component" : "components"}${search ? ` matching “${query.trim()}”` : " available"}`}
+        resultLabel={`${results.length} ${results.length === 1 ? noun : `${noun}s`}${search ? ` matching “${query.trim()}”` : " available"}`}
         className="max-w-lg"
       />
       {results.length > 0 ? (
@@ -409,8 +421,8 @@ function PrimitiveCatalog() {
         </ul>
       ) : (
         <EmptyState
-          title="No components found"
-          description="Try a different name or clear your search to see every component."
+          title={`No ${noun}s found`}
+          description={`Try a different name or clear your search to see every ${noun}.`}
           icon={SearchIcon}
           action={{ label: "Clear search", onClick: () => setQuery("") }}
         />
@@ -476,6 +488,9 @@ function RouteComponent() {
               <a href="#ui" className={buttonVariants({ variant: "outline", size: "sm" })}>
                 Explore {primitives.length} components
               </a>
+              <a href="#hooks" className={buttonVariants({ variant: "outline", size: "sm" })}>
+                Explore {hooks.length} hooks
+              </a>
             </div>
           </div>
           <Card id="installation">
@@ -501,7 +516,8 @@ function RouteComponent() {
         </section>
         <BuildingBlocks />
         <DesignFoundations />
-        <PrimitiveCatalog />
+        <RegistryCatalog type="ui" />
+        <RegistryCatalog type="hooks" />
       </main>
       <Separator />
       <footer className="flex flex-wrap items-center justify-between gap-3 py-6 text-xs text-muted-foreground">

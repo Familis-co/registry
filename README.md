@@ -22,7 +22,7 @@ pnpm storybook
 Storybook runs at http://localhost:6006 with light and dark theme controls. Its navigation has two sections:
 
 - **Design**: Logo, Color, Radius, Typography, Spacing, and Shadow, using the actual CSS tokens.
-- **UI**: every available Base UI component, with Familis compositions under **UI / Blocks**.
+- **UI**: every available Base UI component, with Familis compositions under **UI / Blocks** and reusable hooks under **UI / Hooks**.
 
 The reusable blocks include:
 
@@ -34,7 +34,7 @@ The reusable blocks include:
 
 Typography uses **Manrope** for headings, **Inter** for body and UI content, **JetBrains Mono** for code and commands, and **Source Serif 4** for optional editorial content. Variable fonts are bundled locally through Fontsource, including Inter and Source Serif 4 italics. The shared Tailwind tokens are `font-heading`, `font-sans`, `font-mono`, and `font-serif`; semantic HTML headings use Manrope automatically, and `code`, `kbd`, `samp` and `pre` use JetBrains Mono. The [Familis style](#apply-the-familis-style) installs the same palette, fonts and rules in other projects.
 
-The homepage includes interactive block previews, font and palette samples, and a searchable UI catalog. Its theme follows the system preference until a choice is saved locally. The header uses the `Logo` component, which follows the light and dark themes.
+The homepage includes interactive block previews, font and palette samples, and searchable component and hook catalogs. Its theme follows the system preference until a choice is saved locally. The header uses the `Logo` component, which follows the light and dark themes.
 
 All authored registry content lives under `registry/familis/`, grouped by concern:
 
@@ -134,12 +134,31 @@ pnpm dlx shadcn@latest list http://localhost:3000/r/registry.json
 pnpm dlx shadcn@latest view http://localhost:3000/r/metric-card.json
 ```
 
+### Installing hooks
+
+Hooks are individual `registry:hook` items installed into the consumer's configured hooks directory:
+
+```sh
+pnpm dlx shadcn@latest add Familis-co/registry/use-debounce Familis-co/registry/use-idle Familis-co/registry/use-long-press Familis-co/registry/use-mobile Familis-co/registry/use-mobile-navigation Familis-co/registry/use-toast
+```
+
+| Item                    | Export                            | Behavior                                                                                                                                                                                                                                                               |
+| ----------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `use-debounce`          | `useDebounce(value, delay)`       | Returns the initial value immediately, then the latest value after `delay` ms without changes. Supports function values without treating them as state updaters.                                                                                                       |
+| `use-idle`              | `useIdle(ms = 60_000)`            | Returns `true` after `ms` without mouse, keyboard, touch, wheel, or resize activity. Resumes immediately on activity or when the document becomes visible.                                                                                                             |
+| `use-long-press`        | `useLongPress(callback, options)` | Spread the returned mouse and touch handlers onto a target. The threshold defaults to 400 ms. Supports `onStart`, `onFinish`, and `onCancel`; ignores secondary mouse buttons and multiple touches, and clears timers on cancellation, threshold changes, and unmount. |
+| `use-mobile`            | `useIsMobile()`                   | Returns whether the viewport is narrower than 768 px. Uses an SSR-safe media-query subscription and returns `false` on the server.                                                                                                                                     |
+| `use-mobile-navigation` | `useMobileNavigation()`           | Returns a stable callback that removes the body's inline `pointer-events` property. Call it when completing navigation.                                                                                                                                                |
+| `use-toast`             | `toast`                           | Re-exports Sonner's API and installs its npm dependency. Render a Sonner `Toaster` in the app to display notifications.                                                                                                                                                |
+
+`use-toast` keeps the requested Sonner API. Install the `sonner` registry item separately if you need the themed `Toaster`; the Base UI `toast` item uses a different API.
+
 ## Adding components
 
 1. Add portable source under `registry/familis/blocks/<name>/` and import shared primitives through `@/registry/familis/ui/<name>`. Use `components/`, `hooks/`, and `lib/` subdirectories when an item contains multiple files. Keep application routing, server code, and environment access in `src/`.
-2. Add a colocated `.stories.tsx` file showing relevant states and interactions. For upstream primitives, add the story to `registry/familis/ui/<name>.stories.tsx`, defining composed examples in the story module at module scope.
+2. Add a colocated `.stories.tsx` file showing relevant states and interactions. For upstream primitives, add the story to `registry/familis/ui/<name>.stories.tsx`; standalone hooks and their stories live in `registry/familis/ui/hooks/`. Define composed examples in the story module at module scope.
 3. Add the item to the root `registry.json`. Declare every npm dependency and shadcn dependency. Bare dependency names refer to official shadcn items; use a GitHub address or configured namespace for other Familis items.
-4. Add its Storybook ID to the item's metadata. The catalog lists UI entries automatically; add a live preview in `src/routes/index.tsx` for a new Familis block.
+4. Add its Storybook ID to the item's metadata. The catalog lists UI and hook entries automatically; add a live preview in `src/routes/index.tsx` for a new Familis block.
 5. Run the registry build and validation commands below. Verify installation in a separate consuming project before publishing a release.
 
 The registry build cleans and generates `public/r/`, so removed items no longer have an installable payload. This directory is ignored by Git and rebuilt for development and production. Stories are documentation, and are intentionally excluded from installable payloads. Use `components/`, `hooks/`, and `lib/` subdirectories when a block needs multiple source files.

@@ -1631,6 +1631,51 @@
       }
     },
     {
+      "name": "use-debounce",
+      "type": "registry:hook",
+      "title": "Debounce",
+      "description": "Delay a value update until it has stopped changing for the specified duration.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-debounce.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-debounce--default"
+      }
+    },
+    {
+      "name": "use-idle",
+      "type": "registry:hook",
+      "title": "Idle",
+      "description": "Detect inactivity after the last mouse, keyboard, touch, scroll, or resize event.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-idle.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-idle--default"
+      }
+    },
+    {
+      "name": "use-long-press",
+      "type": "registry:hook",
+      "title": "Long press",
+      "description": "Mouse and touch long-press handlers with start, finish, cancellation, and timer cleanup.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-long-press.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-long-press--default"
+      }
+    },
+    {
       "name": "use-mobile",
       "type": "registry:hook",
       "title": "Mobile breakpoint",
@@ -1640,7 +1685,41 @@
           "path": "registry/familis/ui/hooks/use-mobile.ts",
           "type": "registry:hook"
         }
-      ]
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-mobile-breakpoint--default"
+      }
+    },
+    {
+      "name": "use-mobile-navigation",
+      "type": "registry:hook",
+      "title": "Mobile navigation cleanup",
+      "description": "A stable callback that clears inline body pointer-events after mobile navigation.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-mobile-navigation.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-mobile-navigation--default"
+      }
+    },
+    {
+      "name": "use-toast",
+      "type": "registry:hook",
+      "title": "Toast",
+      "description": "A portable re-export of Sonner's toast API. Render a Sonner Toaster to display notifications.",
+      "dependencies": ["sonner@^2.0.8"],
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-toast.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-toast--default"
+      }
     }
   ]
 }

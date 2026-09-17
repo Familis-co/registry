@@ -1,8 +1,8 @@
 import type { ComponentProps } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, within } from "storybook/test"
-import { Button } from "@/components/ui/button"
-import { Toast, ToastAction, ToastClose, toast, Toaster } from "@/components/ui/toast"
+import { Button } from "@/registry/familis/ui/button"
+import { Toast, ToastAction, ToastClose, toast, Toaster } from "@/registry/familis/ui/toast"
 
 const meta = {
   title: "UI/Toast",

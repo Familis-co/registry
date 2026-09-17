@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/registry/familis/ui/table"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const invoices = [
   {

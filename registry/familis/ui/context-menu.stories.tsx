@@ -13,7 +13,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu"
+} from "@/registry/familis/ui/context-menu"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {

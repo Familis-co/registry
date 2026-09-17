@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/registry/familis/ui/button"
+import { Input } from "@/registry/familis/ui/input"
+import { Label } from "@/registry/familis/ui/label"
 import {
   Sheet,
   SheetClose,
@@ -11,7 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/registry/familis/ui/sheet"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

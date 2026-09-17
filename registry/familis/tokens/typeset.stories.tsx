@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import { useEffect, useState } from "react"
 import { expect, userEvent, waitFor } from "storybook/test"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 
 /**
  * Applies shadcn Typeset rhythm to semantic HTML and rendered Markdown.

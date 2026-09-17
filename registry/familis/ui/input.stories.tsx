@@ -1,5 +1,5 @@
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import { Field, FieldDescription, FieldLabel } from "@/registry/familis/ui/field"
+import { Input } from "@/registry/familis/ui/input"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {

@@ -5,7 +5,7 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from "@/components/ui/input-group"
+} from "@/registry/familis/ui/input-group"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

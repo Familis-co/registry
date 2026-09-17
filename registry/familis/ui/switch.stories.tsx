@@ -1,5 +1,5 @@
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
+import { Label } from "@/registry/familis/ui/label"
+import { Switch } from "@/registry/familis/ui/switch"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

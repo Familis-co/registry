@@ -9,8 +9,12 @@ import {
   TagIcon,
   Trash2Icon,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "@/components/ui/button-group"
+import { Button } from "@/registry/familis/ui/button"
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from "@/registry/familis/ui/button-group"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +27,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/familis/ui/dropdown-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/familis/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/familis/ui/tabs"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

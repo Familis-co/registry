@@ -1,4 +1,9 @@
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/registry/familis/ui/input-otp"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

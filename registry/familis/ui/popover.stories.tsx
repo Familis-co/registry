@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/registry/familis/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@/registry/familis/ui/popover"
+import { Field, FieldGroup, FieldLabel } from "@/registry/familis/ui/field"
+import { Input } from "@/registry/familis/ui/input"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {

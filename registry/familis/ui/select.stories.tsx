@@ -7,7 +7,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/registry/familis/ui/select"
 import { expect, fn, within, waitFor } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const items = [

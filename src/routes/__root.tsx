@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router"
+import { ThemeProvider } from "next-themes"
+
 import stylesheet from "@/styles.css?url"
 
 export const Route = createRootRoute({
@@ -8,9 +10,10 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Familis Registry" },
+      { name: "robots", content: "noindex, nofollow" },
       {
         name: "description",
-        content: "Shared components and building blocks for Familis projects.",
+        content: "Reusable Base UI components, building blocks and design foundations for Familis.",
       },
     ],
     links: [{ rel: "stylesheet", href: stylesheet }],
@@ -26,12 +29,19 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

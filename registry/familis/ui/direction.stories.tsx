@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { DirectionProvider } from "@/components/ui/direction"
-import { Button } from "@/components/ui/button"
+import { DirectionProvider } from "@/registry/familis/ui/direction"
+import { Button } from "@/registry/familis/ui/button"
 import { ArrowRightIcon } from "lucide-react"
 
 const meta = {

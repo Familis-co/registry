@@ -1,4 +1,4 @@
-import { Progress, ProgressLabel, ProgressValue } from "@/components/ui/progress"
+import { Progress, ProgressLabel, ProgressValue } from "@/registry/familis/ui/progress"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

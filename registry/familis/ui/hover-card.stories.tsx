@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Button } from "@/registry/familis/ui/button"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/registry/familis/ui/hover-card"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

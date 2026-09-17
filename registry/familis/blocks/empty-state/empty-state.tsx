@@ -1,5 +1,5 @@
 import { FolderPlusIcon, type LucideIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 import {
   Empty,
   EmptyContent,
@@ -7,7 +7,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/components/ui/empty"
+} from "@/registry/familis/ui/empty"
 
 export interface EmptyStateProps {
   title: string

@@ -5,7 +5,7 @@ import {
   AvatarGroup,
   AvatarGroupCount,
   AvatarImage,
-} from "@/components/ui/avatar"
+} from "@/registry/familis/ui/avatar"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

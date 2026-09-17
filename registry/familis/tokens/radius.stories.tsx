@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/registry/familis/ui/table"
 
 type Radius = {
   name: string

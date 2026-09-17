@@ -8,8 +8,6 @@ import { defineConfig } from "vite"
 export default defineConfig({
   resolve: {
     alias: {
-      "@/components/ui": fileURLToPath(new URL("./registry/familis/ui", import.meta.url)),
-      "@/hooks": fileURLToPath(new URL("./registry/familis/ui/hooks", import.meta.url)),
       "@/registry": fileURLToPath(new URL("./registry", import.meta.url)),
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
@@ -20,6 +18,9 @@ export default defineConfig({
     nitro({
       preset: process.env.NITRO_PRESET,
       publicAssets: [{ baseURL: "/storybook", dir: "storybook-static" }],
+      routeRules: {
+        "/**": { headers: { "X-Robots-Tag": "noindex, nofollow" } },
+      },
       cloudflare: {
         wrangler: {
           name: "familis-registry",

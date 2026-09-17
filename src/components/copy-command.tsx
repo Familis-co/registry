@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { CheckIcon, CopyIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 
 export function CopyCommand({ command }: { command: string }) {
   const [status, setStatus] = useState("Copy command")

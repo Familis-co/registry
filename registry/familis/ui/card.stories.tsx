@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 import {
   Card,
   CardAction,
@@ -7,9 +7,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+} from "@/registry/familis/ui/card"
+import { Input } from "@/registry/familis/ui/input"
+import { Field, FieldGroup, FieldLabel } from "@/registry/familis/ui/field"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

@@ -1,5 +1,5 @@
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/registry/familis/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/registry/familis/ui/radio-group"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

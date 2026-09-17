@@ -12,7 +12,7 @@ import {
   QuestionnaireProgress,
   QuestionnaireSubmit,
   QuestionnaireTitle,
-} from "@/components/ui/questionnaire"
+} from "@/registry/familis/ui/questionnaire"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const items = [

@@ -1,6 +1,6 @@
 import { FolderCodeIcon } from "lucide-react"
 import { ArrowUpRightIcon } from "lucide-react"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/registry/familis/ui/button"
 import {
   Empty,
   EmptyContent,
@@ -8,7 +8,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@/components/ui/empty"
+} from "@/registry/familis/ui/empty"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

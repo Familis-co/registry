@@ -6,15 +6,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Button } from "@/components/ui/button"
+} from "@/registry/familis/ui/breadcrumb"
+import { Button } from "@/registry/familis/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/familis/ui/dropdown-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

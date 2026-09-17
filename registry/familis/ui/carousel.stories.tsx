@@ -4,7 +4,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/registry/familis/ui/carousel"
 import { expect, waitFor } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

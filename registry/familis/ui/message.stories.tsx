@@ -1,7 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/components/ui/bubble"
-import { Marker, MarkerContent } from "@/components/ui/marker"
-import { Message, MessageAvatar, MessageContent, MessageFooter } from "@/components/ui/message"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/familis/ui/avatar"
+import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/registry/familis/ui/bubble"
+import { Marker, MarkerContent } from "@/registry/familis/ui/marker"
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageFooter,
+} from "@/registry/familis/ui/message"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

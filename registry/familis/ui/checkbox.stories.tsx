@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/registry/familis/ui/checkbox"
 import {
   Field,
   FieldContent,
@@ -6,8 +6,8 @@ import {
   FieldGroup,
   FieldLabel,
   FieldTitle,
-} from "@/components/ui/field"
-import { Label } from "@/components/ui/label"
+} from "@/registry/familis/ui/field"
+import { Label } from "@/registry/familis/ui/label"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

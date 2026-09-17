@@ -1,5 +1,5 @@
 import { BadgeCheckIcon, ChevronRightIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 import {
   Item,
   ItemActions,
@@ -7,7 +7,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/components/ui/item"
+} from "@/registry/familis/ui/item"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {
   title: "UI/Item",

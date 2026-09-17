@@ -1,5 +1,5 @@
-import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item"
-import { Spinner } from "@/components/ui/spinner"
+import { Item, ItemContent, ItemMedia, ItemTitle } from "@/registry/familis/ui/item"
+import { Spinner } from "@/registry/familis/ui/spinner"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/registry/familis/ui/table"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import type { CSSProperties, ReactNode } from "react"
 
@@ -98,9 +98,10 @@ export const FontFamily: Story = {
   args: {
     key: "fontFamily",
     property: [
-      { name: "sans", value: "--font-sans" },
-      { name: "serif", value: "--font-serif" },
-      { name: "mono", value: "--font-mono" },
+      { name: "heading (Manrope)", value: "--font-heading" },
+      { name: "sans (Inter)", value: "--font-sans" },
+      { name: "serif (Source Serif 4)", value: "--font-serif" },
+      { name: "mono (JetBrains Mono)", value: "--font-mono" },
     ],
   },
 }

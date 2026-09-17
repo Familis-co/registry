@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import type * as React from "react"
 import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
-import { Toaster } from "@/components/ui/sonner"
+import { Button } from "@/registry/familis/ui/button"
+import { Toaster } from "@/registry/familis/ui/sonner"
 
 const meta = {
   title: "UI/Sonner",

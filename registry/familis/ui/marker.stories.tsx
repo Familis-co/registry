@@ -1,6 +1,6 @@
 import { GitBranchIcon, SearchIcon } from "lucide-react"
-import { Marker, MarkerContent, MarkerIcon } from "@/components/ui/marker"
-import { Spinner } from "@/components/ui/spinner"
+import { Marker, MarkerContent, MarkerIcon } from "@/registry/familis/ui/marker"
+import { Spinner } from "@/registry/familis/ui/spinner"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

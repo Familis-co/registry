@@ -9,8 +9,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/registry/familis/ui/alert-dialog"
+import { Button } from "@/registry/familis/ui/button"
 import { expect, fn, waitFor, within } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

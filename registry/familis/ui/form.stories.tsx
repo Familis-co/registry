@@ -1,9 +1,9 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn } from "storybook/test"
-import { Button } from "@/components/ui/button"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/registry/familis/ui/button"
+import { Field, FieldGroup, FieldLabel } from "@/registry/familis/ui/field"
+import { Input } from "@/registry/familis/ui/input"
 
 type FormStoryArgs = React.ComponentProps<typeof FieldGroup> & {
   onSubmit?: React.FormEventHandler<HTMLFormElement>

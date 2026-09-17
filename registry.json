@@ -4,28 +4,6 @@
   "homepage": "https://github.com/Familis-co/registry",
   "items": [
     {
-      "name": "project-card",
-      "type": "registry:block",
-      "title": "Project card",
-      "description": "A project summary with status and a navigation link. Works with any React router.",
-      "registryDependencies": [
-        "Familis-co/registry/button",
-        "Familis-co/registry/card",
-        "Familis-co/registry/badge"
-      ],
-      "dependencies": ["lucide-react@^1.46.0"],
-      "files": [
-        {
-          "path": "registry/familis/blocks/project-card/project-card.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "meta": {
-        "base": "base",
-        "storybookId": "ui-blocks-project-card--active"
-      }
-    },
-    {
       "name": "empty-state",
       "type": "registry:block",
       "title": "Empty state",
@@ -41,6 +19,88 @@
       "meta": {
         "base": "base",
         "storybookId": "ui-blocks-empty-state--default"
+      }
+    },
+    {
+      "name": "metric-card",
+      "type": "registry:block",
+      "title": "Metric card",
+      "description": "A dashboard metric with a caller-formatted value, trend comparison and optional footer.",
+      "registryDependencies": ["Familis-co/registry/card", "Familis-co/registry/badge"],
+      "dependencies": ["lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/metric-card/metric-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-metric-card--default"
+      }
+    },
+    {
+      "name": "settings-panel",
+      "type": "registry:block",
+      "title": "Settings panel",
+      "description": "A controlled preference panel with labelled switches, per-option disabled states and optional footer actions.",
+      "registryDependencies": [
+        "Familis-co/registry/card",
+        "Familis-co/registry/field",
+        "Familis-co/registry/switch"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/blocks/settings-panel/settings-panel.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-settings-panel--default"
+      }
+    },
+    {
+      "name": "search-toolbar",
+      "type": "registry:block",
+      "title": "Search toolbar",
+      "description": "A controlled search field with clear and focus restoration, loading state, result announcement and action slots.",
+      "registryDependencies": [
+        "Familis-co/registry/field",
+        "Familis-co/registry/input-group",
+        "Familis-co/registry/spinner"
+      ],
+      "dependencies": ["cn@^0.3.0", "lucide-react@^1.46.0"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/search-toolbar/search-toolbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-search-toolbar--default"
+      }
+    },
+    {
+      "name": "confirmation-dialog",
+      "type": "registry:block",
+      "title": "Confirmation dialog",
+      "description": "An accessible action confirmation with async progress, duplicate submission protection and retry after failure.",
+      "registryDependencies": [
+        "Familis-co/registry/alert",
+        "Familis-co/registry/alert-dialog",
+        "Familis-co/registry/spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/blocks/confirmation-dialog/confirmation-dialog.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-confirmation-dialog--default"
       }
     },
     {

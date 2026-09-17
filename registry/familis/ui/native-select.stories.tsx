@@ -2,7 +2,7 @@ import {
   NativeSelect,
   NativeSelectOptGroup,
   NativeSelectOption,
-} from "@/components/ui/native-select"
+} from "@/registry/familis/ui/native-select"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

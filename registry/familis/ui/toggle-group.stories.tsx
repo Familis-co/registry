@@ -1,5 +1,5 @@
 import { Bold, Italic, Underline } from "lucide-react"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "@/registry/familis/ui/toggle-group"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

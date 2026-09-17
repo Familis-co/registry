@@ -8,8 +8,8 @@ import {
   AttachmentGroup,
   AttachmentMedia,
   AttachmentTitle,
-} from "@/components/ui/attachment"
-import { Spinner } from "@/components/ui/spinner"
+} from "@/registry/familis/ui/attachment"
+import { Spinner } from "@/registry/familis/ui/spinner"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const images = [

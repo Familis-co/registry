@@ -1,4 +1,4 @@
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/registry/familis/ui/textarea"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

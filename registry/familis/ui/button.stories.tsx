@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn } from "storybook/test"
 import { PlusIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Spinner } from "@/components/ui/spinner"
+import { Button } from "@/registry/familis/ui/button"
+import { Spinner } from "@/registry/familis/ui/spinner"
 const meta = {
   title: "UI/Button",
   component: Button,

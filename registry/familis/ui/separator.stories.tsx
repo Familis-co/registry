@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/registry/familis/ui/separator"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

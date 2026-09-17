@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "@/registry/familis/ui/calendar"
 import type { OnSelectHandler } from "react-day-picker"
 import { useArgs } from "storybook/preview-api"
 import { fn } from "storybook/test"

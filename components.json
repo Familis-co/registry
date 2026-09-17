@@ -15,9 +15,9 @@
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
-    "ui": "@/components/ui",
+    "ui": "@/registry/familis/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks"
+    "hooks": "@/registry/familis/ui/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle",

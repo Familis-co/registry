@@ -1,6 +1,6 @@
 import * as React from "react"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
+import { ScrollArea } from "@/registry/familis/ui/scroll-area"
+import { Separator } from "@/registry/familis/ui/separator"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 

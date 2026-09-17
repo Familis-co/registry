@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/registry/familis/ui/skeleton"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

@@ -1,4 +1,4 @@
-import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/components/ui/bubble"
+import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@/registry/familis/ui/bubble"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

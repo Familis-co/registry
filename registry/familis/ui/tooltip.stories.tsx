@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { Button } from "@/registry/familis/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/familis/ui/tooltip"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

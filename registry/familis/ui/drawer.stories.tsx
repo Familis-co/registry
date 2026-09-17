@@ -1,8 +1,8 @@
 import * as React from "react"
 import { useArgs } from "storybook/preview-api"
-import { toast, Toaster } from "@/components/ui/toast"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { toast, Toaster } from "@/registry/familis/ui/toast"
+import { Badge } from "@/registry/familis/ui/badge"
+import { Button } from "@/registry/familis/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -12,15 +12,15 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/registry/familis/ui/drawer"
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldLabel,
   FieldTitle,
-} from "@/components/ui/field"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+} from "@/registry/familis/ui/field"
+import { RadioGroup, RadioGroupItem } from "@/registry/familis/ui/radio-group"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const deliveryTimes = [

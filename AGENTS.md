@@ -2,7 +2,7 @@
 
 Use English for code, documentation, branches, commits, and pull requests. Follow Conventional Commits.
 
-For the registry authoring workflow and validation commands, read the "Adding components" and "Validation" sections in README.md. Registry files are installed into other projects: keep their imports and dependencies self-contained, and verify installation in a separate consuming project when changing payloads.
+For the registry authoring workflow and validation commands, read the "Adding components" and "Validation" sections in README.md. Registry files are installed into other projects: use `@/registry` for internal source imports, keep their dependencies self-contained, and verify installation in a separate consuming project when changing payloads.
 
 Use shadcn's CLI to install upstream primitives and fetch current component documentation before composing them. Match the Base UI APIs configured in components.json. Use semantic Tailwind tokens, component variants for appearance, and className for layout.
 

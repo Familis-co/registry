@@ -1,4 +1,4 @@
-import { Kbd, KbdGroup } from "@/components/ui/kbd"
+import { Kbd, KbdGroup } from "@/registry/familis/ui/kbd"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {
   title: "UI/Kbd",

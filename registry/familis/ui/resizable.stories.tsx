@@ -1,4 +1,8 @@
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/registry/familis/ui/resizable"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

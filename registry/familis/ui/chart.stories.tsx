@@ -6,7 +6,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/registry/familis/ui/chart"
 
 const meta = {
   title: "UI/Chart",

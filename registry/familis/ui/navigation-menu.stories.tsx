@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/registry/familis/ui/navigation-menu"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const components: { title: string; href: string; description: string }[] = [

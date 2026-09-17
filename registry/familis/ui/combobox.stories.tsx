@@ -6,7 +6,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@/components/ui/combobox"
+} from "@/registry/familis/ui/combobox"
 import { fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const frameworks = ["TanStack Start", "SvelteKit", "Nuxt.js", "Remix", "Astro"]

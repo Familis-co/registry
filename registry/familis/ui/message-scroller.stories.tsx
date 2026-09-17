@@ -1,9 +1,9 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect } from "storybook/test"
-import { Button } from "@/components/ui/button"
-import { Message, MessageContent } from "@/components/ui/message"
-import { Bubble, BubbleContent } from "@/components/ui/bubble"
+import { Button } from "@/registry/familis/ui/button"
+import { Message, MessageContent } from "@/registry/familis/ui/message"
+import { Bubble, BubbleContent } from "@/registry/familis/ui/bubble"
 import {
   MessageScrollerProvider,
   MessageScroller,
@@ -11,7 +11,7 @@ import {
   MessageScrollerContent,
   MessageScrollerItem,
   MessageScrollerButton,
-} from "@/components/ui/message-scroller"
+} from "@/registry/familis/ui/message-scroller"
 
 const meta = {
   title: "UI/Message Scroller",

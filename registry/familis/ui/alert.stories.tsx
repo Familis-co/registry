@@ -1,6 +1,6 @@
 import { AlertCircleIcon, CheckCircle2Icon, InfoIcon } from "lucide-react"
-import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
+import { Alert, AlertAction, AlertDescription, AlertTitle } from "@/registry/familis/ui/alert"
+import { Button } from "@/registry/familis/ui/button"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

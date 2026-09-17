@@ -1,0 +1,3 @@
+# Allow crawlers to read the noindex meta tags and X-Robots-Tag response headers.
+User-agent: *
+Allow: /

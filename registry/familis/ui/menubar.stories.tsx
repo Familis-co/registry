@@ -13,7 +13,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/components/ui/menubar"
+} from "@/registry/familis/ui/menubar"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const meta = {
   title: "UI/Menubar",

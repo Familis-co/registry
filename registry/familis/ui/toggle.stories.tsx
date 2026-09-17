@@ -1,5 +1,5 @@
 import { BookmarkIcon } from "lucide-react"
-import { Toggle } from "@/components/ui/toggle"
+import { Toggle } from "@/registry/familis/ui/toggle"
 import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 

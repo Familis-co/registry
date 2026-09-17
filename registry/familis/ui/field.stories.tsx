@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/registry/familis/ui/button"
+import { Checkbox } from "@/registry/familis/ui/checkbox"
 import {
   Field,
   FieldContent,
@@ -11,8 +11,8 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+} from "@/registry/familis/ui/field"
+import { Input } from "@/registry/familis/ui/input"
 import {
   Select,
   SelectContent,
@@ -20,8 +20,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/registry/familis/ui/select"
+import { Textarea } from "@/registry/familis/ui/textarea"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 const months = [
   { label: "MM", value: null },

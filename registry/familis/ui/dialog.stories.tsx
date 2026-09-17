@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/familis/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+} from "@/registry/familis/ui/dialog"
+import { Field, FieldGroup, FieldLabel } from "@/registry/familis/ui/field"
+import { Input } from "@/registry/familis/ui/input"
 import { useState } from "react"
 import { expect, fn, within, waitFor } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"

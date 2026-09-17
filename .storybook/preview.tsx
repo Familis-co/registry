@@ -4,7 +4,7 @@ import { withThemeByClassName } from "@storybook/addon-themes"
 import type { Preview } from "@storybook/react-vite"
 import { useLayoutEffect, type ReactNode } from "react"
 
-import { TooltipProvider } from "@/components/ui/tooltip"
+import { TooltipProvider } from "@/registry/familis/ui/tooltip"
 
 function ThemeCanvas({
   theme,

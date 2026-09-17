@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/registry/familis/ui/checkbox"
+import { Label } from "@/registry/familis/ui/label"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {

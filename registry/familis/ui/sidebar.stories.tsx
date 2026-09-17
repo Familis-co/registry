@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/registry/familis/ui/sidebar"
 
 const meta = {
   title: "UI/Sidebar",

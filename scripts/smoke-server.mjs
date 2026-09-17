@@ -40,15 +40,9 @@ try {
   assert.match(html, /Familis/)
   assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex, nofollow"/)
   assert.match(html, /<svg\b[^>]*data-slot="familis-logo"/)
-  for (const name of ["logo.svg", "logo-white.svg"]) {
-    const logo = await fetch(`${origin}/assets/${name}`)
-    assert.equal(logo.status, 200)
-    assert.match(logo.headers.get("content-type"), /image\/svg\+xml/)
-    assertNoIndex(logo)
-    assert.equal(await logo.text(), await readFile(`public/assets/${name}`, "utf8"))
-  }
   const robots = await fetch(`${origin}/robots.txt`)
   assert.equal(robots.status, 200)
+  assertNoIndex(robots)
   assert.match(await robots.text(), /User-agent: \*\s+Allow: \//)
   const source = JSON.parse(await readFile("registry.json", "utf8"))
   const catalog = await fetch(`${origin}/r/registry.json`)
@@ -77,7 +71,7 @@ try {
   const removed = await fetch(`${origin}/r/project-card.json`)
   assert.equal(removed.status, 404, "Removed blocks must no longer be served")
   console.log(
-    "Production SSR, logos, noindex, registry payloads, Storybook, health, and 404 passed.",
+    "Production SSR, logo, noindex, registry payloads, Storybook, health, and 404 passed.",
   )
 } finally {
   if (!exited) {

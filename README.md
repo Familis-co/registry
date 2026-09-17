@@ -34,7 +34,7 @@ The reusable blocks include:
 
 Typography uses **Manrope** for headings, **Inter** for body and UI content, **JetBrains Mono** for code and commands, and **Source Serif 4** for optional editorial content. Variable fonts are bundled locally through Fontsource, including Inter and Source Serif 4 italics. The shared Tailwind tokens are `font-heading`, `font-sans`, `font-mono`, and `font-serif`; semantic HTML headings use Manrope automatically, and `code`, `kbd`, `samp` and `pre` use JetBrains Mono. The [Familis style](#apply-the-familis-style) installs the same palette, fonts and rules in other projects.
 
-The homepage includes interactive block previews, font and palette samples, and a searchable UI catalog. Its theme follows the system preference until a choice is saved locally. The header uses the `Logo` component, which follows the light and dark themes. The blue and white SVG files in `public/assets/` remain available outside React.
+The homepage includes interactive block previews, font and palette samples, and a searchable UI catalog. Its theme follows the system preference until a choice is saved locally. The header uses the `Logo` component, which follows the light and dark themes.
 
 All authored registry content lives under `registry/familis/`, grouped by concern:
 

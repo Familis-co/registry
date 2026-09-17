@@ -1,6 +1,6 @@
 # Familis Registry
 
-Shared React components and building blocks for Familis projects, distributed as source through the shadcn registry protocol.
+Shared React components, building blocks and brand foundations for Familis projects, distributed as source through the shadcn registry protocol. One command gives a project the Familis colors, fonts and logo.
 
 The catalog runs on **TanStack Start** and **Nitro**. Components use **shadcn/ui with Base UI** and **Tailwind CSS v4**, with **Storybook** for documentation, interaction tests, and accessibility checks. **Oxfmt** and **Oxlint** handle formatting and linting, with the new **@shadcn/lint** plugin registered.
 
@@ -21,7 +21,7 @@ pnpm storybook
 
 Storybook runs at http://localhost:6006 with light and dark theme controls. Its navigation has two sections:
 
-- **Design**: Color, Radius, Typography, Spacing, and Shadow, using the actual CSS tokens.
+- **Design**: Logo, Color, Radius, Typography, Spacing, and Shadow, using the actual CSS tokens.
 - **UI**: every available Base UI component, with Familis compositions under **UI / Blocks**.
 
 The reusable blocks include:
@@ -32,15 +32,16 @@ The reusable blocks include:
 - **Search toolbar**: controlled search, clear and focus restoration, loading indicator, result announcement and action slots.
 - **Confirmation dialog**: asynchronous confirmation with pending state, duplicate submission protection and retry after failure. Supports controlled or internal open state.
 
-Typography uses **Manrope** for headings, **Inter** for body and UI content, **JetBrains Mono** for code and commands, and **Source Serif 4** for optional editorial content. Variable fonts are bundled locally through Fontsource, including Inter and Source Serif 4 italics. The shared Tailwind tokens are `font-heading`, `font-sans`, `font-mono`, and `font-serif`; semantic HTML headings use Manrope automatically.
+Typography uses **Manrope** for headings, **Inter** for body and UI content, **JetBrains Mono** for code and commands, and **Source Serif 4** for optional editorial content. Variable fonts are bundled locally through Fontsource, including Inter and Source Serif 4 italics. The shared Tailwind tokens are `font-heading`, `font-sans`, `font-mono`, and `font-serif`; semantic HTML headings use Manrope automatically, and `code`, `kbd`, `samp` and `pre` use JetBrains Mono. The [Familis style](#apply-the-familis-style) installs the same palette, fonts and rules in other projects.
 
-The homepage includes interactive block previews, font and palette samples, and a searchable UI catalog. Its theme follows the system preference until a choice is saved locally. The blue and white logos in `public/assets/` follow the light and dark themes.
+The homepage includes interactive block previews, font and palette samples, and a searchable UI catalog. Its theme follows the system preference until a choice is saved locally. The header uses the `Logo` component, which follows the light and dark themes. The blue and white SVG files in `public/assets/` remain available outside React.
 
 All authored registry content lives under `registry/familis/`, grouped by concern:
 
 ```text
 registry/familis/
   blocks/           # Familis compositions and their colocated stories
+  brand/            # Familis logo and its stories
   ui/               # Upstream primitives and their stories
     hooks/          # Shared UI hooks
   tokens/           # Shared CSS tokens and their stories
@@ -68,17 +69,42 @@ By default, updates stay within the declared version ranges and pinned dependenc
 
 ## Using the registry
 
-### Directly from GitHub
+### Apply the Familis style
 
-Initialize a consuming React project with shadcn, choosing **Base UI**. For a new TanStack Start project:
+Create a new TanStack Start project with the Familis style:
 
 ```sh
-pnpm dlx shadcn@latest init --template start --preset nova --base base
+pnpm dlx shadcn@latest init --template start --base base Familis-co/registry/familis
 ```
+
+In an existing project already initialized with shadcn and **Base UI**, apply it instead:
+
+```sh
+pnpm dlx shadcn@latest add Familis-co/registry/familis
+```
+
+`familis` is a `registry:base` item. It installs:
+
+- **Colors**: the Familis palette for the light and dark themes, including chart and sidebar colors, and the radius.
+- **Fonts**:
+  - Inter for the document (`font-sans`)
+  - Manrope for `h1` to `h6` (`font-heading`)
+  - JetBrains Mono for `code`, `kbd`, `samp` and `pre` (`font-mono`)
+  - Source Serif 4 wherever `font-serif` is used
+  - italics for Inter and Source Serif 4
+- **Logo**: the `Logo` component with `wordmark` and `symbol` variants, in Familis blue in the light theme and the foreground color in the dark theme.
+- **Configuration**: with `init`, the `base-nova` style and Lucide icons in `components.json`, so later upstream components also use Base UI.
+
+The fonts are `registry:font` items (`font-inter`, `font-manrope`, `font-jetbrains-mono`) that can also be installed on their own. In Next.js, the CLI loads them with `next/font` in the root layout. Other frameworks get self-hosted Fontsource packages. Source Serif 4 is loaded by the style itself because shadcn applies a font without a selector to the whole document, and serif text is opt-in.
+
+Applying the style to an existing project overwrites its theme variables. The CLI does not remove the previous font: delete its `@import` and dependency (for example Geist) afterwards.
+
+### Directly from GitHub
 
 Install a Familis component from this public repository:
 
 ```sh
+pnpm dlx shadcn@latest add Familis-co/registry/logo
 pnpm dlx shadcn@latest add Familis-co/registry/metric-card
 pnpm dlx shadcn@latest add Familis-co/registry/settings-panel
 pnpm dlx shadcn@latest add Familis-co/registry/search-toolbar
@@ -118,6 +144,12 @@ pnpm dlx shadcn@latest view http://localhost:3000/r/metric-card.json
 
 The registry build cleans and generates `public/r/`, so removed items no longer have an installable payload. This directory is ignored by Git and rebuilt for development and production. Stories are documentation, and are intentionally excluded from installable payloads. Use `components/`, `hooks/`, and `lib/` subdirectories when a block needs multiple source files.
 
+### Changing brand foundations
+
+The app stylesheet `src/styles.css` and the `familis` and `font-*` items in `registry.json` describe the same brand. Change them together: `pnpm registry:check` fails when the colors, font families, Fontsource imports or font rules differ. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
+
+Give each new font item a `selector` unless it is the document font. The CLI combines selector-less fonts into a single `@apply` on `html`, where Tailwind keeps the alphabetically last utility, so a second one would replace Inter everywhere. When a font item imports extra CSS, such as italics, list that package in its `dependencies` as well: Next.js projects do not install `font.dependency` because they use `next/font`.
+
 ## Validation
 
 ```sh
@@ -129,7 +161,7 @@ pnpm test:stories
 node scripts/smoke-server.mjs
 ```
 
-`pnpm check` checks formatting, lint, TypeScript, and that built registry payloads match their source. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`.
+`pnpm check` checks formatting, lint, TypeScript, that built registry payloads match their source, and that the Familis style matches the app stylesheet. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`.
 
 For source changes, use `pnpm format` and `pnpm lint:fix` before validation.
 

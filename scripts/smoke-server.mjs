@@ -39,8 +39,7 @@ try {
   const html = await page.text()
   assert.match(html, /Familis/)
   assert.match(html, /<meta\b[^>]*name="robots"[^>]*content="noindex, nofollow"/)
-  assert.match(html, /\/assets\/logo\.svg/)
-  assert.match(html, /\/assets\/logo-white\.svg/)
+  assert.match(html, /<svg\b[^>]*data-slot="familis-logo"/)
   for (const name of ["logo.svg", "logo-white.svg"]) {
     const logo = await fetch(`${origin}/assets/${name}`)
     assert.equal(logo.status, 200)
@@ -63,7 +62,7 @@ try {
     assert.match(response.headers.get("content-type"), /application\/json/)
     const payload = await response.json()
     assert.equal(payload.name, item.name)
-    assert.ok(payload.files.every((file) => file.content.length > 0))
+    assert.ok((payload.files ?? []).every((file) => file.content.length > 0))
   }
   const storybook = await fetch(`${origin}/storybook/`)
   assert.equal(storybook.status, 200)

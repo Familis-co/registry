@@ -1,4 +1,5 @@
 import { CopyCommand } from "@/components/copy-command"
+import { Logo } from "@/registry/familis/brand/logo"
 import { ConfirmationDialog } from "@/registry/familis/blocks/confirmation-dialog/confirmation-dialog"
 import { EmptyState } from "@/registry/familis/blocks/empty-state/empty-state"
 import { MetricCard } from "@/registry/familis/blocks/metric-card/metric-card"
@@ -316,8 +317,20 @@ function DesignFoundations() {
         </div>
         <p className="text-sm text-muted-foreground">Brand color and chart palette</p>
       </div>
+      <Card className="max-w-2xl">
+        <CardHeader>
+          <CardTitle>Apply the brand to an existing project</CardTitle>
+          <CardDescription>
+            In a project already using shadcn with Base UI, the style replaces the theme colors and
+            fonts, and adds the Familis logo component.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CopyCommand command="pnpm dlx shadcn@latest add Familis-co/registry/familis" />
+        </CardContent>
+      </Card>
       <div className="flex flex-wrap gap-2">
-        {["Color", "Radius", "Typography", "Spacing", "Shadow", "Typeset"].map((name) =>
+        {["Logo", "Color", "Radius", "Typography", "Spacing", "Shadow", "Typeset"].map((name) =>
           storybookUrl ? (
             <a
               key={name}
@@ -414,20 +427,7 @@ function RouteComponent() {
       </a>
       <header className="flex flex-wrap items-center justify-between gap-4 py-6">
         <a href="/" aria-label="Familis Registry home">
-          <img
-            src="/assets/logo.svg"
-            alt=""
-            width={850}
-            height={216}
-            className="h-8 w-auto dark:hidden"
-          />
-          <img
-            src="/assets/logo-white.svg"
-            alt=""
-            width={850}
-            height={216}
-            className="hidden h-8 w-auto dark:block"
-          />
+          <Logo aria-hidden="true" />
         </a>
         <nav aria-label="Main navigation" className="flex items-center gap-2">
           <a
@@ -480,14 +480,14 @@ function RouteComponent() {
           </div>
           <Card id="installation">
             <CardHeader>
-              <CardTitle>Start with a building block</CardTitle>
+              <CardTitle>Start with the Familis style</CardTitle>
               <CardDescription>
-                Use a React project initialized with shadcn and Base UI. The CLI adds the block and
-                its shared components.
+                Create a TanStack Start project with the Familis colors, fonts and logo, then add
+                blocks and components.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <CopyCommand command="pnpm dlx shadcn@latest add Familis-co/registry/metric-card" />
+              <CopyCommand command="pnpm dlx shadcn@latest init --template start --base base Familis-co/registry/familis" />
             </CardContent>
             <CardFooter>
               <a

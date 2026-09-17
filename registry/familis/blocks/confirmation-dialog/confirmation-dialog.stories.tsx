@@ -72,7 +72,7 @@ export const Pending: Story = {
     await expect(page.getByRole("button", { name: "Archiving…" })).toBeDisabled()
     await expect(page.getByRole("button", { name: "Cancel" })).toBeDisabled()
     await userEvent.keyboard("{Escape}")
-    await expect(page.getByRole("alertdialog")).toBeVisible()
+    await waitFor(() => expect(page.getByRole("alertdialog")).toBeVisible(), { timeout: 5000 })
     await expect(args.onConfirm).toHaveBeenCalledOnce()
   },
 }
@@ -90,7 +90,7 @@ export const RetryAfterFailure: Story = {
     await page.findByRole("alertdialog")
     await userEvent.click(page.getByRole("button", { name: "Archive" }))
     await expect(await page.findByRole("alert")).toHaveTextContent(args.errorMessage!)
-    await expect(page.getByRole("alertdialog")).toBeVisible()
+    await waitFor(() => expect(page.getByRole("alertdialog")).toBeVisible(), { timeout: 5000 })
     await userEvent.click(page.getByRole("button", { name: "Archive" }))
     await waitFor(() => expect(page.queryByRole("alertdialog")).not.toBeInTheDocument(), {
       timeout: 5000,

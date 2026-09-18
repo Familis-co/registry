@@ -1,3 +1,10 @@
+import { SortableDataTable } from "@/registry/familis/blocks/sortable-data-table/sortable-data-table"
+import { Heading } from "@/registry/familis/blocks/heading/heading"
+import { DataTable } from "@/registry/familis/blocks/data-table/data-table"
+import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import { createColumnHelper } from "@tanstack/react-table"
+import { InputPhone } from "@/registry/familis/ui/input-phone"
+import { Field, FieldLabel } from "@/registry/familis/ui/field"
 import { CopyCommand } from "@/components/copy-command"
 import { Logo } from "@/registry/familis/brand/logo"
 import { ConfirmationDialog } from "@/registry/familis/blocks/confirmation-dialog/confirmation-dialog"
@@ -147,8 +154,61 @@ function ConfirmationDialogPreview() {
   )
 }
 
+const familyColumns = createColumnHelper<DataTableFeatures, { name: string }>()
+const previewColumns = familyColumns.columns([
+  familyColumns.accessor("name", {
+    header: "Name",
+    sortFn: "text",
+    filterFn: "includesString",
+  }),
+])
+const previewRows = previewFamilies.map((name) => ({ name }))
+
+function SortableDataTablePreview() {
+  const [data, setData] = useState(previewRows)
+  return (
+    <SortableDataTable
+      label="Reorder families"
+      columns={previewColumns}
+      data={data}
+      getRowId={(row) => row.name}
+      onDataChange={setData}
+      pageSize={3}
+    />
+  )
+}
+
+function InputPhonePreview() {
+  const [value, setValue] = useState("")
+  return (
+    <Field className="w-full max-w-sm">
+      <FieldLabel htmlFor="preview-phone">Phone number</FieldLabel>
+      <InputPhone id="preview-phone" value={value} onChange={setValue} defaultCountry="BE" />
+    </Field>
+  )
+}
+
 function BlockPreview({ name }: { name: string }) {
   switch (name) {
+    case "sortable-data-table":
+      return <SortableDataTablePreview />
+    case "heading":
+      return (
+        <Heading title="Families" description="Manage the families you support." variant="small">
+          <Button size="sm">Add family</Button>
+        </Heading>
+      )
+    case "data-table":
+      return (
+        <DataTable
+          label="Families"
+          columns={previewColumns}
+          data={previewRows}
+          filterColumn="name"
+          filterLabel="Search families"
+          pageSize={2}
+        />
+      )
     case "empty-state":
       return <EmptyStatePreview />
     case "metric-card":
@@ -516,6 +576,13 @@ function RouteComponent() {
         </section>
         <BuildingBlocks />
         <DesignFoundations />
+        <section aria-labelledby="phone-title" className="flex flex-col gap-4">
+          <h2 id="phone-title" className="text-2xl font-semibold tracking-tight">
+            Phone input
+          </h2>
+          <InputPhonePreview />
+          <CopyCommand command="pnpm dlx shadcn@latest add Familis-co/registry/input-phone" />
+        </section>
         <RegistryCatalog type="ui" />
         <RegistryCatalog type="hooks" />
       </main>

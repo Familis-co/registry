@@ -26,6 +26,9 @@ Storybook runs at http://localhost:6006 with light and dark theme controls. Its 
 
 The reusable blocks include:
 
+- **Data table**: composable TanStack Table v9 content, toolbar, sortable headers and pagination with filtering, column visibility and row selection.
+- **Sortable data table**: optional controlled row reordering with mouse, touch, keyboard activation and cancellation.
+- **Heading**: page (`h1`) or section (`h2`) title, optional description and action slot.
 - **Empty state**: an explanation, optional icon and action for empty screens.
 - **Metric card**: a formatted dashboard value, comparison trend and optional footer.
 - **Settings panel**: controlled boolean preferences with labels, descriptions and disabled states.
@@ -110,6 +113,10 @@ pnpm dlx shadcn@latest add Familis-co/registry/settings-panel
 pnpm dlx shadcn@latest add Familis-co/registry/search-toolbar
 pnpm dlx shadcn@latest add Familis-co/registry/confirmation-dialog
 pnpm dlx shadcn@latest add Familis-co/registry/empty-state
+pnpm dlx shadcn@latest add Familis-co/registry/data-table
+pnpm dlx shadcn@latest add Familis-co/registry/input-phone
+pnpm dlx shadcn@latest add Familis-co/registry/heading
+pnpm dlx shadcn@latest add Familis-co/registry/sortable-data-table
 pnpm dlx shadcn@latest add Familis-co/registry/button
 pnpm dlx shadcn@latest add Familis-co/registry/dialog
 ```
@@ -132,6 +139,88 @@ Replace the local origin with the registry's deployed public origin for shared u
 ```sh
 pnpm dlx shadcn@latest list http://localhost:3000/r/registry.json
 pnpm dlx shadcn@latest view http://localhost:3000/r/metric-card.json
+```
+
+### Data tables and phone numbers
+
+`data-table` exports `DataTable`, with column definitions typed against the exported
+`DataTableFeatures` from `data-table-features.ts`. Define columns with
+`createColumnHelper<DataTableFeatures, YourRow>()` and `helper.columns([...])`.
+Pass `columns`, `data`, and an accessible `label`. Set `filterColumn` to a column ID
+with `filterFn: "includesString"`; sortable columns can use `sortFn: "text"`,
+`"alphanumeric"`, or `"basic"`. Use `enableSelection`, a stable `getRowId`, and
+`onSelectionChange` to receive a map of selected row IDs. Pagination and filtering
+run on the supplied data in the browser. Custom cells can contain row actions.
+
+For custom compositions, `useDataTable` accepts TanStack options and returns the
+instance for `DataTableView`, `DataTableContent`, `DataTableToolbar`, and
+`DataTablePagination`. These components are exported from their individual files.
+`DataTableColumnHeader` adds sorting to custom column headers; custom headers are
+rendered unchanged, so their buttons are never nested inside another button.
+`DataTable` and `DataTableView` accept `toolbar` and `pagination` slots, either
+React nodes or functions of the table instance; `null` hides that slot. The toolbar
+also accepts children for filters, bulk actions, or other controls. `renderRow` and
+`wrapRows` allow custom row rendering and context providers; `DataTableRow` renders
+shared selection and cells and accepts native row props, a ref, and `leadingCell`.
+Use `leadingHeader` to pair a leading cell with a header. Keep data and
+column definitions stable between renders.
+
+For server data, use `useDataTable` with `manualPagination`, `rowCount`, controlled
+`state.pagination`, and `onPaginationChange`. Fetch the requested page in the
+consuming app. `manualSorting` and `manualFiltering` can likewise delegate work to
+the server. Storybook includes compositions, controlled server pagination, editable cells,
+row details and tabs. Custom cells and slots keep these concerns in the consuming
+app instead of coupling them to a fixed record schema.
+
+Install `sortable-data-table` for the optional dnd-kit integration. `SortableDataTable`
+requires stable, unique string IDs through `getRowId`, controlled `data`, and
+`onDataChange`. Reordering works within the visible page and emits the entire
+reordered data array. It is disabled while sorting or filters are active, so visual
+order cannot conflict with source order. The parent persists changes. Keyboard
+users focus a handle, press Space, use arrow keys, then press Space to commit or
+Escape to cancel. The base `data-table` item does not install dnd-kit.
+
+`heading` exports `Heading`: `default` renders `h1`, `small` renders `h2`, and
+`children` supplies actions. It accepts native header props and layout `className`.
+The parent controls vertical spacing with `gap`; the heading has no implicit margin.
+
+`input-phone` exports the controlled `InputPhone` component. Pass `value` and
+`onChange`, then associate it with a `FieldLabel` through `id`. It defaults to Belgium;
+configure `defaultCountry`, `countries`, `labels`, and `countryLabel` as needed.
+The callback returns an E.164 string (for example `+32470123456`) or `""` when cleared.
+Partial numbers are emitted too: validate with `isValidPhoneNumber` from
+`react-phone-number-input` before submission. Native input props, including `name`,
+`required`, `disabled`, `readOnly`, `aria-invalid`, and an input ref, are supported.
+
+### Remote pagination adapter
+
+`use-remote-data-table` exports `useRemoteDataTable`, independently of the table block.
+It converts `{ metadata: { total, perPage, currentPage, lastPage } }` into controlled
+TanStack options. Metadata can contain numeric strings. `current: { page, perPage }`
+takes priority over response metadata while a request is in flight. `visit` receives
+1-based pages; changing the page size requests page 1, and unchanged pagination
+does not request again. Invalid numeric metadata falls back to safe defaults.
+
+```tsx
+const remote = useRemoteDataTable({
+  data: response,
+  current: { page, perPage },
+  visit: ({ page, perPage }) => updateQuery({ page, perPage }),
+  sorting: { state: sorting, onChange: handleSortingChange },
+})
+const table = useDataTable({ columns, data: response?.data ?? [], ...remote })
+return <DataTableView table={table} label="Families" loading={isFetching} />
+```
+
+The caller owns fetching, URL/query state, and any reset/refetch after sorting.
+The adapter enables manual pagination and sorting; without a sorting handler,
+headers are not sortable. It exposes the total row count for the pagination footer
+and keeps the requested page within the reported page count. Merge additional
+controlled slices into `state` when supplying selection or filters. Remote filters
+remain the caller's concern; set `manualFiltering` when the server handles them.
+
+```sh
+pnpm dlx shadcn@latest add Familis-co/registry/use-remote-data-table
 ```
 
 ### Installing hooks

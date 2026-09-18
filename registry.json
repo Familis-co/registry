@@ -1720,6 +1720,127 @@
       "meta": {
         "storybookId": "ui-hooks-toast--default"
       }
+    },
+    {
+      "name": "data-table",
+      "type": "registry:block",
+      "title": "Data table",
+      "description": "A generic TanStack Table with sorting, filtering, column visibility, pagination and optional row selection.",
+      "dependencies": ["@tanstack/react-table@^9.2.4", "cn@^0.3.0", "lucide-react@^1.46.0"],
+      "registryDependencies": [
+        "Familis-co/registry/button",
+        "Familis-co/registry/checkbox",
+        "Familis-co/registry/input",
+        "Familis-co/registry/native-select",
+        "Familis-co/registry/dropdown-menu",
+        "Familis-co/registry/table"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/blocks/data-table/data-table-column-header.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/familis/blocks/data-table/data-table-content.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/familis/blocks/data-table/data-table-features.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/familis/blocks/data-table/data-table-pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/familis/blocks/data-table/data-table-toolbar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/familis/blocks/data-table/data-table.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-data-table--default"
+      }
+    },
+    {
+      "name": "input-phone",
+      "type": "registry:ui",
+      "title": "Phone input",
+      "description": "An international phone input with country selection, E.164 values and Familis form styling.",
+      "dependencies": ["react-phone-number-input@^3.4.18", "cn@^0.3.0"],
+      "registryDependencies": ["Familis-co/registry/input", "Familis-co/registry/native-select"],
+      "files": [
+        {
+          "path": "registry/familis/ui/input-phone.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-phone-input--default"
+      }
+    },
+    {
+      "name": "heading",
+      "type": "registry:block",
+      "title": "Heading",
+      "description": "A page or section heading with an optional description and action slot.",
+      "dependencies": ["cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/heading/heading.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-heading--default"
+      }
+    },
+    {
+      "name": "sortable-data-table",
+      "type": "registry:block",
+      "title": "Sortable data table",
+      "description": "An optional controlled data table with mouse, touch and keyboard row reordering.",
+      "dependencies": [
+        "@tanstack/react-table@^9.2.4",
+        "@dnd-kit/core@^6.3.1",
+        "@dnd-kit/sortable@^10.0.0",
+        "@dnd-kit/modifiers@^9.0.0",
+        "@dnd-kit/utilities@^3.2.2",
+        "lucide-react@^1.46.0"
+      ],
+      "registryDependencies": ["Familis-co/registry/data-table", "Familis-co/registry/button"],
+      "files": [
+        {
+          "path": "registry/familis/blocks/sortable-data-table/sortable-data-table.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-blocks-sortable-data-table--default"
+      }
+    },
+    {
+      "name": "use-remote-data-table",
+      "type": "registry:hook",
+      "title": "Remote data table",
+      "description": "Adapts paginated API metadata to controlled TanStack options, preserving requested pages during loading and resetting page-size changes.",
+      "dependencies": ["@tanstack/react-table@^9.2.4"],
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-remote-data-table.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-remote-data-table--default"
+      }
     }
   ]
 }

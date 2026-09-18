@@ -1,20 +1,17 @@
 "use client"
 
+import { useDataTable } from "@/registry/familis/ui/hooks/use-data-table"
+
 import { useState, type ReactNode } from "react"
 import { cn } from "cn"
 import {
-  useTable,
   type ColumnDef,
   type RowData,
   type RowSelectionState,
   type ReactTable,
-  type TableOptions,
   type Row,
 } from "@tanstack/react-table"
-import {
-  dataTableFeatures,
-  type DataTableFeatures,
-} from "@/registry/familis/blocks/data-table/data-table-features"
+import { type DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { DataTableToolbar } from "@/registry/familis/blocks/data-table/data-table-toolbar"
 import { DataTablePagination } from "@/registry/familis/blocks/data-table/data-table-pagination"
 import { DataTableContent } from "@/registry/familis/blocks/data-table/data-table-content"
@@ -61,23 +58,19 @@ export function DataTable<TData extends RowData>({
   leadingHeader,
 }: DataTableProps<TData>) {
   const [selection, setSelection] = useState<RowSelectionState>({})
-  const table = useTable(
-    {
-      features: dataTableFeatures,
-      columns,
-      data,
-      getRowId,
-      enableRowSelection: enableSelection,
-      initialState: { pagination: { pageIndex: 0, pageSize: Math.max(1, pageSize) } },
-      state: { rowSelection: selection },
-      onRowSelectionChange: (updater) => {
-        const next = typeof updater === "function" ? updater(selection) : updater
-        setSelection(next)
-        onSelectionChange?.(next)
-      },
+  const table = useDataTable({
+    columns,
+    data,
+    getRowId,
+    enableRowSelection: enableSelection,
+    initialState: { pagination: { pageIndex: 0, pageSize: Math.max(1, pageSize) } },
+    state: { rowSelection: selection },
+    onRowSelectionChange: (updater) => {
+      const next = typeof updater === "function" ? updater(selection) : updater
+      setSelection(next)
+      onSelectionChange?.(next)
     },
-    (state) => state,
-  )
+  })
   return (
     <DataTableView
       table={table}
@@ -148,11 +141,4 @@ export function DataTableView<TData extends RowData>({
       )}
     </div>
   )
-}
-
-/** Accepts TanStack options, including controlled state and manual server pagination. */
-export function useDataTable<TData extends RowData>(
-  options: Omit<TableOptions<DataTableFeatures, TData>, "features">,
-) {
-  return useTable({ ...options, features: dataTableFeatures })
 }

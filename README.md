@@ -144,13 +144,21 @@ pnpm dlx shadcn@latest view http://localhost:3000/r/metric-card.json
 ### Data tables and phone numbers
 
 `data-table` exports `DataTable`, with column definitions typed against the exported
-`DataTableFeatures` from `data-table-features.ts`. Define columns with
+`DataTableFeatures` from the `use-data-table` hook. Define columns with
 `createColumnHelper<DataTableFeatures, YourRow>()` and `helper.columns([...])`.
 Pass `columns`, `data`, and an accessible `label`. Set `filterColumn` to a column ID
 with `filterFn: "includesString"`; sortable columns can use `sortFn: "text"`,
 `"alphanumeric"`, or `"basic"`. Use `enableSelection`, a stable `getRowId`, and
 `onSelectionChange` to receive a map of selected row IDs. Pagination and filtering
 run on the supplied data in the browser. Custom cells can contain row actions.
+
+`use-data-table` is independently installable as a registry hook. It exports
+`useDataTable`, `dataTableFeatures`, and `DataTableFeatures` from the consuming
+project's hooks directory. Installing `data-table` also installs this hook.
+
+```sh
+pnpm dlx shadcn@latest add Familis-co/registry/use-data-table
+```
 
 For custom compositions, `useDataTable` accepts TanStack options and returns the
 instance for `DataTableView`, `DataTableContent`, `DataTableToolbar`, and
@@ -228,7 +236,7 @@ pnpm dlx shadcn@latest add Familis-co/registry/use-remote-data-table
 Hooks are individual `registry:hook` items installed into the consumer's configured hooks directory:
 
 ```sh
-pnpm dlx shadcn@latest add Familis-co/registry/use-debounce Familis-co/registry/use-idle Familis-co/registry/use-long-press Familis-co/registry/use-mobile Familis-co/registry/use-mobile-navigation Familis-co/registry/use-toast
+pnpm dlx shadcn@latest add Familis-co/registry/use-data-table Familis-co/registry/use-remote-data-table Familis-co/registry/use-debounce Familis-co/registry/use-idle Familis-co/registry/use-long-press Familis-co/registry/use-mobile Familis-co/registry/use-mobile-navigation Familis-co/registry/use-toast
 ```
 
 | Item                    | Export                            | Behavior                                                                                                                                                                                                                                                               |

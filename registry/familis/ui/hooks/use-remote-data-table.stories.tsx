@@ -1,3 +1,4 @@
+import { useDataTable } from "@/registry/familis/ui/hooks/use-data-table"
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn } from "storybook/test"
@@ -7,8 +8,8 @@ import {
   type PaginatorMeta,
   type VisitFn,
 } from "@/registry/familis/ui/hooks/use-remote-data-table"
-import { useDataTable, DataTableView } from "@/registry/familis/blocks/data-table/data-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import { DataTableView } from "@/registry/familis/blocks/data-table/data-table"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { Button } from "@/registry/familis/ui/button"
 
 const records = [

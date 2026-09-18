@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import type { RowData, ReactTable } from "@tanstack/react-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { Input } from "@/registry/familis/ui/input"
 import { Button } from "@/registry/familis/ui/button"
 import {

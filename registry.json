@@ -1733,7 +1733,8 @@
         "Familis-co/registry/input",
         "Familis-co/registry/native-select",
         "Familis-co/registry/dropdown-menu",
-        "Familis-co/registry/table"
+        "Familis-co/registry/table",
+        "Familis-co/registry/use-data-table"
       ],
       "files": [
         {
@@ -1742,10 +1743,6 @@
         },
         {
           "path": "registry/familis/blocks/data-table/data-table-content.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/familis/blocks/data-table/data-table-features.ts",
           "type": "registry:component"
         },
         {
@@ -1814,7 +1811,11 @@
         "@dnd-kit/utilities@^3.2.2",
         "lucide-react@^1.46.0"
       ],
-      "registryDependencies": ["Familis-co/registry/data-table", "Familis-co/registry/button"],
+      "registryDependencies": [
+        "Familis-co/registry/data-table",
+        "Familis-co/registry/button",
+        "Familis-co/registry/use-data-table"
+      ],
       "files": [
         {
           "path": "registry/familis/blocks/sortable-data-table/sortable-data-table.tsx",
@@ -1840,6 +1841,22 @@
       ],
       "meta": {
         "storybookId": "ui-hooks-remote-data-table--default"
+      }
+    },
+    {
+      "name": "use-data-table",
+      "type": "registry:hook",
+      "title": "Data table",
+      "description": "Creates a typed TanStack table with Familis sorting, filtering, visibility, selection and pagination features.",
+      "dependencies": ["@tanstack/react-table@^9.2.4"],
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-data-table.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-data-table--default"
       }
     }
   ]

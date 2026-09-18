@@ -2,7 +2,7 @@
 import type { ReactNode } from "react"
 import type { Column, RowData } from "@tanstack/react-table"
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { Button } from "@/registry/familis/ui/button"
 
 export function DataTableColumnHeader<TData extends RowData, TValue>({

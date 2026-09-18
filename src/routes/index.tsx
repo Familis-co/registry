@@ -1,7 +1,7 @@
 import { SortableDataTable } from "@/registry/familis/blocks/sortable-data-table/sortable-data-table"
 import { Heading } from "@/registry/familis/blocks/heading/heading"
 import { DataTable } from "@/registry/familis/blocks/data-table/data-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { createColumnHelper } from "@tanstack/react-table"
 import { InputPhone } from "@/registry/familis/ui/input-phone"
 import { Field, FieldLabel } from "@/registry/familis/ui/field"

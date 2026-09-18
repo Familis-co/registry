@@ -1,4 +1,9 @@
+"use client"
+
 import {
+  useTable,
+  type RowData,
+  type TableOptions,
   columnFilteringFeature,
   columnVisibilityFeature,
   rowPaginationFeature,
@@ -27,3 +32,9 @@ export const dataTableFeatures = tableFeatures({
   sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text, basic: sortFn_basic },
 })
 export type DataTableFeatures = typeof dataTableFeatures
+
+export function useDataTable<TData extends RowData>(
+  options: Omit<TableOptions<DataTableFeatures, TData>, "features">,
+) {
+  return useTable({ ...options, features: dataTableFeatures })
+}

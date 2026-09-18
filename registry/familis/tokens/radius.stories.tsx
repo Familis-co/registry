@@ -76,7 +76,6 @@ export const Default: Story = {
       { name: "2xl", value: "--radius-2xl" },
       { name: "3xl", value: "--radius-3xl" },
       { name: "4xl", value: "--radius-4xl" },
-      { name: "full", value: "--radius-full" },
     ],
   },
 }

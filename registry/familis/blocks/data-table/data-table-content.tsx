@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import type { RowData, ReactTable, Row } from "@tanstack/react-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { Checkbox } from "@/registry/familis/ui/checkbox"
 import { DataTableColumnHeader } from "@/registry/familis/blocks/data-table/data-table-column-header"
 import {

@@ -1,3 +1,4 @@
+import { useDataTable } from "@/registry/familis/ui/hooks/use-data-table"
 import {
   Dialog,
   DialogTrigger,
@@ -16,12 +17,8 @@ import { Button } from "@/registry/familis/ui/button"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn, within } from "storybook/test"
 import { createColumnHelper } from "@tanstack/react-table"
-import {
-  DataTable,
-  DataTableView,
-  useDataTable,
-} from "@/registry/familis/blocks/data-table/data-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import { DataTable, DataTableView } from "@/registry/familis/blocks/data-table/data-table"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 
 const helper = createColumnHelper<DataTableFeatures, { id: string; name: string; email: string }>()
 const columns = helper.columns([
@@ -79,7 +76,7 @@ export const Default: Story = {
     )
     await expect(within(canvas.getAllByRole("row")[2]).getByText("Noah Dubois")).toBeVisible()
     await userEvent.click(canvas.getByRole("button", { name: "Columns" }))
-    const menu = within(document.body).getByRole("menu")
+    const menu = await within(document.body).findByRole("menu")
     await userEvent.click(within(menu).getByRole("menuitemcheckbox", { name: "Email" }))
     await userEvent.keyboard("{Escape}")
     await expect(canvas.queryByRole("columnheader", { name: "Email" })).not.toBeInTheDocument()

@@ -1,5 +1,7 @@
 "use client"
 
+import { useDataTable } from "@/registry/familis/ui/hooks/use-data-table"
+
 import { useId } from "react"
 import type { Row, RowData, ReactTable } from "@tanstack/react-table"
 import {
@@ -22,12 +24,8 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { CSS } from "@dnd-kit/utilities"
 import { GripVerticalIcon } from "lucide-react"
-import {
-  DataTableView,
-  useDataTable,
-  type DataTableProps,
-} from "@/registry/familis/blocks/data-table/data-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import { DataTableView, type DataTableProps } from "@/registry/familis/blocks/data-table/data-table"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { DataTableRow } from "@/registry/familis/blocks/data-table/data-table-content"
 import { Button } from "@/registry/familis/ui/button"
 

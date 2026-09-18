@@ -2,7 +2,7 @@ import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn, waitFor } from "storybook/test"
 import { createColumnHelper } from "@tanstack/react-table"
-import type { DataTableFeatures } from "@/registry/familis/blocks/data-table/data-table-features"
+import type { DataTableFeatures } from "@/registry/familis/ui/hooks/use-data-table"
 import { SortableDataTable } from "@/registry/familis/blocks/sortable-data-table/sortable-data-table"
 const helper = createColumnHelper<DataTableFeatures, { id: string; name: string }>()
 const columns = helper.columns([

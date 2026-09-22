@@ -108,7 +108,8 @@ const CountrySelect = forwardRef<HTMLSelectElement, CountrySelectProps>(function
  * An international phone input with a flagged country select that emits E.164 values.
  *
  * Every default (`defaultCountry`, `countries`, `addInternationalOption`, `autoComplete`,
- * `countryLabel`) can be overridden through its prop.
+ * `countryLabel`) can be overridden through its prop. Labels default to English; localize them
+ * with `labels` (e.g. `react-phone-number-input/locale/fr`), `locales` and `countryLabel`.
  *
  * @param {InputPhoneProps} props - Phone input props, forwarded to `react-phone-number-input`.
  * @returns {React.ReactElement} The phone input.

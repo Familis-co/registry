@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { expect, fn } from "storybook/test"
+import fr from "react-phone-number-input/locale/fr"
 import { InputPhone, type InputPhoneProps } from "@/registry/familis/ui/input-phone"
 import { Field, FieldLabel, FieldDescription } from "@/registry/familis/ui/field"
 
@@ -61,6 +62,17 @@ export const CustomCountries: Story = {
     await expect(canvas.getByRole("option", { name: "🇨🇦 Canada (+1)" })).toBeInTheDocument()
     await expect(canvas.getByRole("option", { name: /^🌐/ })).toBeInTheDocument()
     await expect(canvas.queryByRole("option", { name: /Germany/ })).not.toBeInTheDocument()
+  },
+}
+export const French: Story = {
+  args: { labels: fr, locales: "fr", countryLabel: "Pays" },
+  play: async ({ canvas, args, userEvent }) => {
+    const select = canvas.getByRole("combobox", { name: "Pays" })
+    await expect(canvas.getByRole("option", { name: "🇧🇪 Belgique (+32)" })).toBeInTheDocument()
+    await userEvent.selectOptions(select, "DE")
+    await expect(select).toHaveValue("DE")
+    await userEvent.type(canvas.getByRole("textbox", { name: "Phone number" }), "015123456789")
+    await expect(args.onChange).toHaveBeenLastCalledWith("+4915123456789")
   },
 }
 export const WithValue: Story = { args: { value: "+32470123456" } }

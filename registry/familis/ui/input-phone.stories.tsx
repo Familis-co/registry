@@ -35,7 +35,7 @@ const meta = {
   title: "UI/Phone input",
   component: InputPhone,
   render: (args) => <Example {...args} />,
-  args: { onChange: fn(), defaultCountry: "BE", countries: ["BE", "FR", "NL", "GB", "US"] },
+  args: { onChange: fn() },
   parameters: { a11y: { test: "error" } },
 } satisfies Meta<typeof InputPhone>
 export default meta
@@ -43,6 +43,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvas, args, userEvent }) => {
     const input = canvas.getByRole("textbox", { name: "Phone number" })
+    await expect(canvas.getByRole("option", { name: "🇧🇪 Belgium (+32)" })).toBeInTheDocument()
     await userEvent.type(input, "0470123456")
     await expect(args.onChange).toHaveBeenLastCalledWith("+32470123456")
     await userEvent.clear(input)
@@ -50,6 +51,16 @@ export const Default: Story = {
     await userEvent.selectOptions(canvas.getByRole("combobox", { name: "Country" }), "FR")
     await userEvent.type(input, "0612345678")
     await expect(args.onChange).toHaveBeenLastCalledWith("+33612345678")
+  },
+}
+export const CustomCountries: Story = {
+  args: { defaultCountry: "FR", countries: ["FR", "BE", "CA"], addInternationalOption: true },
+  play: async ({ canvas }) => {
+    const select = canvas.getByRole("combobox", { name: "Country" })
+    await expect(select).toHaveValue("FR")
+    await expect(canvas.getByRole("option", { name: "🇨🇦 Canada (+1)" })).toBeInTheDocument()
+    await expect(canvas.getByRole("option", { name: /^🌐/ })).toBeInTheDocument()
+    await expect(canvas.queryByRole("option", { name: /Germany/ })).not.toBeInTheDocument()
   },
 }
 export const WithValue: Story = { args: { value: "+32470123456" } }

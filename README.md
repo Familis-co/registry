@@ -277,7 +277,7 @@ pnpm test:stories
 node scripts/smoke-server.mjs
 ```
 
-`pnpm check` checks formatting, lint, TypeScript, that built registry payloads match their source, and that the Familis style matches the app stylesheet. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`.
+`pnpm check` checks formatting, lint, TypeScript, that built registry payloads match their source, and that the Familis style matches the app stylesheet. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
 
 For source changes, use `pnpm format` and `pnpm lint:fix` before validation.
 
@@ -317,11 +317,30 @@ NITRO_PRESET=node-server pnpm build
 pnpm start
 ```
 
-The complete deployable output is `.output/`. Set `HOST` and `PORT` at runtime as needed. For other supported providers, select the appropriate `NITRO_PRESET` at build time (for example `vercel` or `netlify`) and deploy the output that preset emits. Provider output shapes differ; `pnpm start` is for the Node output. These provider presets are available through Nitro but only the Node server is verified in this repository's CI.
+The complete deployable output is `.output/`. Set `HOST` and `PORT` at runtime as needed. For other supported providers, select the appropriate `NITRO_PRESET` at build time (for example `vercel` or `netlify`) and deploy the output that preset emits. Provider output shapes differ; `pnpm start` is for the Node output. The Node server is verified by CI's smoke check, and Cloudflare Workers is the deployed target.
+
+### Cloudflare Workers
+
+The production site runs as the `familis-registry` Worker on the `registry.familis.care` custom domain. The Worker settings live in the `cloudflare.wrangler` block of `vite.config.ts`; Nitro writes them to `.output/server/wrangler.json` during a Cloudflare build, and `.wrangler/deploy/config.json` points Wrangler at that file.
+
+```sh
+NITRO_PRESET=cloudflare_module pnpm build
+pnpm exec wrangler dev     # run the Worker locally in workerd
+pnpm exec wrangler deploy  # deploy with your own Cloudflare credentials
+```
+
+The `CD` workflow in `.github/workflows/cd.yml` deploys to Cloudflare, separately from the `CI` workflow:
+
+- When `CI` succeeds for a push to `main`, the same commit deploys to production, then the workflow waits for `https://registry.familis.care/api/health` to report `ok`.
+- A pull request from this repository uploads, in parallel with `CI`, a Worker version without deploying it, under the `pr-<number>` preview alias, and comments its URL on the pull request. Preview URLs use the account's `workers.dev` subdomain; production is only served on the custom domain.
+
+The workflow reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. Create the token from Cloudflare's **Edit Cloudflare Workers** template, scoped to the Familis account and the `familis.care` zone so Wrangler can manage the custom domain. The first production deployment creates the Worker, its custom domain, and enables preview URLs, so previews only work after one deployment from `main`. Pull requests from forks and Dependabot receive no secrets and skip the preview.
+
+Bump `compatibility_date` in `vite.config.ts` deliberately, after checking the [compatibility flags](https://developers.cloudflare.com/workers/configuration/compatibility-flags/) it enables.
 
 `pnpm build` also builds Storybook into `storybook-static/`, and Nitro ships it as public assets under `/storybook/` (for example https://registry.familis.care/storybook/). The app links there by default in production; set `VITE_STORYBOOK_URL` before building to point at a Storybook hosted elsewhere. Development links to http://localhost:6006.
 
-Publishing this repository does not deploy the website or Storybook. GitHub installations are available as soon as the repository is public.
+GitHub installations are available as soon as the repository is public, independently of the Cloudflare deployment.
 
 References: [TanStack Start hosting](https://tanstack.com/start/latest/docs/framework/react/guide/hosting), [shadcn registries](https://ui.shadcn.com/docs/registry/getting-started), [Storybook React/Vite](https://storybook.js.org/docs/get-started/frameworks/react-vite).
 

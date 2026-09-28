@@ -24,10 +24,13 @@ export default defineConfig({
       cloudflare: {
         wrangler: {
           name: "familis-registry",
+          compatibility_date: "2026-09-28",
           route: {
             custom_domain: true,
             pattern: "registry.familis.care",
           },
+          workers_dev: false,
+          preview_urls: true,
         },
       },
     }),

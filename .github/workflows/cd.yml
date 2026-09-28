@@ -1,0 +1,102 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  LEFTHOOK: "0"
+  NITRO_PRESET: cloudflare-module
+  STORYBOOK_DISABLE_TELEMETRY: "1"
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  preview:
+    name: Upload Cloudflare preview
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    concurrency:
+      group: cd-preview-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    environment:
+      name: preview
+      url: ${{ steps.upload.outputs.url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - id: upload
+        name: Upload version without deploying it
+        env:
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.ndjson
+          ALIAS: pr-${{ github.event.pull_request.number }}
+          MESSAGE: "PR #${{ github.event.pull_request.number }}: ${{ github.event.pull_request.head.sha }}"
+        run: |
+          pnpm exec wrangler versions upload --preview-alias "$ALIAS" --message "$MESSAGE"
+          url=$(jq -r 'select(.type == "version-upload") | .preview_alias_url // empty' "$WRANGLER_OUTPUT_FILE_PATH")
+          test -n "$url" || { echo "::error::Wrangler returned no preview URL. Check that preview URLs are enabled for the Worker."; exit 1; }
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+      - name: Comment preview URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          URL: ${{ steps.upload.outputs.url }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          body="Cloudflare preview for $SHA: $URL (Storybook: $URL/storybook/)"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body" --edit-last --create-if-none
+
+  deploy:
+    name: Deploy to Cloudflare
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    concurrency:
+      group: cd-production
+      cancel-in-progress: false
+    environment:
+      name: production
+      url: https://registry.familis.care
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm exec wrangler deploy --message "${{ github.event.workflow_run.head_sha }}"
+      - name: Check production health
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent https://registry.familis.care/api/health | jq -e '.status == "ok"'; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::https://registry.familis.care/api/health did not report ok"
+          exit 1

@@ -1706,6 +1706,21 @@
       }
     },
     {
+      "name": "use-speech-recognition",
+      "type": "registry:hook",
+      "title": "Speech recognition",
+      "description": "SSR-safe Web Speech API dictation with final and interim transcripts, error codes, and session controls.",
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-speech-recognition.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-speech-recognition--default"
+      }
+    },
+    {
       "name": "use-toast",
       "type": "registry:hook",
       "title": "Toast",

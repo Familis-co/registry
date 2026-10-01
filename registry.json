@@ -990,6 +990,26 @@
       }
     },
     {
+      "name": "lightbox",
+      "type": "registry:ui",
+      "title": "Lightbox",
+      "description": "A full-screen, always-dark dialog for viewing photos, videos and documents, with focus trapping, Escape to close and focus restoration.",
+      "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.3.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/lightbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-lightbox--default",
+        "links": {
+          "api": "https://base-ui.com/react/components/dialog.md"
+        }
+      }
+    },
+    {
       "name": "marker",
       "type": "registry:ui",
       "title": "Marker",

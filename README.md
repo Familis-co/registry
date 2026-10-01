@@ -119,6 +119,7 @@ pnpm dlx shadcn@latest add Familis-co/registry/heading
 pnpm dlx shadcn@latest add Familis-co/registry/sortable-data-table
 pnpm dlx shadcn@latest add Familis-co/registry/button
 pnpm dlx shadcn@latest add Familis-co/registry/dialog
+pnpm dlx shadcn@latest add Familis-co/registry/lightbox
 ```
 
 GitHub registry addresses read the root `registry.json` and its source files, so this method works without a deployed catalog. Pin an address to a release tag or commit for reproducible installations: `Familis-co/registry/metric-card#<ref>`.
@@ -199,6 +200,15 @@ The callback returns an E.164 string (for example `+32470123456`) or `""` when c
 Partial numbers are emitted too: validate with `isValidPhoneNumber` from
 `react-phone-number-input` before submission. Native input props, including `name`,
 `required`, `disabled`, `readOnly`, `aria-invalid`, and an input ref, are supported.
+
+### Lightbox
+
+`lightbox` exports `Lightbox`, `LightboxTrigger`, `LightboxContent`, `LightboxTitle`, and
+`LightboxClose`. It is a Base UI dialog whose content covers the viewport and always uses
+the dark theme, so photos, videos, and documents look the same in light and dark apps.
+`LightboxContent` is an empty flex container: compose the header, close button, and media
+inside it, and use `className` for layout. Include a `LightboxTitle` to name the dialog for
+assistive technology, and an accessible name on icon-only triggers and close buttons.
 
 ### Remote pagination adapter
 

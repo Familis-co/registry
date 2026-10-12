@@ -6,11 +6,14 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest"
 import registry from "../registry.json"
 
 const port = "4317"
-const origin = `http://127.0.0.1:${port}`
-let server: ChildProcess
+// SMOKE_URL targets a build that is already running, such as a Cloudflare preview. Without it,
+// the Node output is started from .output/, which needs `pnpm build` first.
+const remote = process.env.SMOKE_URL?.replace(/\/$/, "")
+const origin = remote ?? `http://127.0.0.1:${port}`
+let server: ChildProcess | undefined
 
 /**
- * Requests a path from the production server and checks that it forbids search indexing.
+ * Requests a path from the server under test and checks that it forbids search indexing.
  *
  * @param {string} path - The path to request, starting with `/`.
  * @returns {Promise<Response>} The successful response.
@@ -22,24 +25,28 @@ async function fetchOk(path: string): Promise<Response> {
   return response
 }
 
-// Run `pnpm build` first: this starts the Nitro Node server from .output/.
 beforeAll(async () => {
-  server = spawn(
-    process.execPath,
-    [fileURLToPath(new URL("../.output/server/index.mjs", import.meta.url))],
-    { env: { ...process.env, PORT: port, HOST: "127.0.0.1" }, stdio: "inherit" },
-  )
+  if (!remote) {
+    server = spawn(
+      process.execPath,
+      [fileURLToPath(new URL("../.output/server/index.mjs", import.meta.url))],
+      { env: { ...process.env, PORT: port, HOST: "127.0.0.1" }, stdio: "inherit" },
+    )
+  }
   await vi.waitFor(
     async () => {
-      if (server.exitCode !== null) throw new Error("Production server exited before being ready")
+      if (server && server.exitCode !== null) {
+        throw new Error("Production server exited before being ready")
+      }
       expect((await fetch(`${origin}/api/health`)).ok).toBe(true)
     },
-    { timeout: 10_000, interval: 100 },
+    // A preview that was just uploaded can take a while to answer on its alias.
+    { timeout: remote ? 60_000 : 10_000, interval: remote ? 2_000 : 100 },
   )
-}, 15_000)
+}, 70_000)
 
 afterAll(async () => {
-  if (server.exitCode !== null) return
+  if (!server || server.exitCode !== null) return
   server.kill("SIGTERM")
   await once(server, "exit")
 })

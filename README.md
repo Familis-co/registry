@@ -298,7 +298,7 @@ The tests are three [Vitest projects](https://vitest.dev/guide/projects) declare
 | `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                                                                            |
 | `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR of the catalog, `/api/health`, the `noindex` header, registry payloads, hosted Storybook, and missing-item handling.                                                                                          |
 
-`pnpm check` runs formatting, lint, TypeScript, `shadcn registry validate`, and `pnpm test:registry`. It reads source only, so it needs no build. `pnpm test:smoke` starts the Node output: build first with the default or `node-server` preset. It does not cover the Cloudflare build, which is only exercised by the preview upload and the production health check in `CD`. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+`pnpm check` runs formatting, lint, TypeScript, `shadcn registry validate`, and `pnpm test:registry`. It reads source only, so it needs no build. `pnpm test:smoke` starts the Node output: build first with the default or `node-server` preset. Set `SMOKE_URL` to run the same tests against a server that is already running, which is how `CD` checks the Cloudflare build of each pull request. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
 
 Consumers resolve the dependency ranges in `registry.json` themselves. `pnpm test:registry` fails when a range excludes the version installed here, because the source would ship against a release its stories never ran on. After a dependency update, this affects exact pins and `0.x` ranges such as `recharts` and `cn`: update their entries in `registry.json` in the same change.
 
@@ -341,13 +341,14 @@ The production site runs as the `familis-registry` Worker on the `registry.famil
 ```sh
 NITRO_PRESET=cloudflare_module pnpm build
 pnpm exec wrangler dev     # run the Worker locally in workerd
+SMOKE_URL=http://localhost:8787 pnpm test:smoke  # smoke-test that local Worker
 pnpm exec wrangler deploy  # deploy with your own Cloudflare credentials
 ```
 
 The `CD` workflow in `.github/workflows/cd.yml` deploys to Cloudflare, separately from the `CI` workflow:
 
 - When `CI` succeeds for a push to `main`, the same commit deploys to production, then the workflow waits for `https://registry.familis.care/api/health` to report `ok`.
-- A pull request from this repository uploads, in parallel with `CI`, a Worker version without deploying it, under the `pr-<number>` preview alias, and comments its URL on the pull request. Preview URLs use the account's `workers.dev` subdomain; production is only served on the custom domain.
+- A pull request from this repository uploads, in parallel with `CI`, a Worker version without deploying it, under the `pr-<number>` preview alias, and comments its URL on the pull request. It then runs `pnpm test:smoke` against that version, so a build that only breaks on Workers fails the pull request. Preview URLs use the account's `workers.dev` subdomain; production is only served on the custom domain.
 
 The workflow reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. Create the token from Cloudflare's **Edit Cloudflare Workers** template, scoped to the Familis account and the `familis.care` zone so Wrangler can manage the custom domain. The first production deployment creates the Worker, its custom domain, and enables preview URLs, so previews only work after one deployment from `main`. Pull requests from forks and Dependabot receive no secrets and skip the preview.
 

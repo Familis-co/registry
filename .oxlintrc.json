@@ -16,6 +16,9 @@
     ".nitro/**",
     ".tanstack/**",
     "storybook-static/**",
-    "public/r/**"
+    "public/r/**",
+    ".agents/**",
+    ".claude/**",
+    ".codex/**"
   ]
 }

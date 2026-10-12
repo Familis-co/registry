@@ -301,7 +301,7 @@ Mark an icon inside a `Button` with `data-icon`, `inline-start` or `inline-end`.
 
 ### Feedback and conversations
 
-Notifications use the `toast` component, built on Base UI toasts: `toast.add({ title, description, type })`. It is the Familis standard. The registry still publishes `sonner` and the `use-toast` hook for projects already built on Sonner; do not add them to new work.
+Notifications use the `toast` component, built on Base UI toasts: `toast.add({ title, description, type })`. It is the only notification system the registry publishes.
 
 Chat interfaces compose the chat components. `MessageScroller` owns scrolling, including following a streaming response and the jump-to-latest button, so a project writes no scroll logic of its own. Use `Attachment` for files and `Marker` for system notes and dividers. Apply the `shimmer` utility to text that represents work in progress, and `scroll-fade` to fade the edges of a scroll container.
 

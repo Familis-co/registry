@@ -434,7 +434,7 @@ function RegistryCatalog({ type }: { type: "ui" | "hooks" }) {
           <p className="max-w-2xl text-sm text-muted-foreground">
             {type === "ui"
               ? "Base UI primitives for your own compositions. Open a story to see its states and usage."
-              : "Reusable hooks for timing, interaction, navigation, and notifications. Open a story to try each hook."}
+              : "Reusable hooks for timing, interaction, navigation, and data tables. Open a story to try each hook."}
           </p>
         </div>
         <Badge variant="secondary">

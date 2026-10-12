@@ -1434,28 +1434,6 @@
       }
     },
     {
-      "name": "sonner",
-      "type": "registry:ui",
-      "title": "Sonner",
-      "description": "The shadcn Sonner component with the Familis Nova theme, for projects already built on Sonner. New work uses the toast item.",
-      "dependencies": ["lucide-react@^1.46.0", "next-themes@^0.4.6", "sonner@^2.0.8"],
-      "files": [
-        {
-          "path": "registry/familis/ui/sonner.tsx",
-          "type": "registry:ui"
-        }
-      ],
-      "meta": {
-        "base": "base",
-        "storybookId": "ui-sonner--default",
-        "links": {
-          "docs": "https://ui.shadcn.com/docs/components/base/sonner",
-          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/sonner-example.tsx",
-          "api": "https://sonner.emilkowal.ski"
-        }
-      }
-    },
-    {
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
@@ -1566,7 +1544,7 @@
       "name": "toast",
       "type": "registry:ui",
       "title": "Toast",
-      "description": "The shadcn Toast component using Base UI and the Familis Nova theme. The Familis standard for notifications.",
+      "description": "The shadcn Toast component using Base UI and the Familis Nova theme.",
       "dependencies": ["@base-ui/react@^1.8.0", "cn@^0.4.0", "lucide-react@^1.46.0"],
       "registryDependencies": ["Familis-co/registry/button"],
       "files": [
@@ -1740,22 +1718,6 @@
       ],
       "meta": {
         "storybookId": "ui-hooks-speech-recognition--default"
-      }
-    },
-    {
-      "name": "use-toast",
-      "type": "registry:hook",
-      "title": "Toast",
-      "description": "A portable re-export of Sonner's toast API, for projects already built on Sonner. New work uses the toast item.",
-      "dependencies": ["sonner@^2.0.8"],
-      "files": [
-        {
-          "path": "registry/familis/ui/hooks/use-toast.ts",
-          "type": "registry:hook"
-        }
-      ],
-      "meta": {
-        "storybookId": "ui-hooks-toast--default"
       }
     },
     {

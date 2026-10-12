@@ -275,7 +275,7 @@ The registry build cleans and generates `public/r/`, so removed items no longer 
 
 ### Changing brand foundations
 
-The app stylesheet `src/styles.css` and the `familis` and `font-*` items in `registry.json` describe the same brand. Change them together: `pnpm test:registry` fails when the colors, font families, Fontsource imports or font rules differ. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
+The app stylesheet `src/styles.css`, the `familis` and `font-*` items in `registry.json`, and the frontmatter of `DESIGN_SYSTEM.md` describe the same brand. Change them together: `pnpm test:registry` fails when the colors, radius, font families, Fontsource imports or font rules differ. After a color change, also update the contrast table and Known Gaps in `DESIGN_SYSTEM.md`, which are measured by hand. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
 
 Give each new font item a `selector` unless it is the document font. The CLI combines selector-less fonts into a single `@apply` on `html`, where Tailwind keeps the alphabetically last utility, so a second one would replace Inter everywhere. When a font item imports extra CSS, such as italics, list that package in its `dependencies` as well: Next.js projects do not install `font.dependency` because they use `next/font`.
 
@@ -292,11 +292,11 @@ pnpm test:smoke
 
 The tests are three [Vitest projects](https://vitest.dev/guide/projects) declared in `vitest.config.ts`:
 
-| Command              | Project     | Checks                                                                                                                                                                                                                                |
-| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm test:registry` | `registry`  | What the shadcn CLI does not validate: every import of a file is a declared npm or registry dependency, dependency ranges include the versions installed here, each item has a story, and the Familis style matches `src/styles.css`. |
-| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                                                   |
-| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR of the catalog, `/api/health`, the `noindex` header, registry payloads, hosted Storybook, and missing-item handling.                                                                 |
+| Command              | Project     | Checks                                                                                                                                                                                                                                                                |
+| -------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm test:registry` | `registry`  | What the shadcn CLI does not validate: every import of a file is a declared npm or registry dependency, dependency ranges include the versions installed here, each item has a story, and the Familis style and the `DESIGN_SYSTEM.md` tokens match `src/styles.css`. |
+| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                                                                                   |
+| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR of the catalog, `/api/health`, the `noindex` header, registry payloads, hosted Storybook, and missing-item handling.                                                                                                 |
 
 `pnpm check` runs formatting, lint, TypeScript, `shadcn registry validate`, and `pnpm test:registry`. It reads source only, so it needs no build. `pnpm test:smoke` starts the Node output: build first with the default or `node-server` preset. It does not cover the Cloudflare build, which is only exercised by the preview upload and the production health check in `CD`. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
 

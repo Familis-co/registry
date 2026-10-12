@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises"
 import semver from "semver"
 import { registrySchema, type RegistryItem } from "shadcn/schema"
 import { describe, expect, it } from "vitest"
+import { parse as parseYaml } from "yaml"
 
 import components from "../components.json"
 import source from "../registry.json"
@@ -298,5 +299,43 @@ describe("Familis style", () => {
     expect(
       [...stylesheet.matchAll(/^@import "(@fontsource[^"]+)";$/gm)].map((match) => match[1]).sort(),
     ).toEqual([...fonts.map((font) => font.dependency), ...sources.flatMap(cssImports)].sort())
+  })
+})
+
+// DESIGN_SYSTEM.md repeats the tokens for readers and coding agents, so it must match as well.
+describe("DESIGN_SYSTEM.md", async () => {
+  const tokens: {
+    colors: Record<string, string>
+    "colors-dark": Record<string, string>
+    typography: Record<"heading" | "body" | "serif" | "mono", { fontFamily: string }>
+    rounded: Record<string, string>
+  } = parseYaml((await read("DESIGN_SYSTEM.md")).split(/^---$/m)[1])
+
+  it("lists the colors of both themes", () => {
+    expect({ ...tokens.colors, radius: tokens.rounded.lg }).toEqual(
+      readCustomProperties(stylesheet, ":root"),
+    )
+    expect(tokens["colors-dark"]).toEqual(readCustomProperties(stylesheet, ".dark"))
+  })
+
+  it("lists the font stacks", () => {
+    const { heading, body, serif, mono } = tokens.typography
+    expect({
+      "font-heading": normalizeCss(heading.fontFamily),
+      "font-sans": normalizeCss(body.fontFamily),
+      "font-serif": normalizeCss(serif.fontFamily),
+      "font-mono": normalizeCss(mono.fontFamily),
+    }).toEqual(readCustomProperties(stylesheet, "@theme static"))
+  })
+
+  it("derives the radius scale from --radius", () => {
+    const base = Number.parseFloat(tokens.rounded.lg)
+    const steps = [...stylesheet.matchAll(/--radius-(\w+): calc\(var\(--radius\) \* ([\d.]+)\)/g)]
+    expect(steps).not.toHaveLength(0)
+    for (const [, step, factor] of steps) {
+      expect
+        .soft(Number.parseFloat(tokens.rounded[step]), `rounded.${step}`)
+        .toBeCloseTo(base * Number(factor))
+    }
   })
 })

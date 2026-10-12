@@ -174,7 +174,7 @@ All four are variable fonts, self-hosted through Fontsource. Inter and Source Se
 
 There is no Familis type scale beyond these families. Sizes and weights are the Tailwind scale, and components set most of their text at `text-sm` (14px), with `text-xs` for captions and metadata. Use semantic heading elements and they pick up Manrope without a class.
 
-For long-form content such as articles, documentation or rendered Markdown, wrap it in `.typeset`. It sets rhythm, heading sizes, lists, tables and code for everything inside. Exclude an embedded component with `.not-typeset`, and wrap a wide table in `.typeset-scroll`.
+For long-form content such as articles, documentation or rendered Markdown, wrap it in `.typeset`. It sets rhythm, heading sizes, lists, tables and code for everything inside. Add `.typeset-docs` for documentation or `.typeset-chat` for conversations to adjust the rhythm. Exclude an embedded component with `.not-typeset`, and wrap a wide table in `.typeset-scroll`.
 
 ## Layout
 

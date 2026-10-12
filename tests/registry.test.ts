@@ -1,6 +1,6 @@
-import { readdir, readFile } from "node:fs/promises"
+import { readFile } from "node:fs/promises"
 import semver from "semver"
-import { registryItemSchema, registrySchema, type RegistryItem } from "shadcn/schema"
+import { registrySchema, type RegistryItem } from "shadcn/schema"
 import { describe, expect, it } from "vitest"
 
 import components from "../components.json"
@@ -143,23 +143,16 @@ function cssImports(item: RegistryItem): string[] {
 }
 
 describe("registry.json", () => {
-  it("names every item once", () => {
-    expect(itemsByName.size).toBe(items.length)
-  })
-
   describe.each(items)("$name", (item) => {
     const files = item.files ?? []
     const dependencies = (item.dependencies ?? []).map(parseDependency)
 
-    it("has a title, a description and source under registry/", () => {
+    it("has a title, a description and files to install", () => {
       expect(item.title?.trim(), "Missing title").toBeTruthy()
       expect(item.description?.trim(), "Missing description").toBeTruthy()
       // Styles and fonts only change the consumer's CSS, dependencies and configuration.
       if (item.type !== "registry:base" && item.type !== "registry:font") {
         expect(files, "Missing files").not.toHaveLength(0)
-      }
-      for (const file of files) {
-        expect(file.path, "Source must live under registry/").toMatch(/^registry\//)
       }
     })
 
@@ -296,34 +289,5 @@ describe("Familis style", async () => {
     expect(
       [...stylesheet.matchAll(/^@import "(@fontsource[^"]+)";$/gm)].map((match) => match[1]).sort(),
     ).toEqual([...fonts.map((font) => font.dependency), ...sources.flatMap(cssImports)].sort())
-  })
-})
-
-// Run `pnpm registry:build` first: these compare the generated payloads with their source.
-describe("public/r", () => {
-  it("holds the catalog and one payload per item, without removed items", async () => {
-    const payloads = (await readdir(new URL("public/r/", root))).filter((name) =>
-      name.endsWith(".json"),
-    )
-    expect(payloads.sort()).toEqual(
-      ["registry.json", ...items.map((item) => `${item.name}.json`)].sort(),
-    )
-    const catalog = registrySchema.parse(await readJson("public/r/registry.json"))
-    expect(catalog.name).toBe(registry.name)
-    expect(catalog.homepage).toBe(registry.homepage)
-    expect(catalog.items.map((item) => item.name)).toEqual(items.map((item) => item.name))
-  })
-
-  it.each(items)("publishes $name as built from its source", async (item) => {
-    const built = registryItemSchema.parse(await readJson(`public/r/${item.name}.json`))
-    const { files = [], ...definition } = item
-    const { files: builtFiles = [], ...builtDefinition } = built
-    expect(builtDefinition).toEqual({ $schema: expect.any(String), ...definition })
-    expect(builtFiles).toHaveLength(files.length)
-    for (const file of files) {
-      const payload = builtFiles.find((entry) => entry.path === file.path)
-      expect(payload, `Missing built file ${file.path}`).toMatchObject(file)
-      expect(payload?.content, `Stale registry content: ${file.path}`).toBe(await read(file.path))
-    }
   })
 })

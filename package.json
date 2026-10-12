@@ -21,7 +21,7 @@
     "test:registry": "vitest run --project registry",
     "test:stories": "vitest run --project storybook",
     "test:smoke": "vitest run --project smoke",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test:registry"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && shadcn registry validate && pnpm test:registry"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

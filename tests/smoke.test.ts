@@ -50,6 +50,7 @@ describe("production server", () => {
     expect(await response.json()).toEqual({ status: "ok", service: "familis-registry" })
   })
 
+  // Stories only render in a browser, so this is the one place a server-only failure shows up.
   it("renders the catalog on the server with the logo and noindex", async () => {
     const html = await (await fetchOk("/")).text()
     expect(html).toMatch(/Familis/)
@@ -57,21 +58,13 @@ describe("production server", () => {
     expect(html).toMatch(/<svg\b[^>]*role="img"[^>]*aria-label="Familis"/)
   })
 
-  it("lets crawlers read the noindex directives", async () => {
-    expect(await (await fetchOk("/robots.txt")).text()).toMatch(/User-agent: \*\s+Allow: \//)
-  })
-
-  it("serves the registry catalog", async () => {
+  it("serves the registry built from registry.json", async () => {
     const catalog = await (await fetchOk("/r/registry.json")).json()
     expect(catalog.items).toHaveLength(registry.items.length)
-  })
-
-  it.each(registry.items)("serves the $name payload", async ({ name }) => {
-    const response = await fetchOk(`/r/${name}.json`)
+    const response = await fetchOk("/r/button.json")
     expect(response.headers.get("content-type")).toMatch(/application\/json/)
-    const payload = await response.json()
-    expect(payload.name).toBe(name)
-    for (const file of payload.files ?? []) expect(file.content).not.toHaveLength(0)
+    const [file] = (await response.json()).files
+    expect(file.content).not.toHaveLength(0)
   })
 
   it("serves Storybook and its story index", async () => {

@@ -292,13 +292,13 @@ pnpm test:smoke
 
 The tests are three [Vitest projects](https://vitest.dev/guide/projects) declared in `vitest.config.ts`:
 
-| Command              | Project     | Checks                                                                                                                                                                                                  |
-| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm test:registry` | `registry`  | `registry.json` against the shadcn schema, declared npm and registry dependencies against each file's imports, stories, the Familis style against `src/styles.css`, and `public/r/` against its source. |
-| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                     |
-| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR, `/api/health`, every JSON payload, hosted Storybook, and missing-item handling.                                                                       |
+| Command              | Project     | Checks                                                                                                                                                                                                                                |
+| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm test:registry` | `registry`  | What the shadcn CLI does not validate: every import of a file is a declared npm or registry dependency, dependency ranges include the versions installed here, each item has a story, and the Familis style matches `src/styles.css`. |
+| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                                                   |
+| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR of the catalog, `/api/health`, the `noindex` header, registry payloads, hosted Storybook, and missing-item handling.                                                                 |
 
-`pnpm check` runs formatting, lint, TypeScript, and `pnpm test:registry`. Build first: `pnpm test:registry` reads `public/r/` and `pnpm test:smoke` starts the Node output, so build with the default or `node-server` preset. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+`pnpm check` runs formatting, lint, TypeScript, `shadcn registry validate`, and `pnpm test:registry`. It reads source only, so it needs no build. `pnpm test:smoke` starts the Node output: build first with the default or `node-server` preset. It does not cover the Cloudflare build, which is only exercised by the preview upload and the production health check in `CD`. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
 
 Consumers resolve the dependency ranges in `registry.json` themselves. `pnpm test:registry` fails when a range excludes the version installed here, because the source would ship against a release its stories never ran on. After a dependency update, this affects exact pins and `0.x` ranges such as `recharts` and `cn`: update their entries in `registry.json` in the same change.
 

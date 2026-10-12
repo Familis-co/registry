@@ -1,6 +1,6 @@
 # Familis Registry
 
-Shared React components, building blocks and brand foundations for Familis projects, distributed as source through the shadcn registry protocol. One command gives a project the Familis colors, fonts and logo.
+Shared React components, building blocks and brand foundations for Familis projects, distributed as source through the shadcn registry protocol. One command gives a project the Familis colors, fonts and logo. [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) describes the foundations and the rules for composing interfaces with them.
 
 The catalog runs on **TanStack Start** and **Nitro**. Components use **shadcn/ui with Base UI** and **Tailwind CSS v4**, with **Storybook** for documentation, interaction tests, and accessibility checks. **Oxfmt** and **Oxlint** handle formatting and linting, with the new **@shadcn/lint** plugin registered.
 

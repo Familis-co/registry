@@ -301,7 +301,7 @@ Mark an icon inside a `Button` with `data-icon`, `inline-start` or `inline-end`.
 
 ### Feedback and conversations
 
-Notifications use the `toast` component, built on Base UI toasts: `toast.add({ title, description, type })`. It is the only notification system the registry publishes.
+Notifications use the `toast` component, built on Base UI toasts: `toast.add({ title, description, type })`. It is the only notification system the registry publishes. Toasts stack above every other overlay, so one raised from an open `Dialog` or `Sheet` stays readable and clickable.
 
 Chat interfaces compose the chat components. `MessageScroller` owns scrolling, including following a streaming response and the jump-to-latest button, so a project writes no scroll logic of its own. Use `Attachment` for files and `Marker` for system notes and dividers. Apply the `shimmer` utility to text that represents work in progress, and `scroll-fade` to fade the edges of a scroll container.
 

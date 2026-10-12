@@ -349,4 +349,4 @@ A change here reaches every Familis product, so it follows the registry workflow
 - **A new component, block or hook**: "Adding components". Each one ships with a story.
 - **An upstream component update**: preview it with `pnpm dlx shadcn@latest add <component> --diff`, then merge it while keeping the Familis changes. Some components differ from upstream on purpose, for contrast and accessible names.
 
-[`@shadcn/lint`](https://github.com/shadcn-ui/lint) is registered in `.oxlintrc.json` and can enforce the styling rules above. Its rules are off until the team chooses a policy: see "Design-system lint policy" in [README.md](README.md).
+`pnpm lint` enforces the color and `className` rules above through [`@shadcn/lint`](https://github.com/shadcn-ui/lint): see "Design-system lint policy" in [README.md](README.md).

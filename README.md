@@ -306,24 +306,16 @@ For source changes, use `pnpm format` and `pnpm lint:fix` before validation.
 
 ### Design-system lint policy
 
-`@shadcn/lint` is registered through `jsPlugins` in `.oxlintrc.json`. Its design-system rules are **not enabled by default**, following the plugin's setup guide: the team can choose allowed styling policies in the `rules` object without inheriting unreviewed restrictions. Oxlint's correctness checks are enabled.
+`@shadcn/lint` is registered through `jsPlugins` in `.oxlintrc.json` and enforces two rules of [DESIGN.md](DESIGN.md) as part of `pnpm lint`:
 
-For example, to enforce semantic colors and reserve component `className` overrides for layout, add:
+| Rule                   | Policy                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `shadcn/no-raw-colors` | Everywhere. Color with theme roles such as `bg-primary`, never the Tailwind palette.                                       |
+| `shadcn/no-restyle`    | `className` on a component is for layout only. `CardContent` and `CardFooter` are containers, so they also accept `gap-*`. |
 
-```json
-{
-  "rules": {
-    "shadcn/no-raw-colors": "error",
-    "shadcn/no-restyle": ["error", { "allow": ["layout"] }]
-  },
-  "overrides": [
-    {
-      "files": ["registry/familis/ui/**"],
-      "rules": { "shadcn/no-restyle": "off" }
-    }
-  ]
-}
-```
+`shadcn/no-restyle` is off under `registry/familis/ui/`: primitives compose and restyle each other by design, and their stories follow upstream examples. Each message ends with a pointer to `DESIGN.md`, set through `settings.shadcn.note`.
+
+The other rules stay off. `no-arbitrary-values` reports about 180 upstream class names in the primitives, `no-unknown-classes` flags marker classes that carry no CSS on purpose, and `no-inline-styles` rejects the dynamic values that drag-and-drop and the token stories need. When a component needs a new exception, add a contract to `shadcn/no-restyle` rather than disabling the rule for a file.
 
 See the [available rules](https://github.com/shadcn-ui/lint#rules) and [configuration guide](https://github.com/shadcn-ui/lint/blob/main/docs/design-systems.md). The Oxlint JavaScript plugin API is currently experimental.
 

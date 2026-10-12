@@ -3,11 +3,27 @@
   "plugins": ["typescript", "react", "jsx-a11y"],
   "jsPlugins": ["@shadcn/lint"],
   "categories": { "correctness": "error" },
-  "rules": { "jsx-a11y/prefer-tag-over-role": "off" },
+  "settings": {
+    "shadcn": { "note": "See DESIGN.md for the design rules and their reasons." }
+  },
+  "rules": {
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "shadcn/no-raw-colors": "error",
+    "shadcn/no-restyle": [
+      "error",
+      {
+        "allow": ["layout"],
+        "contracts": [{ "pattern": "^Card(Content|Footer)$", "allow": ["layout", "gap-*"] }]
+      }
+    ]
+  },
   "overrides": [
     {
       "files": ["registry/familis/ui/**"],
-      "rules": { "jsx-a11y/label-has-associated-control": "off" }
+      "rules": {
+        "jsx-a11y/label-has-associated-control": "off",
+        "shadcn/no-restyle": "off"
+      }
     }
   ],
   "ignorePatterns": [

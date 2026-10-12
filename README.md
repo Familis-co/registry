@@ -275,7 +275,7 @@ The registry build cleans and generates `public/r/`, so removed items no longer 
 
 ### Changing brand foundations
 
-The app stylesheet `src/styles.css` and the `familis` and `font-*` items in `registry.json` describe the same brand. Change them together: `pnpm registry:check` fails when the colors, font families, Fontsource imports or font rules differ. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
+The app stylesheet `src/styles.css` and the `familis` and `font-*` items in `registry.json` describe the same brand. Change them together: `pnpm test:registry` fails when the colors, font families, Fontsource imports or font rules differ. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
 
 Give each new font item a `selector` unless it is the document font. The CLI combines selector-less fonts into a single `@apply` on `html`, where Tailwind keeps the alphabetically last utility, so a second one would replace Inter everywhere. When a font item imports extra CSS, such as italics, list that package in its `dependencies` as well: Next.js projects do not install `font.dependency` because they use `next/font`.
 
@@ -287,10 +287,20 @@ pnpm check
 pnpm storybook:build
 pnpm exec playwright install --no-shell chromium
 pnpm test:stories
-node scripts/smoke-server.mjs
+pnpm test:smoke
 ```
 
-`pnpm check` checks formatting, lint, TypeScript, that built registry payloads match their source, and that the Familis style matches the app stylesheet. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+The tests are three [Vitest projects](https://vitest.dev/guide/projects) declared in `vitest.config.ts`:
+
+| Command              | Project     | Checks                                                                                                                                                                                                  |
+| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm test:registry` | `registry`  | `registry.json` against the shadcn schema, declared npm and registry dependencies against each file's imports, stories, the Familis style against `src/styles.css`, and `public/r/` against its source. |
+| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                     |
+| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR, `/api/health`, every JSON payload, hosted Storybook, and missing-item handling.                                                                       |
+
+`pnpm check` runs formatting, lint, TypeScript, and `pnpm test:registry`. Build first: `pnpm test:registry` reads `public/r/` and `pnpm test:smoke` starts the Node output, so build with the default or `node-server` preset. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+
+Consumers resolve the dependency ranges in `registry.json` themselves. `pnpm test:registry` fails when a range excludes the version installed here, because the source would ship against a release its stories never ran on. After a dependency update, this affects exact pins and `0.x` ranges such as `recharts` and `cn`: update their entries in `registry.json` in the same change.
 
 For source changes, use `pnpm format` and `pnpm lint:fix` before validation.
 

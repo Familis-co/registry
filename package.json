@@ -10,8 +10,7 @@
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
     "deps:update": "taze --interactive --write --install",
-    "registry:build": "node scripts/clean-registry.mjs && pnpm dlx shadcn@latest build",
-    "registry:check": "node scripts/check-registry.mjs",
+    "registry:build": "node -e \"fs.rmSync('public/r', { recursive: true, force: true })\" && shadcn build",
     "lint": "oxlint --deny-warnings",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt --write",
@@ -19,8 +18,10 @@
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006 --no-open",
     "storybook:build": "storybook build",
+    "test:registry": "vitest run --project registry",
     "test:stories": "vitest run --project storybook",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm registry:check"
+    "test:smoke": "vitest run --project smoke",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test:registry"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -65,6 +66,7 @@
     "@types/node": "^26.6.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/semver": "^7.8.0",
     "@vitejs/plugin-react": "^6.1.1",
     "@vitest/browser-playwright": "^4.1.11",
     "lefthook": "^2.1.14",
@@ -72,6 +74,7 @@
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
     "playwright": "^1.63.0",
+    "semver": "^7.8.5",
     "storybook": "^10.6.0",
     "tailwindcss": "^4.3.3",
     "taze": "^21.1.0",

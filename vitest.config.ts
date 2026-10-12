@@ -10,6 +10,20 @@ export default mergeConfig(
     test: {
       projects: [
         {
+          test: {
+            name: "registry",
+            environment: "node",
+            include: ["tests/registry.test.ts"],
+          },
+        },
+        {
+          test: {
+            name: "smoke",
+            environment: "node",
+            include: ["tests/smoke.test.ts"],
+          },
+        },
+        {
           extends: true,
           plugins: [
             storybookTest({ configDir: fileURLToPath(new URL("./.storybook", import.meta.url)) }),

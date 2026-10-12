@@ -120,6 +120,12 @@ export const Functional: Story = {
           default: "--destructive",
         },
       },
+      {
+        name: "Link",
+        colors: {
+          default: "--link",
+        },
+      },
     ],
   },
 }

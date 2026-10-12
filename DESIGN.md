@@ -12,10 +12,11 @@ colors:
   popover-foreground: "oklch(0.145 0 0)"
   primary: "oklch(0.501476 0.11577 241.263)"
   primary-foreground: "oklch(0.985 0 0)"
+  link: "oklch(0.501476 0.11577 241.263)"
   secondary: "oklch(0.97 0 0)"
   secondary-foreground: "oklch(0.205 0 0)"
   muted: "oklch(0.97 0 0)"
-  muted-foreground: "oklch(0.556 0 0)"
+  muted-foreground: "oklch(0.54 0 0)"
   accent: "oklch(0.97 0 0)"
   accent-foreground: "oklch(0.205 0 0)"
   destructive: "oklch(0.577 0.245 27.325)"
@@ -44,6 +45,7 @@ colors-dark:
   popover-foreground: "oklch(0.985 0 0)"
   primary: "oklch(0.501476 0.11577 241.263)"
   primary-foreground: "oklch(0.985 0 0)"
+  link: "oklch(0.68 0.105 241.263)"
   secondary: "oklch(0.269 0 0)"
   secondary-foreground: "oklch(0.985 0 0)"
   muted: "oklch(0.269 0 0)"
@@ -126,6 +128,7 @@ Colors are semantic roles. Each surface pairs with a `-foreground` token for the
 | `card` / `card-foreground`           | Resting surfaces such as `Card`                      |
 | `popover` / `popover-foreground`     | Floating surfaces: menus, popovers, dialogs          |
 | `primary` / `primary-foreground`     | The main action and brand accents, in Familis blue   |
+| `link`                               | Brand-colored text: links and the `link` variant     |
 | `secondary` / `secondary-foreground` | Secondary actions                                    |
 | `muted` / `muted-foreground`         | Subdued surfaces and secondary text                  |
 | `accent` / `accent-foreground`       | Hover and selected states                            |
@@ -134,7 +137,7 @@ Colors are semantic roles. Each surface pairs with a `-foreground` token for the
 | `chart-1` to `chart-5`               | Data visualization, a light-to-dark ramp of the blue |
 | `sidebar`, `sidebar-*`               | The `Sidebar` component only                         |
 
-Familis blue is `oklch(0.501476 0.11577 241.263)`, `#056a9f` in sRGB. It is `primary` in both themes, and the chart ramp shares its hue. Apart from the red `destructive`, every other role is a neutral gray.
+Familis blue is `oklch(0.501476 0.11577 241.263)`, `#056a9f` in sRGB. It is `primary` in both themes, and the chart ramp shares its hue. On the dark background that blue is too dark for text, so `link` is the brand blue in the light theme and a lighter one, `oklch(0.68 0.105 241.263)`, in the dark theme. Apart from the red `destructive`, every other role is a neutral gray.
 
 ### Contrast
 
@@ -147,12 +150,12 @@ Measured from the values in the frontmatter, as WCAG 2 contrast ratios. Body tex
 | `primary-foreground` on `primary`     | 5.64  | 5.64  |
 | `secondary-foreground` on `secondary` | 16.44 | 14.50 |
 | `accent-foreground` on `accent`       | 16.44 | 14.50 |
-| `muted-foreground` on `background`    | 4.74  | 7.66  |
-| `muted-foreground` on `muted`         | 4.35  | 5.86  |
+| `muted-foreground` on `background`    | 5.02  | 7.66  |
+| `muted-foreground` on `muted`         | 4.61  | 5.86  |
 | `destructive` on `background`         | 4.77  | 6.85  |
-| `primary` on `background`             | 5.88  | 3.36  |
+| `link` on `background`                | 5.88  | 6.96  |
 
-Two pairs fall below 4.5:1. They are listed under [Known Gaps](#known-gaps).
+Every pair passes. `primary` itself is a surface color: as text it reaches only 3.36:1 on the dark background, which is why brand-colored text uses `link`.
 
 ### Dark theme
 
@@ -328,12 +331,10 @@ Components target WCAG 2.2 AA, and every story runs automated accessibility chec
 | Use the radius scale.                                                  | Hard-code a radius such as `rounded-[12px]`.                       |
 | Separate resting surfaces with a hairline or a `muted` fill.           | Put a shadow on a `Card` or a page section.                        |
 | Show a status with a `Badge` variant, and an error with `destructive`. | Reach for green or amber: there is no success or warning role.     |
-| Use `primary` for text only on light surfaces.                         | Set body-size text in `primary` in the dark theme.                 |
+| Color links and brand-colored text with `text-link`.                   | Use `text-primary` for text: it fails contrast in the dark theme.  |
 
 ## Known Gaps
 
-- **`muted-foreground` on `muted` is 4.35:1 in the light theme**, below the 4.5:1 body text needs. On `background` it passes at 4.74:1. Keep secondary text on `background` or `card`, or use `foreground` on a `muted` surface.
-- **`primary` as text is 3.36:1 in the dark theme.** It affects the `link` variant of `Button` and `Badge`, and the link hover color in `Field`, `Empty` and `Item`. `Logo` avoids it by switching to `foreground`. A lighter blue for dark-theme text is undecided.
 - **Borders are about 1.3:1 against the page** in both themes. An input is identified by its border alone, which falls short of the 3:1 WCAG asks of control boundaries. Labels and focus rings compensate; the border values are the shadcn/ui defaults.
 - **No success or warning role.** Add a role pair to `src/styles.css` and the `familis` item when a design needs one.
 - **Two notification systems.** The registry also publishes `sonner` and the `use-toast` hook for projects already built on Sonner. A project uses one of the two, and which one Familis standardizes on is undecided.

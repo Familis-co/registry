@@ -10,6 +10,7 @@ const root = new URL("../", import.meta.url)
 const namespace = "Familis-co/registry/"
 const brandDirectory = "registry/familis/brand/"
 const registry = registrySchema.parse(source)
+const stylesheet = await readFile(new URL("src/styles.css", root), "utf8")
 const items = registry.items
 const itemsByName = new Map(items.map((item) => [item.name, item]))
 const itemsByPath = new Map(
@@ -143,7 +144,7 @@ function cssImports(item: RegistryItem): string[] {
 }
 
 describe("registry.json", () => {
-  describe.each(items)("$name", (item) => {
+  describe.for(items)("$name", (item) => {
     const files = item.files ?? []
     const dependencies = (item.dependencies ?? []).map(parseDependency)
 
@@ -159,16 +160,18 @@ describe("registry.json", () => {
     it("depends on Familis items that exist", () => {
       for (const address of item.registryDependencies ?? []) {
         if (!address.startsWith(namespace)) continue
-        expect(itemsByName.has(address.slice(namespace.length)), `Unknown ${address}`).toBe(true)
+        expect
+          .soft(itemsByName.has(address.slice(namespace.length)), `Unknown ${address}`)
+          .toBe(true)
       }
     })
 
     it("declares every package and registry item its files import", async () => {
       for (const file of files) {
         const content = await read(file.path)
-        expect(content, "Registry files must be portable React components").not.toMatch(
-          /from\s+["'](?:next\/|@\/routes|@\/lib\/registry)/,
-        )
+        expect
+          .soft(content, "Registry files must be portable React components")
+          .not.toMatch(/from\s+["'](?:next\/|@\/routes|@\/lib\/registry)/)
         for (const imported of importsOf(content)) {
           if (imported.startsWith("@/registry/")) {
             const path = imported.slice(2)
@@ -181,25 +184,28 @@ describe("registry.json", () => {
             ]
               .map((candidate) => itemsByPath.get(candidate))
               .find(Boolean)
-            expect(owner, `${imported} is not an installable registry file`).toBeDefined()
+            expect.assert(owner, `${imported} is not an installable registry file`)
             if (owner !== item) {
-              expect(
-                item.registryDependencies,
-                `Undeclared registry dependency ${owner?.name}`,
-              ).toContain(`${namespace}${owner?.name}`)
+              expect
+                .soft(item.registryDependencies, `Undeclared registry dependency ${owner.name}`)
+                .toContain(`${namespace}${owner.name}`)
             }
             continue
           }
-          expect(imported, "Internal source imports must use @/registry").not.toMatch(/^(?:\.|@\/)/)
+          expect
+            .soft(imported, "Internal source imports must use @/registry")
+            .not.toMatch(/^(?:\.|@\/)/)
           const name = imported
             .split("/")
             .slice(0, imported.startsWith("@") ? 2 : 1)
             .join("/")
           if (name === "react" || name === "react-dom") continue
-          expect(
-            dependencies.map((dependency) => dependency.name),
-            `Undeclared dependency ${name}`,
-          ).toContain(name)
+          expect
+            .soft(
+              dependencies.map((dependency) => dependency.name),
+              `Undeclared dependency ${name}`,
+            )
+            .toContain(name)
         }
       }
     })
@@ -209,23 +215,27 @@ describe("registry.json", () => {
         // Consumers resolve these ranges themselves, so a range excluding the version installed
         // here would ship source that was only ever rendered against another release.
         const { version } = await readJson(`node_modules/${name}/package.json`)
-        expect(
-          semver.satisfies(version, range),
-          `${name}@${range} excludes ${version}, the version stories run against`,
-        ).toBe(true)
+        expect
+          .soft(
+            semver.satisfies(version, range),
+            `${name}@${range} excludes ${version}, the version stories run against`,
+          )
+          .toBe(true)
       }
     })
 
     const story = storyOf(item)
-    it.runIf(story)("has a story in its Storybook section", async () => {
-      expect(await read(story!.path)).toContain(`title: "${story!.section}`)
-      if (story!.previewed) expect(item.meta?.storybookId, "Missing preview ID").toBeTruthy()
-    })
+    if (story) {
+      it("has a story in its Storybook section", async () => {
+        expect(await read(story.path)).toContain(`title: "${story.section}`)
+        if (story.previewed) expect(item.meta?.storybookId, "Missing preview ID").toBeTruthy()
+      })
+    }
   })
 })
 
 describe("design tokens", () => {
-  it.each(["color", "radius", "typography", "spacing", "shadow"])(
+  it.for(["color", "radius", "typography", "spacing", "shadow"])(
     "documents %s in the Design section",
     async (name) => {
       expect(await read(`registry/familis/tokens/${name}.stories.tsx`)).toContain('title: "Design/')
@@ -234,8 +244,7 @@ describe("design tokens", () => {
 })
 
 // The catalog and Storybook render src/styles.css, so the installable style must match it.
-describe("Familis style", async () => {
-  const stylesheet = await read("src/styles.css")
+describe("Familis style", () => {
   const styles = items.filter((item) => item.type === "registry:base")
   const fontItems = items.filter((item) => item.type === "registry:font")
   const fonts = fontItems.map((item) => item.font)

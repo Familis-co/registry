@@ -108,7 +108,7 @@ components:
 
 How Familis interfaces are built: the tokens every project shares, and the rules for composing components with them. It applies to this registry and to every project that installs from it.
 
-This file follows the `DESIGN.md` layout, so a coding agent with the shadcn skill can read it as a brand spec. The frontmatter mirrors `src/styles.css`, which stays the source of truth: `pnpm test:registry` fails when the two differ. Projects do not copy these values by hand. They install them with the `familis` registry item (see [README.md](README.md)), and [Storybook](https://registry.familis.care/storybook/) renders every token and component.
+This file is a `DESIGN.md` brand spec, the format the shadcn skill reads to theme a project. The frontmatter mirrors `src/styles.css`, which stays the source of truth: `pnpm test:registry` fails when the two differ. Projects do not copy these values by hand. They install them with the `familis` registry item (see [README.md](README.md)), and [Storybook](https://registry.familis.care/storybook/) renders every token and component.
 
 ## Overview
 

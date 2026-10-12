@@ -302,14 +302,14 @@ describe("Familis style", () => {
   })
 })
 
-// DESIGN_SYSTEM.md repeats the tokens for readers and coding agents, so it must match as well.
-describe("DESIGN_SYSTEM.md", async () => {
+// DESIGN.md repeats the tokens for readers and coding agents, so it must match as well.
+describe("DESIGN.md", async () => {
   const tokens: {
     colors: Record<string, string>
     "colors-dark": Record<string, string>
     typography: Record<"heading" | "body" | "serif" | "mono", { fontFamily: string }>
     rounded: Record<string, string>
-  } = parseYaml((await read("DESIGN_SYSTEM.md")).split(/^---$/m)[1])
+  } = parseYaml((await read("DESIGN.md")).split(/^---$/m)[1])
 
   it("lists the colors of both themes", () => {
     expect({ ...tokens.colors, radius: tokens.rounded.lg }).toEqual(

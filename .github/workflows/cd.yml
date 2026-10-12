@@ -54,6 +54,10 @@ jobs:
           url=$(jq -r 'select(.type == "version-upload") | .preview_alias_url // empty' "$WRANGLER_OUTPUT_FILE_PATH")
           test -n "$url" || { echo "::error::Wrangler returned no preview URL. Check that preview URLs are enabled for the Worker."; exit 1; }
           echo "url=$url" >> "$GITHUB_OUTPUT"
+          # The alias can keep serving the previous upload for a moment, so the smoke test
+          # targets the URL of this exact version when Wrangler reports one.
+          version_url=$(jq -r 'select(.type == "version-upload") | .preview_url // .preview_alias_url // empty' "$WRANGLER_OUTPUT_FILE_PATH")
+          echo "version_url=$version_url" >> "$GITHUB_OUTPUT"
       - name: Comment preview URL
         env:
           GH_TOKEN: ${{ github.token }}
@@ -63,6 +67,10 @@ jobs:
         run: |
           body="Cloudflare preview for $SHA: $URL (Storybook: $URL/storybook/)"
           gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body" --edit-last --create-if-none
+      - name: Smoke-test the Worker
+        env:
+          SMOKE_URL: ${{ steps.upload.outputs.version_url }}
+        run: pnpm test:smoke
 
   deploy:
     name: Deploy to Cloudflare

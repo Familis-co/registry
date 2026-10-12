@@ -32,4 +32,4 @@ jobs:
       - run: pnpm check
       - run: pnpm exec playwright install --with-deps --no-shell chromium
       - run: pnpm test:stories
-      - run: node scripts/smoke-server.mjs
+      - run: pnpm test:smoke

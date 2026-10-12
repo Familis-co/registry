@@ -1,6 +1,6 @@
 # Familis Registry
 
-Shared React components, building blocks and brand foundations for Familis projects, distributed as source through the shadcn registry protocol. One command gives a project the Familis colors, fonts and logo.
+Shared React components, building blocks and brand foundations for Familis projects, distributed as source through the shadcn registry protocol. One command gives a project the Familis colors, fonts and logo. [DESIGN.md](DESIGN.md) describes the foundations and the rules for composing interfaces with them.
 
 The catalog runs on **TanStack Start** and **Nitro**. Components use **shadcn/ui with Base UI** and **Tailwind CSS v4**, with **Storybook** for documentation, interaction tests, and accessibility checks. **Oxfmt** and **Oxlint** handle formatting and linting, with the new **@shadcn/lint** plugin registered.
 
@@ -54,7 +54,7 @@ Sources and stories are colocated; only the source files declared in `registry.j
 
 Each component has a rendered example. Familis source includes accessibility fixes for fallback/keycap text contrast, destructive variants, combobox button names, and decorative command separators. The mobile hook uses an SSR-safe media-query subscription, and Carousel removes both event subscriptions on unmount. Button includes appearance, size, icon, pending, and disabled states. Interaction tests cover buttons, accordion expansion, checkboxes, dialog dismissal and focus restoration, selection, carousel navigation, sidebar collapse, forms, questionnaires, notifications, messages, and Familis blocks. Every story runs accessibility checks.
 
-The current upstream index lists 63 UI entries: 62 provide component source and are published by this registry. The legacy `form` entry has no Base UI source; **UI / Form** demonstrates a native React form composed with `Field`, rather than exposing an unavailable API. Both Base UI `Toast` and the optional framework-independent `Sonner` integration have stories.
+The current upstream index lists 63 UI entries, and this registry publishes 61 of them. The legacy `form` entry has no Base UI source; **UI / Form** demonstrates a native React form composed with `Field`, rather than exposing an unavailable API. `sonner` is left out because Familis notifications use the Base UI `toast` item: see [DESIGN.md](DESIGN.md).
 
 Storybook uses a separate Vite configuration so Start and Nitro do not run inside the component workshop.
 
@@ -246,7 +246,7 @@ pnpm dlx shadcn@latest add Familis-co/registry/use-remote-data-table
 Hooks are individual `registry:hook` items installed into the consumer's configured hooks directory:
 
 ```sh
-pnpm dlx shadcn@latest add Familis-co/registry/use-data-table Familis-co/registry/use-remote-data-table Familis-co/registry/use-debounce Familis-co/registry/use-idle Familis-co/registry/use-long-press Familis-co/registry/use-mobile Familis-co/registry/use-mobile-navigation Familis-co/registry/use-speech-recognition Familis-co/registry/use-toast
+pnpm dlx shadcn@latest add Familis-co/registry/use-data-table Familis-co/registry/use-remote-data-table Familis-co/registry/use-debounce Familis-co/registry/use-idle Familis-co/registry/use-long-press Familis-co/registry/use-mobile Familis-co/registry/use-mobile-navigation Familis-co/registry/use-speech-recognition
 ```
 
 | Item                     | Export                            | Behavior                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -257,9 +257,6 @@ pnpm dlx shadcn@latest add Familis-co/registry/use-data-table Familis-co/registr
 | `use-mobile`             | `useIsMobile()`                   | Returns whether the viewport is narrower than 768 px. Uses an SSR-safe media-query subscription and returns `false` on the server.                                                                                                                                                                                                                                                                                          |
 | `use-mobile-navigation`  | `useMobileNavigation()`           | Returns a stable callback that removes the body's inline `pointer-events` property. Call it when completing navigation.                                                                                                                                                                                                                                                                                                     |
 | `use-speech-recognition` | `useSpeechRecognition(options)`   | Dictates through the Web Speech API. Returns `isSupported` (`false` on the server), `isListening`, the accumulated `transcript`, the current `interimTranscript`, the latest `error`, and `start`, `stop`, `abort`, and `reset`. Options `lang`, `continuous`, and `interimResults` apply on the next `start`; `onResult` receives each final phrase and `onError` each failure except manual aborts. Requires React 19.2+. |
-| `use-toast`              | `toast`                           | Re-exports Sonner's API and installs its npm dependency. Render a Sonner `Toaster` in the app to display notifications.                                                                                                                                                                                                                                                                                                     |
-
-`use-toast` keeps the requested Sonner API. Install the `sonner` registry item separately if you need the themed `Toaster`; the Base UI `toast` item uses a different API.
 
 `use-speech-recognition` reports `isSupported` when the browser exposes the API, but some browsers cannot reach a recognition service. Chromium sends audio to Google's servers, which only Google Chrome is keyed to use, so Electron apps and other Chromium builds fail immediately with a `network` error. Treat `network`, `not-allowed`, and `service-not-allowed` as unavailable recognition and offer a text fallback rather than a retry. Firefox does not expose the API, so `isSupported` is `false` there.
 
@@ -275,7 +272,7 @@ The registry build cleans and generates `public/r/`, so removed items no longer 
 
 ### Changing brand foundations
 
-The app stylesheet `src/styles.css` and the `familis` and `font-*` items in `registry.json` describe the same brand. Change them together: `pnpm registry:check` fails when the colors, font families, Fontsource imports or font rules differ. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
+The app stylesheet `src/styles.css`, the `familis` and `font-*` items in `registry.json`, and the frontmatter of `DESIGN.md` describe the same brand. Change them together: `pnpm test:registry` fails when the colors, radius, font families, Fontsource imports or font rules differ. After a color change, also update the contrast table and Known Gaps in `DESIGN.md`, which are measured by hand. It also requires every font item and brand component under `registry/familis/brand/` to be a dependency of the style.
 
 Give each new font item a `selector` unless it is the document font. The CLI combines selector-less fonts into a single `@apply` on `html`, where Tailwind keeps the alphabetically last utility, so a second one would replace Inter everywhere. When a font item imports extra CSS, such as italics, list that package in its `dependencies` as well: Next.js projects do not install `font.dependency` because they use `next/font`.
 
@@ -287,33 +284,35 @@ pnpm check
 pnpm storybook:build
 pnpm exec playwright install --no-shell chromium
 pnpm test:stories
-node scripts/smoke-server.mjs
+pnpm test:smoke
 ```
 
-`pnpm check` checks formatting, lint, TypeScript, that built registry payloads match their source, and that the Familis style matches the app stylesheet. The Storybook tests run in Chromium and include interaction and accessibility checks. The smoke check starts the production Nitro server, verifies SSR, `/api/health`, every JSON payload, and missing-item handling, then stops it. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+The tests are three [Vitest projects](https://vitest.dev/guide/projects) declared in `vitest.config.ts`:
+
+| Command              | Project     | Checks                                                                                                                                                                                                                                                         |
+| -------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm test:registry` | `registry`  | What the shadcn CLI does not validate: every import of a file is a declared npm or registry dependency, dependency ranges include the versions installed here, each item has a story, and the Familis style and the `DESIGN.md` tokens match `src/styles.css`. |
+| `pnpm test:stories`  | `storybook` | Every story in Chromium, with interaction and accessibility checks.                                                                                                                                                                                            |
+| `pnpm test:smoke`    | `smoke`     | The production Nitro server from `.output/`: SSR of the catalog, `/api/health`, the `noindex` header, registry payloads, hosted Storybook, and missing-item handling.                                                                                          |
+
+`pnpm check` runs formatting, lint, TypeScript, `shadcn registry validate`, and `pnpm test:registry`. It reads source only, so it needs no build. `pnpm test:smoke` starts the Node output: build first with the default or `node-server` preset. Set `SMOKE_URL` to run the same tests against a server that is already running, which is how `CD` checks the Cloudflare build of each pull request. CI runs these checks on pull requests and pushes to `main`; production deploys only after they pass.
+
+Consumers resolve the dependency ranges in `registry.json` themselves. `pnpm test:registry` fails when a range excludes the version installed here, because the source would ship against a release its stories never ran on. After a dependency update, this affects exact pins and `0.x` ranges such as `recharts` and `cn`: update their entries in `registry.json` in the same change.
 
 For source changes, use `pnpm format` and `pnpm lint:fix` before validation.
 
 ### Design-system lint policy
 
-`@shadcn/lint` is registered through `jsPlugins` in `.oxlintrc.json`. Its design-system rules are **not enabled by default**, following the plugin's setup guide: the team can choose allowed styling policies in the `rules` object without inheriting unreviewed restrictions. Oxlint's correctness checks are enabled.
+`@shadcn/lint` is registered through `jsPlugins` in `.oxlintrc.json` and enforces two rules of [DESIGN.md](DESIGN.md) as part of `pnpm lint`:
 
-For example, to enforce semantic colors and reserve component `className` overrides for layout, add:
+| Rule                   | Policy                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `shadcn/no-raw-colors` | Everywhere. Color with theme roles such as `bg-primary`, never the Tailwind palette.                                       |
+| `shadcn/no-restyle`    | `className` on a component is for layout only. `CardContent` and `CardFooter` are containers, so they also accept `gap-*`. |
 
-```json
-{
-  "rules": {
-    "shadcn/no-raw-colors": "error",
-    "shadcn/no-restyle": ["error", { "allow": ["layout"] }]
-  },
-  "overrides": [
-    {
-      "files": ["registry/familis/ui/**"],
-      "rules": { "shadcn/no-restyle": "off" }
-    }
-  ]
-}
-```
+`shadcn/no-restyle` is off under `registry/familis/ui/`: primitives compose and restyle each other by design, and their stories follow upstream examples. Each message ends with a pointer to `DESIGN.md`, set through `settings.shadcn.note`.
+
+The other rules stay off. `no-arbitrary-values` reports about 180 upstream class names in the primitives, `no-unknown-classes` flags marker classes that carry no CSS on purpose, and `no-inline-styles` rejects the dynamic values that drag-and-drop and the token stories need. When a component needs a new exception, add a contract to `shadcn/no-restyle` rather than disabling the rule for a file.
 
 See the [available rules](https://github.com/shadcn-ui/lint#rules) and [configuration guide](https://github.com/shadcn-ui/lint/blob/main/docs/design-systems.md). The Oxlint JavaScript plugin API is currently experimental.
 
@@ -339,13 +338,14 @@ The production site runs as the `familis-registry` Worker on the `registry.famil
 ```sh
 NITRO_PRESET=cloudflare_module pnpm build
 pnpm exec wrangler dev     # run the Worker locally in workerd
+SMOKE_URL=http://localhost:8787 pnpm test:smoke  # smoke-test that local Worker
 pnpm exec wrangler deploy  # deploy with your own Cloudflare credentials
 ```
 
 The `CD` workflow in `.github/workflows/cd.yml` deploys to Cloudflare, separately from the `CI` workflow:
 
 - When `CI` succeeds for a push to `main`, the same commit deploys to production, then the workflow waits for `https://registry.familis.care/api/health` to report `ok`.
-- A pull request from this repository uploads, in parallel with `CI`, a Worker version without deploying it, under the `pr-<number>` preview alias, and comments its URL on the pull request. Preview URLs use the account's `workers.dev` subdomain; production is only served on the custom domain.
+- A pull request from this repository uploads, in parallel with `CI`, a Worker version without deploying it, under the `pr-<number>` preview alias, and comments its URL on the pull request. It then runs `pnpm test:smoke` against that version, so a build that only breaks on Workers fails the pull request. Preview URLs use the account's `workers.dev` subdomain; production is only served on the custom domain.
 
 The workflow reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. Create the token from Cloudflare's **Edit Cloudflare Workers** template, scoped to the Familis account and the `familis.care` zone so Wrangler can manage the custom domain. The first production deployment creates the Worker, its custom domain, and enables preview URLs, so previews only work after one deployment from `main`. Pull requests from forks and Dependabot receive no secrets and skip the preview.
 

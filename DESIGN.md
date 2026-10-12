@@ -301,7 +301,7 @@ Mark an icon inside a `Button` with `data-icon`, `inline-start` or `inline-end`.
 
 ### Feedback and conversations
 
-Notifications use the `toast` component: `toast.add({ title, description, type })`.
+Notifications use the `toast` component, built on Base UI toasts: `toast.add({ title, description, type })`. It is the Familis standard. The registry still publishes `sonner` and the `use-toast` hook for projects already built on Sonner; do not add them to new work.
 
 Chat interfaces compose the chat components. `MessageScroller` owns scrolling, including following a streaming response and the jump-to-latest button, so a project writes no scroll logic of its own. Use `Attachment` for files and `Marker` for system notes and dividers. Apply the `shimmer` utility to text that represents work in progress, and `scroll-fade` to fade the edges of a scroll container.
 
@@ -337,7 +337,6 @@ Components target WCAG 2.2 AA, and every story runs automated accessibility chec
 
 - **Borders are about 1.3:1 against the page** in both themes. An input is identified by its border alone, which falls short of the 3:1 WCAG asks of control boundaries. Labels and focus rings compensate; the border values are the shadcn/ui defaults.
 - **No success or warning role.** Add a role pair to `src/styles.css` and the `familis` item when a design needs one.
-- **Two notification systems.** The registry also publishes `sonner` and the `use-toast` hook for projects already built on Sonner. A project uses one of the two, and which one Familis standardizes on is undecided.
 - **No Familis type scale, spacing scale, elevation scale or motion tokens.** These are the Tailwind and `base-nova` defaults.
 - **Brand voice is not specified here.**
 

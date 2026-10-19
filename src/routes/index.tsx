@@ -46,6 +46,7 @@ const storybookUrl =
 const blocks = registry.items.filter((item) => item.type === "registry:block")
 const primitives = registry.items.filter((item) => item.type === "registry:ui")
 const hooks = registry.items.filter((item) => item.type === "registry:hook")
+const currentYear = new Date().getFullYear()
 
 export const Route = createFileRoute("/")({ component: RouteComponent })
 
@@ -588,7 +589,7 @@ function RouteComponent() {
       </main>
       <Separator />
       <footer className="flex flex-wrap items-center justify-between gap-3 py-6 text-xs text-muted-foreground">
-        <p>{new Date().getFullYear()} © Familis</p>
+        <p>{currentYear} © Familis</p>
         <a href="/r/registry.json" className="underline underline-offset-4">
           View the full registry JSON
         </a>

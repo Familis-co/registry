@@ -8,10 +8,19 @@ import { MinusIcon } from "lucide-react"
 function InputOTP({
   className,
   containerClassName,
+  defaultValue,
+  value,
+  onChange,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string
 }) {
+  // input-otp forwards defaultValue to the input it controls, which React rejects, so the
+  // uncontrolled value is kept here instead.
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(
+    typeof defaultValue === "string" ? defaultValue : "",
+  )
+
   return (
     <OTPInput
       data-slot="input-otp"
@@ -21,6 +30,11 @@ function InputOTP({
       )}
       spellCheck={false}
       className={cn("disabled:cursor-not-allowed", className)}
+      value={value ?? uncontrolledValue}
+      onChange={(next) => {
+        setUncontrolledValue(next)
+        onChange?.(next)
+      }}
       {...props}
     />
   )

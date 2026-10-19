@@ -4,7 +4,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/registry/familis/ui/input-otp"
-import { fn } from "storybook/test"
+import { expect, fn } from "storybook/test"
 import type { Meta, StoryObj } from "@storybook/react-vite"
 
 const meta = {
@@ -41,7 +41,16 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {}
-export const Empty: Story = { args: { defaultValue: "" } }
+export const Empty: Story = {
+  args: { defaultValue: "" },
+  play: async ({ args, canvas, userEvent }) => {
+    const input = canvas.getByRole("textbox", { name: "Verification code" })
+    await userEvent.click(input)
+    await userEvent.keyboard("4821")
+    await expect(input).toHaveValue("4821")
+    await expect(args.onChange).toHaveBeenLastCalledWith("4821")
+  },
+}
 export const WithSeparator: Story = {
   args: {
     defaultValue: "",

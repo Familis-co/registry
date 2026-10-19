@@ -54,7 +54,7 @@ Sources and stories are colocated; only the source files declared in `registry.j
 
 Each component has a rendered example. Familis source includes accessibility fixes for fallback/keycap text contrast, destructive variants, combobox button names, and decorative command separators. The mobile hook uses an SSR-safe media-query subscription, and Carousel removes both event subscriptions on unmount. Button includes appearance, size, icon, pending, and disabled states. Interaction tests cover buttons, accordion expansion, checkboxes, dialog dismissal and focus restoration, selection, carousel navigation, sidebar collapse, forms, questionnaires, notifications, messages, and Familis blocks. Every story runs accessibility checks.
 
-The current upstream index lists 63 UI entries, and this registry publishes 61 of them. The legacy `form` entry has no Base UI source; **UI / Form** demonstrates a native React form composed with `Field`, rather than exposing an unavailable API. `sonner` is left out because Familis notifications use the Base UI `toast` item: see [DESIGN.md](DESIGN.md).
+The current upstream index lists 65 UI entries, and this registry publishes 61 of them. `trace` and `code-block` are not published yet. The legacy `form` entry has no Base UI source; **UI / Form** demonstrates a native React form composed with `Field`, rather than exposing an unavailable API. `sonner` is left out because Familis notifications use the Base UI `toast` item: see [DESIGN.md](DESIGN.md).
 
 Storybook uses a separate Vite configuration so Start and Nitro do not run inside the component workshop.
 

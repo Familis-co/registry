@@ -615,6 +615,31 @@
       }
     },
     {
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "Code Block",
+      "description": "The shadcn Code Block component using Base UI and the Familis Nova theme.",
+      "dependencies": ["class-variance-authority@^0.7.1", "cn@^0.4.0", "lucide-react@^1.46.0"],
+      "registryDependencies": [
+        "Familis-co/registry/button",
+        "Familis-co/registry/use-highlighted-code"
+      ],
+      "files": [
+        {
+          "path": "registry/familis/ui/code-block.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-code-block--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/code-block",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/code-block-example.tsx"
+        }
+      }
+    },
+    {
       "name": "collapsible",
       "type": "registry:ui",
       "title": "Collapsible",
@@ -1631,6 +1656,28 @@
       }
     },
     {
+      "name": "trace",
+      "type": "registry:ui",
+      "title": "Trace",
+      "description": "The shadcn Trace component using Base UI and the Familis Nova theme.",
+      "dependencies": ["cn@^0.4.0", "lucide-react@^1.46.0"],
+      "registryDependencies": ["Familis-co/registry/collapsible"],
+      "files": [
+        {
+          "path": "registry/familis/ui/trace.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "base": "base",
+        "storybookId": "ui-trace--default",
+        "links": {
+          "docs": "https://ui.shadcn.com/docs/components/base/trace",
+          "examples": "https://ui.shadcn.com/code/apps/v4/registry/bases/base/examples/trace-example.tsx"
+        }
+      }
+    },
+    {
       "name": "use-debounce",
       "type": "registry:hook",
       "title": "Debounce",
@@ -1643,6 +1690,26 @@
       ],
       "meta": {
         "storybookId": "ui-hooks-debounce--default"
+      }
+    },
+    {
+      "name": "use-highlighted-code",
+      "type": "registry:hook",
+      "title": "Highlighted code",
+      "description": "Shiki syntax highlighting for Code Block, one React node per line, with incremental tokenizing while code streams.",
+      "dependencies": ["shiki@^4.5.0"],
+      "files": [
+        {
+          "path": "registry/familis/ui/hooks/use-highlighted-code.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/familis/lib/highlighter.tsx",
+          "type": "registry:lib"
+        }
+      ],
+      "meta": {
+        "storybookId": "ui-hooks-highlighted-code--default"
       }
     },
     {

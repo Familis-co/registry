@@ -96,7 +96,7 @@ pnpm dlx shadcn@latest add Familis-co/registry/familis
   - JetBrains Mono for `code`, `kbd`, `samp` and `pre` (`font-mono`)
   - Source Serif 4 wherever `font-serif` is used
   - italics for Inter and Source Serif 4
-- **Logo**: the `Logo` component with `wordmark` and `symbol` variants, in Familis blue in the light theme and the foreground color in the dark theme.
+- **Logo**: the `Logo` component with `wordmark`, `name` and `symbol` variants, in Familis blue in the light theme and the foreground color in the dark theme.
 - **Configuration**: with `init`, the `base-nova` style and Lucide icons in `components.json`, so later upstream components also use Base UI.
 
 The fonts are `registry:font` items (`font-inter`, `font-manrope`, `font-jetbrains-mono`) that can also be installed on their own. In Next.js, the CLI loads them with `next/font` in the root layout. Other frameworks get self-hosted Fontsource packages. Source Serif 4 is loaded by the style itself because shadcn applies a font without a selector to the whole document, and serif text is opt-in.

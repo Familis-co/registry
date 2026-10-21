@@ -162,7 +162,7 @@
       "name": "logo",
       "type": "registry:component",
       "title": "Logo",
-      "description": "The Familis wordmark or symbol as inline SVG in the current text color, following the light and dark themes.",
+      "description": "The Familis wordmark, name or symbol as inline SVG in the current text color, following the light and dark themes.",
       "dependencies": ["cn@^0.4.0"],
       "files": [
         {

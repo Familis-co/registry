@@ -7,7 +7,7 @@ const meta = {
   component: Logo,
   args: { variant: "wordmark" },
   argTypes: {
-    variant: { control: "inline-radio", options: ["wordmark", "symbol"] },
+    variant: { control: "inline-radio", options: ["wordmark", "name", "symbol"] },
   },
   parameters: { a11y: { test: "error" } },
 } satisfies Meta<typeof Logo>
@@ -20,6 +20,15 @@ export const Wordmark: Story = {
     const logo = canvas.getByRole("img", { name: "Familis" })
     await expect(logo).toHaveAttribute("viewBox", "0 0 850 216")
     await expect(logo).toHaveAttribute("fill", "currentColor")
+  },
+}
+export const NameOnly: Story = {
+  args: { variant: "name" },
+  play: async ({ canvas }) => {
+    const logo = canvas.getByRole("img", { name: "Familis" })
+    await expect(logo).toHaveAttribute("viewBox", "210.79 0 638.48 192.24")
+    // The four static letters, the three people and their six arms, without the three symbol paths.
+    await expect(logo.querySelectorAll("path")).toHaveLength(13)
   },
 }
 export const SymbolOnly: Story = {

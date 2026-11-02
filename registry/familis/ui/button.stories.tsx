@@ -14,7 +14,7 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "default", "lg", "icon", "icon-xs", "icon-sm", "icon-lg"],
+      options: ["xs", "sm", "default", "lg", "touch", "icon", "icon-xs", "icon-sm", "icon-lg"],
     },
   },
 } satisfies Meta<typeof Button>
@@ -68,8 +68,45 @@ export const Sizes: Story = {
       <Button {...args} size="sm" />
       <Button {...args} />
       <Button {...args} size="lg" />
+      <Button {...args} size="touch" />
     </div>
   ),
+}
+export const Touch: Story = {
+  args: {
+    size: "touch",
+    children: (
+      <>
+        <PlusIcon data-icon="inline-start" />
+        Create project
+      </>
+    ),
+  },
+}
+export const TouchWrapping: Story = {
+  args: {
+    size: "touch",
+    variant: "outline",
+    children: (
+      <>
+        <PlusIcon data-icon="inline-start" />
+        Create a project for the whole family and invite everyone
+      </>
+    ),
+  },
+  render: (args) => (
+    <div className="flex w-64">
+      <Button {...args} />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole("button")
+    const range = document.createRange()
+    range.selectNodeContents(button.lastChild!)
+    await expect(range.getClientRects().length).toBeGreaterThan(1)
+    await expect(button.scrollHeight).toBeLessThanOrEqual(button.clientHeight)
+    await expect(button.getBoundingClientRect().height).toBeGreaterThan(64)
+  },
 }
 
 export const Dark: Story = { globals: { theme: "dark" } }

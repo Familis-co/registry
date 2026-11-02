@@ -253,6 +253,8 @@ Stop at the first step that works:
 
 `Button` has six variants. Use one `default` button per group of actions, `outline` or `secondary` for the alternatives, `ghost` for toolbars and icon buttons, `destructive` for an action that deletes, and `link` for inline navigation.
 
+When actions need large touch targets, give them the `touch` size: at least 64px tall, a `text-lg` label that wraps onto more lines and grows the button, and 24px icons.
+
 ### Base UI composition
 
 These components wrap Base UI, whose API differs from the Radix examples found in most shadcn/ui tutorials.
